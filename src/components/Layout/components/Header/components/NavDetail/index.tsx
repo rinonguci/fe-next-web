@@ -187,15 +187,20 @@ const NavDetail: FC<INavDetail> = ({ data }) => {
                   {handleChunkArray(
                     catagoryLevel2?.children,
                     LENGTH_CATEGORY
-                  ).map((listCatagoryLevel3: Array<ICategory>) => (
-                    <div>
-                      {listCatagoryLevel3.map((catagoryLevel3: ICategory) => (
-                        <Link href={catagoryLevel3.path}>
-                          <NavList>{catagoryLevel3.name}</NavList>
-                        </Link>
-                      ))}
-                    </div>
-                  ))}
+                  ).map(
+                    (listCatagoryLevel3: Array<ICategory>, index: number) => (
+                      <div key={index}>
+                        {listCatagoryLevel3.map((catagoryLevel3: ICategory) => (
+                          <Link
+                            key={catagoryLevel3._id}
+                            href={catagoryLevel3.path}
+                          >
+                            <NavList>{catagoryLevel3.name}</NavList>
+                          </Link>
+                        ))}
+                      </div>
+                    )
+                  )}
                 </div>
               </CategoryLeve2>
             ))}

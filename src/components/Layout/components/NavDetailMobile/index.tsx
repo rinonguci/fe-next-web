@@ -101,14 +101,15 @@ const NavDetailMobile: FC<INavDetailMobile> = () => {
     setDataExtra(data);
   };
 
-  const ListMemo = memo(() => {
+  const ListMemo = memo(function List() {
     return (
       <NavDetailMobileList data-element="menu-mobile-list">
         <NavDetailMobileItem onClick={() => handelExtra(true)}>
-          Whats's New
+          {`Whats's New`}
         </NavDetailMobileItem>
         {categories?.map((value) => (
           <NavDetailMobileItem
+            key={value._id}
             iconLeft
             onClick={() => handelExtra(true, value?.children)}
           >

@@ -20,7 +20,6 @@ const Footer: FC<IFooter> = () => {
             rel="noopener"
             className="footer-btn"
             data-cs="ZendeskChatLink"
-            target="_blank"
           >
             <svg className="icon-message lazyload" data-cs="svgLoader">
               <use xlinkHref="./icon.svg#svgs-live-chat-double"></use>
@@ -70,7 +69,6 @@ const Footer: FC<IFooter> = () => {
                   rel="noopener"
                   className="f-col-livechat"
                   data-cs="ZendeskChatLink"
-                  target="_blank"
                 >
                   <span className="f-col-subtitle">Live Chat</span>
                   <br />
@@ -241,7 +239,6 @@ const Footer: FC<IFooter> = () => {
                     rel="noopener"
                     href="https://www.facebook.com/childrensalon"
                     title="Facebook"
-                    target="_blank"
                   >
                     <svg className="icon lazyloaded" data-cs="svgLoader">
                       <use xlinkHref="./icon.svg#svgs-facebook"></use>
@@ -253,7 +250,6 @@ const Footer: FC<IFooter> = () => {
                     rel="noopener"
                     href="https://twitter.com/childrensalon"
                     title="Twitter"
-                    target="_blank"
                   >
                     <svg className="icon lazyloaded" data-cs="svgLoader">
                       <use xlinkHref="./icon.svg#svgs-twitter"></use>
@@ -265,7 +261,6 @@ const Footer: FC<IFooter> = () => {
                     rel="noopener"
                     href="https://instagram.com/childrensalon"
                     title="Instagram"
-                    target="_blank"
                   >
                     <svg className="icon lazyloaded" data-cs="svgLoader">
                       <use xlinkHref="./icon.svg#svgs-instagram"></use>
@@ -277,7 +272,6 @@ const Footer: FC<IFooter> = () => {
                     rel="noopener"
                     href="https://www.pinterest.com/childrensalon"
                     title="Pinterest"
-                    target="_blank"
                   >
                     <svg className="icon lazyloaded" data-cs="svgLoader">
                       <use xlinkHref="./icon.svg#svgs-pinterest"></use>
@@ -289,7 +283,6 @@ const Footer: FC<IFooter> = () => {
                     rel="noopener"
                     href="https://www.youtube.com/user/childrensalon"
                     title="Youtube"
-                    target="_blank"
                   >
                     <svg className="icon lazyloaded" data-cs="svgLoader">
                       <use xlinkHref="./icon.svg#svgs-youtube"></use>
@@ -380,7 +373,6 @@ const Footer: FC<IFooter> = () => {
                   <a
                     href="https://itunes.apple.com/app/apple-store/id1301946839?pt=118679525&amp;ct=landing%20page&amp;mt=8"
                     className="button button-apple"
-                    target="_blank"
                   >
                     <svg
                       className="icon apple-icon lazyloaded"
@@ -396,7 +388,6 @@ const Footer: FC<IFooter> = () => {
                   <a
                     href="https://play.google.com/store/apps/details?id=com.childrensalon.app"
                     className="button button-android"
-                    target="_blank"
                   >
                     <svg
                       className="icon android-icon lazyloaded"
