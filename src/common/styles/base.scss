@@ -1,0 +1,253 @@
+@tailwind base;
+// @tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
+@font-face {
+  font-family: Childrensalon-Icons;
+  src: url(https://cdn.childrensalon.com/build/website/fonts/font/Childrensalon-Icons_v1611129127.540c1bbe.woff2)
+      format("woff2"),
+    url(https://cdn.childrensalon.com/build/website/fonts/font/Childrensalon-Icons_v1611129127.09606815.woff)
+      format("woff");
+}
+
+* {
+  color: #1b1b1a;
+}
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  color: #1b1b1a;
+  font: 12px/1.286 Poppins;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
+
+#__next {
+  position: relative;
+}
+
+use {
+  pointer-events: none;
+}
+
+h1 {
+  font-size: 3em;
+  color: white;
+}
+
+.btn {
+  padding: 1.6rem 2.4rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #444444;
+  background-color: white;
+}
+
+button,
+input,
+select,
+textarea {
+  font: 16px/1.286 Poppins, NotoNaskhArabicUI, sans-serif;
+  outline: none;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
+
+.input-text,
+select,
+textarea {
+  display: block;
+  color: #1b1b1a;
+  border-radius: 0;
+  background: #fff;
+  width: 100%;
+  font-size: 16px;
+  height: 48px;
+  padding: 10px 16px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  box-shadow: inset 0 0 3px #e8e8e8;
+  border: 1px solid #d1d1d1;
+}
+
+.f-cols {
+  border-top: 1px solid #e8e8e8;
+  max-width: 1571px;
+  margin: 0 auto;
+  padding: 3.15em 1.25em 1.1875em;
+}
+
+.form-cols .btn-col {
+  position: relative;
+  box-shadow: inset 0 0 3px #e8e8e8;
+  border: 1px solid black;
+  line-height: 0;
+  transition: background 100ms ease-in;
+
+  .btn {
+    background-color: black;
+    transition: background 100ms ease-in;
+
+    svg {
+      color: #d1d1d1;
+    }
+  }
+
+  &:hover {
+    .btn {
+      background-color: transparent;
+      svg {
+        color: black;
+      }
+    }
+  }
+}
+
+.input-box input {
+  line-height: 1.625;
+  border-right: 0 !important;
+}
+
+.opened-menu::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.f-col {
+  h3 {
+    font-weight: 500;
+    font-size: 1em;
+    line-height: 1.286;
+    text-transform: uppercase;
+    padding: 0 0 1.4em;
+    margin: 0 0 1.4em;
+    border-bottom: 1px solid #e8e8e8;
+  }
+
+  ul {
+    margin: 0 0 1.9em;
+  }
+
+  li {
+    margin: 0 0 0.7em;
+  }
+
+  ul + h3 {
+    border-top: 1px solid #e8e8e8;
+    padding-top: 1.4em;
+  }
+
+  .form-subscribe .form-cols {
+    margin: 1.875em 0 0;
+  }
+
+  .form-subscribe .input-box {
+    margin: 0;
+    font-size: 1em;
+  }
+
+  .input-col {
+    flex: 1;
+  }
+
+  .label,
+  .input-box label {
+    color: #1b1b1a;
+    font-size: 12px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: text;
+    pointer-events: none;
+    order: -1;
+    margin-bottom: 1em;
+    display: block;
+  }
+
+  .form-subscribe .btn svg {
+    display: block;
+    width: 16px;
+    height: 16px;
+  }
+
+  .btn {
+    padding-top: calc(1.6rem - 2px);
+  }
+}
+
+.bottom-footer li.social .icon {
+  width: 1.8em;
+  height: 1.8em;
+}
+
+h1 {
+  display: block;
+  font-size: 16px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  font-weight: bold;
+}
+
+h2 {
+  display: block;
+  font-size: 15px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  font-weight: bold;
+}
+
+h3 {
+  display: block;
+  font-size: 14px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  font-weight: bold;
+}
+
+h4 {
+  display: block;
+  font-size: 13px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  font-weight: bold;
+}
+
+h5 {
+  display: block;
+  font-size: 12px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  font-weight: bold;
+}
+
+h6 {
+  display: block;
+  font-size: 12px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  font-weight: bold;
+}
