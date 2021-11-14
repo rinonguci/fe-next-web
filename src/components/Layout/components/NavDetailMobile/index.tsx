@@ -85,12 +85,10 @@ const NavDetailMobile: FC<INavDetailMobile> = () => {
 
   useEffect(() => {});
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!overflow) return;
     if (windowSize && windowSize.width) {
       if (windowSize.width > 767) {
-        console.log(123);
-
         dispath(setOverflow(false));
       }
     }

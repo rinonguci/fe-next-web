@@ -13,7 +13,7 @@
       "import styled from 'styled-components';",
       "import tw from 'twin.macro';",
       "",
-      "const ${1:Component}Container = styled.div`;",
+      "const ${1:Component}Container = styled.div`",
       "${tw``}",
       "`;",
       "",

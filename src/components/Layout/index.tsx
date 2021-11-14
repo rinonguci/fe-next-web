@@ -8,7 +8,7 @@ import Header from "./components/Header";
 import NavDetailMobile from "./components/NavDetailMobile";
 
 const Wrapper = styled.div`
-  ${tw`flex flex-col pt-[145.5px] pb-20`}
+  ${tw`pt-[145.5px] pb-20`}
 `;
 const NavDetailMobileContaier = styled.div<{ isActive: boolean }>`
   ${tw`fixed top-[145.5px] transition-transform`}

@@ -29,9 +29,9 @@ interface IIconRight {
 const IconRight: FC<IIconRight> = ({ href, icon, title, itemCount }) => {
   return (
     <IconRightContainer passHref href={href}>
-      <IconLink>
+      <IconLink className="text-red-200">
         <IconSVG>
-          <use xlinkHref={icon} />
+          <use href={icon}></use>
         </IconSVG>
         <IconTitle>
           {title}

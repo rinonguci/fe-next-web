@@ -10,15 +10,12 @@ const axios = {
 const fetchCategories = {
   getCategories: async () => {
     try {
-      const response = await axiosRepository.get<IAxiosResponse<ICategory>>(
-        axios.url
-      );
-
-      console.log(response.data);
+      const response = await axiosRepository.get<
+        IAxiosResponse<Array<ICategory>>
+      >(axios.url);
 
       return response.data;
     } catch (error) {
-      console.log(error);
       throw error;
     }
   },

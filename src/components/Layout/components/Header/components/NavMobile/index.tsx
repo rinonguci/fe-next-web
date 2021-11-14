@@ -9,7 +9,7 @@ const NavMobileContainer = styled.div`
   ${tw`mt-16`}
 `;
 const NavMobileList = styled.ul`
-  ${tw`text-xl font-medium uppercase line-height[18px] flex justify-between px-5`}
+  ${tw`text-sm font-medium uppercase line-height[18px] flex justify-between px-5`}
 `;
 const NavMobileItem = styled.li`
   ${tw`pb-1.5`}

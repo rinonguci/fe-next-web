@@ -1,21 +1,20 @@
 import { Ref, useCallback, useEffect, useState } from "react";
 
 const useToggleAndClose = (
-  ref: React.MutableRefObject<any>,
+  name: string,
   initialState: boolean = false
 ): [boolean, any] => {
   const [state, setState] = useState<boolean>(initialState);
 
   const handleClose = useCallback((e: MouseEvent) => {
-    const isFound = !ref?.current?.contains(e.target);
-    if (isFound) {
-      setState(false);
-    }
+    const element: HTMLDivElement | null = e?.target as HTMLDivElement;
+    if (element.dataset?.element === name) return;
+
+    setState(false);
   }, []);
 
   useEffect(() => {
-    let { current } = ref;
-    if (current) {
+    if (state) {
       document.addEventListener("mousedown", handleClose, false);
     } else {
       document.removeEventListener("mousedown", handleClose, false);

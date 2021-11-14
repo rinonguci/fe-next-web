@@ -1,15 +1,11 @@
 import { ICategory } from "@interfaces/redux";
-import { createSlice } from "@reduxjs/toolkit";
+import { createAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface ICategorySlice {
-  loading: boolean;
-  errors: boolean;
-  categories: Array<ICategory> | null;
+  categories?: Array<ICategory>;
 }
 
 const initialState: ICategorySlice = {
-  loading: false,
-  errors: false,
   categories: [],
 };
 
@@ -17,25 +13,13 @@ const categoriesSlice = createSlice({
   name: "categories",
   initialState,
   reducers: {
-    getCategories: (state) => {
-      state.loading = true;
-    },
-    getCategoriesSuccess: (
-      state,
-      { payload }: { payload: Array<ICategory> | null }
-    ) => {
-      state.categories = payload;
-      state.loading = false;
-      state.errors = false;
-    },
-    getCategoriesError: (state) => {
-      state.loading = false;
-      state.errors = true;
+    getCategoriesSuccess: (state, action: PayloadAction<Array<ICategory>>) => {
+      state.categories = action.payload;
     },
   },
 });
-export const { getCategories, getCategoriesError, getCategoriesSuccess } =
-  categoriesSlice.actions;
+export const { getCategoriesSuccess } = categoriesSlice.actions;
+export const getCategories = createAction("getCategories");
 
 const categoriesReducer = categoriesSlice.reducer;
 export default categoriesReducer;

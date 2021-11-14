@@ -1,7 +1,7 @@
+import { getPathProduct } from "@common/helper/product/getPathProduct";
 import Banner from "@components/Banner";
 import Layout from "@components/Layout";
-import { useAppSelector } from "@hooks/redux";
-import { ICategory } from "@interfaces/redux";
+import { FC } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 
@@ -12,7 +12,7 @@ const MainContainer = styled.main`
   ${tw``}
 `;
 
-export const HomeContainer = () => {
+const Home: FC = () => {
   return (
     <Layout>
       <MainContainer className="wrapper" id="main" data-click="close-menu">
@@ -470,3 +470,5 @@ export const HomeContainer = () => {
     </Layout>
   );
 };
+
+export default Home;

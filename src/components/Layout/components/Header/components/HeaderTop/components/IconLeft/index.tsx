@@ -2,6 +2,7 @@ import { FC } from "react";
 import Link from "next/link";
 import tw from "twin.macro";
 import styled, { CSSProperties } from "styled-components";
+import IconSVG from "@designs/IconSVG";
 
 const IconLeftContainerLink = styled(Link)`
   ${tw``}
@@ -12,9 +13,7 @@ const IconLeftContainer = styled.div`
 const IconLink = styled.a`
   ${tw`flex flex-col items-center gap-3`}
 `;
-const IconSVG = styled.svg`
-  ${tw`bg-transparent fill-[transparent] h-9 w-9`}
-`;
+
 const IconTitle = styled.span`
   ${tw`uppercase md:hidden text-xs`}
 `;
@@ -39,18 +38,15 @@ const IconLeft: FC<IIconLeft> = ({
   return !onClick ? (
     <IconLeftContainerLink passHref href={href}>
       <IconLink className={className}>
-        <IconSVG data-click="open-menu">
-          <use xlinkHref={icon} />
-        </IconSVG>
+        <IconSVG iconHref={icon} />
+
         <IconTitle>{title}</IconTitle>
       </IconLink>
     </IconLeftContainerLink>
   ) : (
     <IconLeftContainer style={style} onClick={onClick}>
       <IconLink>
-        <IconSVG data-click="open-menu">
-          <use xlinkHref={icon} />
-        </IconSVG>
+        <IconSVG iconHref={icon} />
         <IconTitle>{title}</IconTitle>
       </IconLink>
     </IconLeftContainer>

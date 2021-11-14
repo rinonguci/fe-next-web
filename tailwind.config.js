@@ -1,3 +1,5 @@
+const { colors: defaultColors } = require("tailwindcss/defaultTheme");
+
 module.exports = {
   purge: ["./**/*.{js,ts,jsx,tsx}"],
   darkMode: false, // or 'media' or 'class'
@@ -30,6 +32,12 @@ module.exports = {
       "4xl": ["3.6rem", 1.5],
       "5xl": ["4.8rem", 1.5],
       "6xl": ["6rem", 1.5],
+    },
+    colors: {
+      ...defaultColors,
+      "black-lv1": "#1b1b1a",
+      "black-lv2": "#3e3d3b",
+      "black-lv3": "#767676",
     },
   },
   variants: {

@@ -3,8 +3,8 @@ import { setOverflow } from "@redux/slides/bodyOverflow";
 import { FC } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
-import IconLeft from "../IconLeft";
-import IconRight from "../IconRight";
+import IconLeft from "./components/IconLeft";
+import IconRight from "./components/IconRight";
 import Logo from "../Logo";
 
 const HeaderTopContainer = styled.div`

@@ -7,7 +7,7 @@ interface IFooter {}
 const Footer: FC<IFooter> = () => {
   return (
     <FooterContainer>
-      <footer className="footer-container container mx-auto mt-40 lg:hidden">
+      {/* <footer className="footer-container container mx-auto mt-40 lg:hidden">
         <div className="hidden">
           <a className="footer-btn" href="tel:+44 1892 779110">
             <svg data-cs="svgLoader" className="lazyload">
@@ -431,7 +431,7 @@ const Footer: FC<IFooter> = () => {
             </li>
           </ul>
         </div>
-      </footer>
+      </footer> */}
     </FooterContainer>
   );
 };

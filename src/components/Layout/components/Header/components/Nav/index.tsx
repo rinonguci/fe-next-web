@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { ComponentProps, FC, memo } from "react";
 
 import tw from "twin.macro";
 import styled, { css } from "styled-components";
@@ -59,7 +59,7 @@ const Nav: FC<INav> = ({ list, mediaQuery }) => {
         {list?.map((value: ICategory, index: number) => (
           <NavItem key={index}>
             <LinkWrap>
-              <Link href={value.path}>
+              <Link href={`${value._id}/${value.slug}`}>
                 <NavText>{value.name}</NavText>
               </Link>
               <NavDetailContainer>
@@ -73,4 +73,6 @@ const Nav: FC<INav> = ({ list, mediaQuery }) => {
   );
 };
 
-export default Nav;
+export default memo(Nav, (prevMovie: INav, nextMovie: INav) => {
+  return prevMovie.list === nextMovie.list;
+});

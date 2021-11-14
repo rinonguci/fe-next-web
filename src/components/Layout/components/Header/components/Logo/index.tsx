@@ -1,6 +1,7 @@
 import { FC } from "react";
 import tw from "twin.macro";
 import Image from "next/image";
+import Link from "@designs/Link";
 
 interface ILogo {
   width: string | number;
@@ -11,16 +12,18 @@ const Logo: FC<ILogo> = ({ width, height }) => {
   return (
     <LogoContainer>
       <Picture>
-        <ImageBox>
-          <Image
-            src="/logo.svg"
-            id="logo"
-            alt="Logo of Summon"
-            width={width}
-            height={height}
-            layout="fixed"
-          />
-        </ImageBox>
+        <Link href="/home">
+          <ImageBox>
+            <Image
+              src="/logo.svg"
+              id="logo"
+              alt="Logo of Summon"
+              width={width}
+              height={height}
+              layout="fixed"
+            />
+          </ImageBox>
+        </Link>
       </Picture>
     </LogoContainer>
   );
