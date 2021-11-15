@@ -1,3 +1,4 @@
+import { useAppSelector } from "@hooks/redux";
 import { FC } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
@@ -23,14 +24,15 @@ const Item = styled.span`
   }
 `;
 
-interface IBreadcrumb {
-  titles: Array<String>;
-}
+interface IBreadcrumb {}
 
-const Breadcrumb: FC<IBreadcrumb> = ({ titles }) => {
+const Breadcrumb: FC<IBreadcrumb> = () => {
+  const { breadcrumb } = useAppSelector(
+    (state) => state.uiStateReducers.breadcrumbReducer
+  );
   return (
     <BreadcrumbContainer>
-      {titles.map((value, index) => (
+      {breadcrumb?.map((value, index) => (
         <Item key={index}>{`${value}`}</Item>
       ))}
     </BreadcrumbContainer>

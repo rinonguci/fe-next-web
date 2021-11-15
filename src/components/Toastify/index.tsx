@@ -4,14 +4,14 @@ import { ToastContainer, toast } from "react-toastify";
 import tw from "twin.macro";
 
 import { useAppSelector } from "@hooks/redux";
-import { closeError, closeSuccess } from "@redux/slides/notify";
+import { closeError, closeSuccess } from "@redux/slides/uiState/notify";
 
 interface IToastify {}
 
 const Toastify: FC<IToastify> = () => {
   const dispatch = useDispatch();
   const { success, error, message } = useAppSelector(
-    (state) => state.notifyReducer
+    (state) => state.uiStateReducers.notifyReducer
   );
 
   useEffect(() => {

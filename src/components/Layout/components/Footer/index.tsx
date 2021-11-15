@@ -11,7 +11,7 @@ const Footer: FC<IFooter> = () => {
         <div className="hidden">
           <a className="footer-btn" href="tel:+44 1892 779110">
             <svg data-cs="svgLoader" className="lazyload">
-              <use xlinkHref="./icon.svg#svgs-phone"></use>
+              <use xlinkHref="/icon.svg#svgs-phone"></use>
             </svg>
             <span>Contact Customer Service</span>
           </a>
@@ -22,7 +22,7 @@ const Footer: FC<IFooter> = () => {
             data-cs="ZendeskChatLink"
           >
             <svg className="icon-message lazyload" data-cs="svgLoader">
-              <use xlinkHref="./icon.svg#svgs-live-chat-double"></use>
+              <use xlinkHref="/icon.svg#svgs-live-chat-double"></use>
             </svg>
             <span>Live Chat</span>
           </a>
@@ -213,7 +213,7 @@ const Footer: FC<IFooter> = () => {
                       <button type="submit" className="btn btn-full">
                         <span>
                           <svg data-cs="svgLoader" className="lazyloaded">
-                            <use xlinkHref="./icon.svg#svgs-arrow-right-thin"></use>
+                            <use xlinkHref="/icon.svg#svgs-arrow-right-thin"></use>
                           </svg>
                         </span>
                       </button>
@@ -241,7 +241,7 @@ const Footer: FC<IFooter> = () => {
                     title="Facebook"
                   >
                     <svg className="icon lazyloaded" data-cs="svgLoader">
-                      <use xlinkHref="./icon.svg#svgs-facebook"></use>
+                      <use xlinkHref="/icon.svg#svgs-facebook"></use>
                     </svg>
                   </a>
                 </li>
@@ -252,7 +252,7 @@ const Footer: FC<IFooter> = () => {
                     title="Twitter"
                   >
                     <svg className="icon lazyloaded" data-cs="svgLoader">
-                      <use xlinkHref="./icon.svg#svgs-twitter"></use>
+                      <use xlinkHref="/icon.svg#svgs-twitter"></use>
                     </svg>
                   </a>
                 </li>
@@ -263,7 +263,7 @@ const Footer: FC<IFooter> = () => {
                     title="Instagram"
                   >
                     <svg className="icon lazyloaded" data-cs="svgLoader">
-                      <use xlinkHref="./icon.svg#svgs-instagram"></use>
+                      <use xlinkHref="/icon.svg#svgs-instagram"></use>
                     </svg>
                   </a>
                 </li>
@@ -274,7 +274,7 @@ const Footer: FC<IFooter> = () => {
                     title="Pinterest"
                   >
                     <svg className="icon lazyloaded" data-cs="svgLoader">
-                      <use xlinkHref="./icon.svg#svgs-pinterest"></use>
+                      <use xlinkHref="/icon.svg#svgs-pinterest"></use>
                     </svg>
                   </a>
                 </li>
@@ -285,7 +285,7 @@ const Footer: FC<IFooter> = () => {
                     title="Youtube"
                   >
                     <svg className="icon lazyloaded" data-cs="svgLoader">
-                      <use xlinkHref="./icon.svg#svgs-youtube"></use>
+                      <use xlinkHref="/icon.svg#svgs-youtube"></use>
                     </svg>
                   </a>
                 </li>
@@ -302,7 +302,7 @@ const Footer: FC<IFooter> = () => {
                       className="icon icon-footer-sustainability lazyloaded"
                       data-cs="svgLoader"
                     >
-                      <use xlinkHref="./icon.svg#svgs-footer-sustainability"></use>
+                      <use xlinkHref="/icon.svg#svgs-footer-sustainability"></use>
                     </svg>
                     <span>New</span> The Earth Edit
                   </a>
@@ -378,7 +378,7 @@ const Footer: FC<IFooter> = () => {
                       className="icon apple-icon lazyloaded"
                       data-cs="svgLoader"
                     >
-                      <use xlinkHref="./icon.svg#svgs-apple"></use>
+                      <use xlinkHref="/icon.svg#svgs-apple"></use>
                     </svg>
                     <span>
                       Download on the
@@ -393,7 +393,7 @@ const Footer: FC<IFooter> = () => {
                       className="icon android-icon lazyloaded"
                       data-cs="svgLoader"
                     >
-                      <use xlinkHref="./icon.svg#svgs-android"></use>
+                      <use xlinkHref="/icon.svg#svgs-android"></use>
                     </svg>
                     <span>
                       GET IT ON<span> Google Play</span>{" "}

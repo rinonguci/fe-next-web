@@ -1,4 +1,3 @@
-import { getPathProduct } from "@common/helper/product/getPathProduct";
 import Banner from "@components/Banner";
 import Layout from "@components/Layout";
 import { FC } from "react";
@@ -411,7 +410,7 @@ const Home: FC = () => {
               data-cs="svgLoader"
               className="lazyloaded mx-auto h-16"
             >
-              <use xlinkHref="./icon.svg#svgs-sticker--stars"></use>
+              <use xlinkHref="/icon.svg#svgs-sticker--stars"></use>
             </svg>
           </div>
           <h2 className="text-center lp-title text-3xl font-bold mb-16">

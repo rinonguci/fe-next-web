@@ -4,16 +4,23 @@ import { END } from "redux-saga";
 
 import Product from "@containers/Product";
 import { wrapper } from "@redux/store";
-import { getCategories } from "@redux/slides/categories";
-import MetaTitle from "@designs/MetaTitle";
-import { getFacets, getProducts } from "@redux/slides/product";
-import fetchCategories from "@services/categories";
-import { getPathProduct } from "@common/helper/product/getPathProduct";
 
-const ProductPage: NextPage = (props) => {
+import MetaTitle from "@designs/MetaTitle";
+import { getFacets, getProductsByType } from "@redux/slides/data/product";
+
+import { getPathProductByType } from "@common/helper/product/getPathProductByType";
+import { getCategories } from "@redux/slides/data/categories";
+
+interface IProductPage {
+  name?: string;
+}
+
+const ProductPage: NextPage<IProductPage> = ({ name }) => {
   return (
     <Fragment>
-      <MetaTitle title="Sản phẩm" />
+      <MetaTitle
+        title={name ? name.charAt(0).toUpperCase() + name.slice(1) : "Product"}
+      />
       <Product />
     </Fragment>
   );
@@ -23,7 +30,7 @@ export default ProductPage;
 
 export const getStaticPaths: GetStaticPaths = async () => {
   // const { data } = await fetchCategories.getCategories();
-  const paths = getPathProduct([
+  const paths = getPathProductByType([
     {
       _id: "174",
       name: "Girl",
@@ -1551,14 +1558,16 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
       const { product } = params as { product: Array<string> };
 
       dispatch(getCategories());
-      dispatch(getProducts({ id: product[0] }));
+      dispatch(getProductsByType({ id: product[0] }));
       dispatch(getFacets({ id: product[0] }));
       dispatch(END);
       await sagaTask.toPromise();
 
       return {
-        props: {},
-        revalidate: 60,
+        props: {
+          name: product[1],
+        },
+        revalidate: 10000,
       };
     }
 );

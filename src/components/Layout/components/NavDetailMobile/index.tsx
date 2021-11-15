@@ -2,7 +2,7 @@ import Link from "@designs/Link";
 import { useAppDispatch, useAppSelector } from "@hooks/redux";
 import useWindowSize, { ISize } from "@hooks/useWindowSize";
 import { ICategory } from "@interfaces/redux";
-import { setOverflow } from "@redux/slides/bodyOverflow";
+import { setOverflow } from "@redux/slides/uiState/bodyOverflow";
 import {
   FC,
   memo,
@@ -18,7 +18,7 @@ import NavDetailMobileExtra from "./components/NavDetailMobileExtra";
 import NavDetailMobileItem from "./components/NavDetailMobileItem";
 
 const NavDetailMobileContainer = styled.div`
-  ${tw` w-[286px] bg-white relative overflow-hidden`}
+  ${tw`w-[286px] bg-white fixed overflow-hidden z-50`}
   height: calc(100vh - 145.5px);
 `;
 
@@ -60,8 +60,12 @@ interface INavDetailMobile {}
 
 const NavDetailMobile: FC<INavDetailMobile> = () => {
   const dispath = useAppDispatch();
-  const { overflow } = useAppSelector((state) => state.bodyReducer);
-  const { categories } = useAppSelector((state) => state.categoriesReducer);
+  const { overflow } = useAppSelector(
+    (state) => state.uiStateReducers.bodyReducer
+  );
+  const { categories } = useAppSelector(
+    (state) => state.dataReducers.categoriesReducer
+  );
 
   const windowSize: ISize = useWindowSize();
   const [stateExtra, setStateExtra] = useState<boolean>(false);

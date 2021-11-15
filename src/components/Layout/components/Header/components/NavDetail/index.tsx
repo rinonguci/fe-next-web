@@ -193,7 +193,7 @@ const NavDetail: FC<INavDetail> = ({ data }) => {
                         {listCatagoryLevel3.map((catagoryLevel3: ICategory) => (
                           <Link
                             key={catagoryLevel3._id}
-                            href={`${catagoryLevel3._id}/${catagoryLevel3.slug}`}
+                            href={`/${catagoryLevel3._id}/${catagoryLevel3.slug}`}
                           >
                             <NavList>{catagoryLevel3.name}</NavList>
                           </Link>

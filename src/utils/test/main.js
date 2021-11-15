@@ -17,7 +17,15 @@ const axiosData = {
 const fetchCategories = {
   getCategories: async () => {
     try {
-      const response = await axiosRepository.get(axiosData.url);
+      const response = await axiosRepository.get(
+        axiosData.url,
+        {},
+        {
+          params: {
+            p: "000115",
+          },
+        }
+      );
       return response.data;
     } catch (error) {
       console.log(error);

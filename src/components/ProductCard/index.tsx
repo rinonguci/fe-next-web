@@ -4,6 +4,7 @@ import { FC } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import Skeleton from "react-loading-skeleton";
 
 const ProductCardContainer = styled.div`
   ${tw`flex flex-col gap-2 relative pt-10`}
@@ -11,6 +12,10 @@ const ProductCardContainer = styled.div`
 
 const ImageBox = styled.div`
   ${tw``}
+
+  &  span {
+    ${tw`w-full aspect-ratio[1/1]`}
+  }
 `;
 
 const Design = styled.div`
@@ -41,7 +46,8 @@ const ProductCard: FC<IProductCard> = ({ data }) => {
           effect="opacity"
           src={data.imageCovers[0]}
           alt={data.name}
-          placeholderSrc="https://miro.medium.com/max/1080/0*DqHGYPBA-ANwsma2.gif"
+          placeholder={<Skeleton className="rounded" />}
+          delayTime={2000}
         />
       </ImageBox>
 
@@ -76,7 +82,7 @@ const ProductCard: FC<IProductCard> = ({ data }) => {
       <Price> ${data.price} </Price>
 
       <HeartBox>
-        <IconSVG iconHref="./icon.svg#svgs-wishlist" />
+        <IconSVG iconHref="/icon.svg#svgs-wishlist" />
       </HeartBox>
     </ProductCardContainer>
   );

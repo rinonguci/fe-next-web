@@ -2,7 +2,7 @@ import { FC } from "react";
 import NextLink from "next/link";
 
 interface ILink {
-  href?: string;
+  href?: any;
 }
 
 const Link: FC<ILink> = ({ children, href }, props) => {

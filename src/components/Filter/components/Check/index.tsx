@@ -1,7 +1,10 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
+import { useRouter } from "next/router";
+import { handlePathQuery } from "@common/helper/path/handlePathQuery";
 
+import { withRouter, SingletonRouter } from "next/router";
 const CheckContainer = styled.div`
   ${tw`flex items-center gap-3`}
 `;
@@ -40,12 +43,40 @@ const Name = styled.span`
 interface ICheck {
   name: string;
   id: string;
+  onClick: (id: string) => void;
+  router?: SingletonRouter;
 }
 
 const Check: FC<ICheck> = ({ name, id }) => {
+  const router = useRouter();
+  const {
+    query: { p },
+  } = router;
+  const [href, setHref] = useState<{ path: string; query?: string }>();
+
+  useEffect(() => {
+    setHref(handlePathQuery(router, id));
+  }, [p]);
+
+  const handlePushRouter = () => {
+    router.push({ pathname: href?.path, query: href?.query }, undefined, {
+      shallow: true,
+    });
+  };
+
+  const handleChecked = (id: string) => {
+    if (typeof p === "string") return p === id;
+    if (p && p?.length > 1) return p.some((value) => value === id);
+  };
+
   return (
     <CheckContainer>
-      <InputCheck id={id} type="checkbox" />
+      <InputCheck
+        onChange={() => handlePushRouter()}
+        checked={handleChecked(id)}
+        id={id}
+        type="checkbox"
+      />
       <Name>{name}</Name>
     </CheckContainer>
   );

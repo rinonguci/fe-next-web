@@ -1,15 +1,17 @@
-import { combineReducers } from "@reduxjs/toolkit";
-import bodyReducer from "./bodyOverflow";
-import categoriesReducer from "./categories";
-import notifyReducer from "./notify";
-import productReducer from "./product";
+import {
+  AnyAction,
+  CombinedState,
+  combineReducers,
+  Reducer,
+} from "@reduxjs/toolkit";
+import { HYDRATE } from "next-redux-wrapper";
+import dataReducers from "./data";
+import uiStateReducers from "./uiState";
 
-const rootReducer = combineReducers({
-  categoriesReducer,
-  notifyReducer,
-  bodyReducer,
-  productReducer,
+const rootReducers = combineReducers({
+  dataReducers,
+  uiStateReducers,
 });
 
-export default rootReducer;
-export type RootState = ReturnType<typeof rootReducer>;
+export default rootReducers;
+export type RootState = ReturnType<typeof rootReducers>;

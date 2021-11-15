@@ -8,7 +8,7 @@ interface ITitle {
 const MetaTitle = ({ title = TITLE_DEFAULT }: ITitle) => {
   return (
     <Head>
-      <title>{title}</title>
+      <title>{`${title} - Summon Shop`} </title>
     </Head>
   );
 };

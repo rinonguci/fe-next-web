@@ -8,7 +8,7 @@ import Header from "./components/Header";
 import NavDetailMobile from "./components/NavDetailMobile";
 
 const Wrapper = styled.div`
-  ${tw`pt-[145.5px] pb-20`}
+  ${tw`pt-[145.5px] lg:pt-[125.5px] pb-20`}
 `;
 const NavDetailMobileContaier = styled.div<{ isActive: boolean }>`
   ${tw`fixed top-[145.5px] transition-transform`}
@@ -19,7 +19,9 @@ const NavDetailMobileContaier = styled.div<{ isActive: boolean }>`
 interface ILayout {}
 
 const Layout: FC<ILayout> = ({ children }) => {
-  const { overflow } = useAppSelector((state) => state.bodyReducer);
+  const { overflow } = useAppSelector(
+    (state) => state.uiStateReducers.bodyReducer
+  );
   const [isActive, setIsActive] = useState<boolean>(overflow);
 
   useEffect(() => {

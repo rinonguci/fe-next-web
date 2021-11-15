@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "@hooks/redux";
-import { setOverflow } from "@redux/slides/bodyOverflow";
+import { setOverflow } from "@redux/slides/uiState/bodyOverflow";
 import { FC } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
@@ -30,7 +30,9 @@ interface IHeaderTop {}
 
 const HeaderTop: FC<IHeaderTop> = () => {
   const dispatch = useAppDispatch();
-  const { overflow } = useAppSelector((state) => state.bodyReducer);
+  const { overflow } = useAppSelector(
+    (state) => state.uiStateReducers.bodyReducer
+  );
 
   const handleClickMenuMobile = () => {
     dispatch(setOverflow(!overflow));
@@ -45,7 +47,7 @@ const HeaderTop: FC<IHeaderTop> = () => {
             <IconLeft
               href="/login"
               title="Sign In"
-              icon="./icon.svg#svgs-account"
+              icon="/icon.svg#svgs-account"
             />
           </UserIcon>
           <HumburgerIcon>
@@ -54,22 +56,22 @@ const HeaderTop: FC<IHeaderTop> = () => {
               onClick={() => handleClickMenuMobile()}
               href="/login"
               title="Sign In"
-              icon="./icon.svg#svgs-burger"
+              icon="/icon.svg#svgs-burger"
             />
           </HumburgerIcon>
 
-          <IconLeft href="/help" title="Search" icon="./icon.svg#svgs-search" />
+          <IconLeft href="/help" title="Search" icon="/icon.svg#svgs-search" />
         </NavExtraLeft>
         <NavExtraRight>
           <IconRight
             href="/wishlist"
-            icon="./icon.svg#svgs-wish-main"
+            icon="/icon.svg#svgs-wish-main"
             title="Wishlist"
             itemCount={2}
           />
           <IconRight
             href="/cart"
-            icon="./icon.svg#svgs-bag"
+            icon="/icon.svg#svgs-bag"
             title="Shopping Bag"
             itemCount={1}
           />

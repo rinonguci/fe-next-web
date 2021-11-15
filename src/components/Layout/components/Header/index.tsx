@@ -36,17 +36,24 @@ const NavContainer = styled.div`
 interface IHeader {}
 
 const Header: FC<IHeader> = () => {
-  const { categories } = useAppSelector((state) => state.categoriesReducer);
+  const { categories } = useAppSelector(
+    (state) => state.dataReducers.categoriesReducer
+  );
   const [isScroll, setIsScroll] = useState<boolean>(false);
   let lastScrollTop = useRef<number>(0);
 
   const handleScroll = useCallback((e) => {
     let st = document.body.getBoundingClientRect().top;
 
-    if (st > lastScrollTop.current) {
+    if (
+      st > lastScrollTop.current &&
+      document.documentElement.scrollTop > -30
+    ) {
       setIsScroll(false);
     } else {
-      setIsScroll(true);
+      if (document.documentElement.scrollTop > 200) {
+        setIsScroll(true);
+      }
     }
     lastScrollTop.current = st;
   }, []);

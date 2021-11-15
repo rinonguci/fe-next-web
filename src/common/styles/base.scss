@@ -13,6 +13,11 @@
 
 * {
   color: #1b1b1a;
+  cursor: default;
+}
+
+a {
+  cursor: pointer;
 }
 
 html {
@@ -29,6 +34,7 @@ body {
 
 #__next {
   position: relative;
+  // overflow: auto;
 }
 
 use {
