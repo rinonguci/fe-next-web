@@ -13,6 +13,7 @@ function* getCategoriesSaga() {
     const response: IAxiosResponse<Array<ICategory>> = yield call(
       fetchCategories.getCategories
     );
+    console.log(123);
 
     const { data = [] } = response;
 

@@ -67,7 +67,7 @@ const Product: FC<IProduct> = () => {
   useEffect(() => {
     let index = asPath.indexOf("?");
     if (index === -1) {
-      setQuery(asPath);
+      setQuery("");
       return;
     }
 
@@ -77,8 +77,6 @@ const Product: FC<IProduct> = () => {
 
   useEffect(() => {
     if (query) {
-      console.log(query);
-
       dispatch(getProductsByType({ id: productId![0], params: query }));
     } else {
       dispatch(getProductsByType({ id: productId![0] }));
