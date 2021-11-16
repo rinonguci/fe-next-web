@@ -1568,7 +1568,7 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
         props: {
           name: product[1],
         },
-        revalidate: 1,
+        revalidate: 60 * 60 * 24,
       };
     }
 );

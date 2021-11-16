@@ -182,7 +182,11 @@ const NavDetail: FC<INavDetail> = ({ data }) => {
                   gridColumn: `${handleColumn(catagoryLevel2._id)}`,
                 }}
               >
-                <NavTitle>{catagoryLevel2.name}</NavTitle>
+                <Link
+                  href={`/category/${catagoryLevel2._id}/${catagoryLevel2.slug}`}
+                >
+                  <NavTitle>{catagoryLevel2.name}</NavTitle>
+                </Link>
                 <div style={{ display: "flex", gap: "30px" }}>
                   {handleChunkArray(
                     catagoryLevel2?.children,
@@ -193,7 +197,7 @@ const NavDetail: FC<INavDetail> = ({ data }) => {
                         {listCatagoryLevel3.map((catagoryLevel3: ICategory) => (
                           <span key={catagoryLevel3._id}>
                             <Link
-                              href={`/${catagoryLevel3._id}/${catagoryLevel3.slug}`}
+                              href={`/category/${catagoryLevel3._id}/${catagoryLevel3.slug}`}
                             >
                               <NavList>{catagoryLevel3.name}</NavList>
                             </Link>

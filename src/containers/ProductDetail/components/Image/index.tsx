@@ -7,7 +7,11 @@ const ImageContainer = styled.div`
   ${tw`sm:gap-10 lg:gap-20 xl:gap-2 gap-10 flex items-center`}
 `;
 const ImageMainBox = styled.div`
-  ${tw`flex-grow text-center`}
+  ${tw`flex-grow max-h-[500px] max-w-[500px] mx-auto`}
+
+  & figure {
+    cursor: zoom;
+  }
 `;
 
 const ListImageBox = styled.div`
@@ -38,10 +42,12 @@ const Image: FC<IImage> = ({ images, imageCover, name = "" }) => {
     useState<{ id: number; urlSmall: string; urlBig: string }>();
 
   useEffect(() => {
+    console.log(images, imageCover);
+
     let imagesNew = images.map((value, index) => ({
       id: index,
-      urlSmall: imageCover[index],
-      urlBig: value,
+      urlSmall: imageCover[index] ? imageCover[index] : value,
+      urlBig: value ? value : imageCover[index],
     }));
     setSelected(imagesNew[0]);
     setArrImages(imagesNew);
@@ -73,8 +79,7 @@ const Image: FC<IImage> = ({ images, imageCover, name = "" }) => {
       </ListImageBox>
       <ImageMainBox>
         <InnerImageZoom
-          sizes="500"
-          className="shadow"
+          className="shadow pointer"
           src={selected?.urlSmall || ""}
           zoomSrc={selected?.urlBig}
           alt={name}

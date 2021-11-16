@@ -13,11 +13,12 @@ const IconSVGContainer = styled.svg`
 interface IIconSVG {
   iconHref: string;
   color?: Color;
+  className?: string;
 }
 
-const IconSVG: FC<IIconSVG> = ({ iconHref }) => {
+const IconSVG: FC<IIconSVG> = ({ iconHref, className }) => {
   return (
-    <IconSVGContainer>
+    <IconSVGContainer className={className}>
       <use href={iconHref}></use>
     </IconSVGContainer>
   );

@@ -11,11 +11,15 @@ import fetchProduct from "@services/products";
 import { getPathProductAll } from "@common/helper/product/getPathAllProduct";
 import ProductDetail from "@containers/ProductDetail";
 import { getProductDetail } from "@redux/slides/data/product";
+import { useAppSelector } from "@hooks/redux";
 
 const ProductDetailPage: NextPage = (props) => {
+  const { productDetail } = useAppSelector(
+    (state) => state.dataReducers.productReducer
+  );
   return (
     <Fragment>
-      <MetaTitle title="Sản phẩm" />
+      <MetaTitle title={productDetail?.name || "Product"} />
       <ProductDetail />
     </Fragment>
   );
@@ -46,7 +50,7 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
 
       return {
         props: {},
-        revalidate: 60 * 60 * 10,
+        revalidate: 60 * 60 * 24,
       };
     }
 );

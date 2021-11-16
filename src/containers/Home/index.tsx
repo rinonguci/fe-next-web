@@ -1,5 +1,6 @@
 import Banner from "@components/Banner";
 import Layout from "@components/Layout";
+import IconSVG from "@designs/IconSVG";
 import { FC } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
@@ -405,13 +406,10 @@ const Home: FC = () => {
         </Container>
         <Container>
           <div className="mb-10">
-            <svg
-              style={{ color: "#ea5a99" }}
-              data-cs="svgLoader"
-              className="lazyloaded mx-auto h-16"
-            >
-              <use xlinkHref="/icon.svg#svgs-sticker--stars"></use>
-            </svg>
+            <IconSVG
+              className="mx-auto h-16"
+              iconHref="/icon.svg#svgs-sticker--stars"
+            />
           </div>
           <h2 className="text-center lp-title text-3xl font-bold mb-16">
             We love hearing from you...

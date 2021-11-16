@@ -59,7 +59,7 @@ const Nav: FC<INav> = ({ list, mediaQuery }) => {
         {list?.map((value: ICategory, index: number) => (
           <NavItem key={index}>
             <LinkWrap>
-              <Link href={`${value._id}/${value.slug}`}>
+              <Link href={`/category/${value._id}/${value.slug}`}>
                 <NavText>{value.name}</NavText>
               </Link>
               <NavDetailContainer>
