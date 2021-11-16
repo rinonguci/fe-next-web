@@ -13,8 +13,7 @@ const fetchCategories = {
       const response = await axiosRepository.get<
         IAxiosResponse<Array<ICategory>>
       >(axios.url);
-      console.log(axios.url);
-
+    
       return response.data;
     } catch (error) {
       throw error;

@@ -1,15 +1,7 @@
 import { useAppSelector } from "@hooks/redux";
 import { INavItem } from "@interfaces/UI/INavItem";
-import {
-  FC,
-  memo,
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
-import styled, { css } from "styled-components";
+import { FC, useCallback, useEffect, useRef, useState } from "react";
+import styled from "styled-components";
 import tw from "twin.macro";
 import HeaderTop from "./components/HeaderTop";
 import Nav from "./components/Nav";

@@ -29,7 +29,6 @@ const ProductPage: NextPage<IProductPage> = ({ name }) => {
 export default ProductPage;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  // const { data } = await fetchCategories.getCategories();
   const paths = getPathProductByType([
     {
       _id: "174",
@@ -1557,9 +1556,11 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
       const { dispatch, sagaTask } = store;
       const { product } = params as { product: Array<string> };
 
-      dispatch(getCategories());
-      dispatch(getProductsByType({ id: product[0] }));
-      dispatch(getFacets({ id: product[0] }));
+      await dispatch(getCategories());
+
+      await dispatch(getProductsByType({ id: product[0] }));
+      await dispatch(getFacets({ id: product[0] }));
+
       dispatch(END);
       await sagaTask.toPromise();
 
@@ -1567,7 +1568,7 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
         props: {
           name: product[1],
         },
-        revalidate: 10000,
+        revalidate: 1,
       };
     }
 );

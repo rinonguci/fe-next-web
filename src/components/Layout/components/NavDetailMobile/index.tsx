@@ -3,15 +3,7 @@ import { useAppDispatch, useAppSelector } from "@hooks/redux";
 import useWindowSize, { ISize } from "@hooks/useWindowSize";
 import { ICategory } from "@interfaces/redux";
 import { setOverflow } from "@redux/slides/uiState/bodyOverflow";
-import {
-  FC,
-  memo,
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
+import { FC, memo, useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 import NavDetailMobileExtra from "./components/NavDetailMobileExtra";
@@ -59,7 +51,7 @@ const NavDetailMobileMoney = styled.div`
 interface INavDetailMobile {}
 
 const NavDetailMobile: FC<INavDetailMobile> = () => {
-  const dispath = useAppDispatch();
+  const dispatch = useAppDispatch();
   const { overflow } = useAppSelector(
     (state) => state.uiStateReducers.bodyReducer
   );
@@ -75,7 +67,7 @@ const NavDetailMobile: FC<INavDetailMobile> = () => {
     const element: HTMLDivElement | null = e?.target as HTMLDivElement;
     if (element.dataset?.element) return;
 
-    dispath(setOverflow(false));
+    dispatch(setOverflow(false));
   }, []);
 
   useEffect(() => {
@@ -93,7 +85,7 @@ const NavDetailMobile: FC<INavDetailMobile> = () => {
     if (!overflow) return;
     if (windowSize && windowSize.width) {
       if (windowSize.width > 767) {
-        dispath(setOverflow(false));
+        dispatch(setOverflow(false));
       }
     }
   }, [windowSize]);

@@ -4,7 +4,11 @@ import ProductCard from "@components/ProductCard";
 import Breadcrumb from "@components/Breadcrumb";
 import { useAppDispatch, useAppSelector } from "@hooks/redux";
 import { IFacet } from "@interfaces/redux/product";
-import { getProductsByType } from "@redux/slides/data/product";
+import {
+  getFacets,
+  getProductsByType,
+  IGetProductsByTypePayload,
+} from "@redux/slides/data/product";
 import { useRouter } from "next/router";
 import { FC, memo, useEffect, useState } from "react";
 import styled from "styled-components";
@@ -27,7 +31,7 @@ const FilterContainer = styled.div`
 `;
 
 const FilterBox = styled.div`
-  ${tw``}
+  ${tw`lg:max-w-full max-w-[260px]`}
 `;
 
 const CategoryProductContainer = styled.div`
@@ -55,8 +59,9 @@ const Product: FC<IProduct> = () => {
   const dispatch = useAppDispatch();
   const {
     asPath,
-    query: { product: productId },
+    query: { p, product: productId },
   } = useRouter();
+  const router = useRouter();
   const [query, setQuery] = useState<string>();
   const [isActive, setActive] = useState<boolean>(false);
 
@@ -65,22 +70,19 @@ const Product: FC<IProduct> = () => {
   );
 
   useEffect(() => {
-    let index = asPath.indexOf("?");
-    if (index === -1) {
-      setQuery("");
-      return;
-    }
+    let url = new URL(location.origin + router.asPath);
+    let p = url.search.substring(1); //remove "?"
 
-    let result = asPath.substring(index + 1, asPath.length);
-    setQuery(result);
-  }, [asPath]);
+    setQuery(p);
+  }, [router.asPath]);
 
   useEffect(() => {
-    if (query) {
-      dispatch(getProductsByType({ id: productId![0], params: query }));
-    } else {
-      dispatch(getProductsByType({ id: productId![0] }));
-    }
+    if (!(productId && productId[0])) return;
+
+    let payload: IGetProductsByTypePayload = { id: productId[0] };
+    payload.params = query ? query : undefined;
+
+    dispatch(getProductsByType(payload));
   }, [query]);
 
   const handleActive = () => {

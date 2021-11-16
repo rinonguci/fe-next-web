@@ -1,13 +1,13 @@
 import useToggleAndClose from "@hooks/useToggleAndClose";
 import { IItemSelect } from "@interfaces/UI/IItemSelect";
-import router from "next/router";
+import { useRouter } from "next/router";
 import { FC, useEffect, useRef, useState } from "react";
 import styled, { css } from "styled-components";
 import tw from "twin.macro";
 import Skeleton from "react-loading-skeleton";
 
 const SelectContainer = styled.div`
-  ${tw`text-lg bg-white max-w-[280px]`}
+  ${tw`text-lg bg-white  lg:max-w-full max-w-[260px]`}
 `;
 const SelectBox = styled.div`
   ${tw`relative `}
@@ -73,22 +73,12 @@ interface ISelect {
 const Select: FC<ISelect> = ({ selected, data, onClick }) => {
   const [isActive, setIsActive] = useToggleAndClose("select");
   const [isSelected, setIsSelected] = useState<IItemSelect | undefined>();
+  const router = useRouter();
 
   useEffect(() => {
     const index = data?.findIndex(
       (value: IItemSelect) => value.id === selected || data[0].id
     );
-
-    const { asPath } = router;
-    let indexStart = asPath.indexOf("?sort=" || "&sort=");
-    let indexEnd = asPath.indexOf("&", indexStart);
-
-    let link =
-      indexStart === -1
-        ? asPath
-        : `${asPath.substring(0, indexStart)}${
-            indexEnd === -1 ? "" : asPath.substring(indexEnd, asPath.length)
-          }`;
 
     setIsSelected(data[index || 0]);
   }, []);
@@ -102,18 +92,13 @@ const Select: FC<ISelect> = ({ selected, data, onClick }) => {
   };
 
   const handleRouter = (value: IItemSelect) => {
-    const { asPath } = router;
-    let indexStart = asPath.indexOf("?sort=" || "&sort=");
-    let indexEnd = asPath.indexOf("&", indexStart);
+    let url = new URL(location.origin + router.asPath);
+    url.searchParams.delete("sort");
+    let asPath = decodeURI(url.pathname + url.search);
+    let query = url.search ? "&" : "?";
+    query += value?.query;
 
-    let link =
-      indexStart === -1
-        ? asPath
-        : `${asPath.substring(0, indexStart)}${
-            indexEnd === -1 ? "" : asPath.substring(indexEnd, asPath.length)
-          }`;
-
-    router.push({ pathname: link, query: value?.query }, undefined, {
+    router.push(`${asPath}${query}`, undefined, {
       shallow: true,
     });
   };

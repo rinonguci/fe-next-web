@@ -9,18 +9,19 @@ import MetaTitle from "@designs/MetaTitle";
 import { getCategories } from "@redux/slides/data/categories";
 import fetchProduct from "@services/products";
 import { getPathProductAll } from "@common/helper/product/getPathAllProduct";
-import ProductDetailPage from "@containers/ProductDetail";
+import ProductDetail from "@containers/ProductDetail";
+import { getProductDetail } from "@redux/slides/data/product";
 
-const ProductPage: NextPage = (props) => {
+const ProductDetailPage: NextPage = (props) => {
   return (
     <Fragment>
       <MetaTitle title="Sản phẩm" />
-      <ProductDetailPage />
+      <ProductDetail />
     </Fragment>
   );
 };
 
-export default ProductPage;
+export default ProductDetailPage;
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const { data } = await fetchProduct.getAllProduct({});
@@ -28,7 +29,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths: paths,
-    fallback: "blocking",
+    fallback: false,
   };
 };
 
@@ -36,15 +37,16 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
   (store) =>
     async ({ params }) => {
       const { dispatch, sagaTask } = store;
-      const { productDetail } = params as { productDetail: string };
+      const { productDetail } = params as { productDetail: string[] };
 
       dispatch(getCategories());
+      dispatch(getProductDetail({ id: productDetail[0] }));
       dispatch(END);
       await sagaTask.toPromise();
 
       return {
         props: {},
-        revalidate: 10000,
+        revalidate: 60 * 60 * 10,
       };
     }
 );

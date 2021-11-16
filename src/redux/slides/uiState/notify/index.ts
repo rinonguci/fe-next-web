@@ -1,41 +1,43 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-export interface INotifySlice {
-  success: boolean;
-  error: boolean;
-  message?: string;
-}
+import { toast } from "react-toastify";
 
 type IPayload = string;
 
-const initialState: INotifySlice = {
-  success: false,
-  error: false,
-  message: "",
-};
+export interface INotifySlice {}
+const initialState: INotifySlice = {};
 
 const notifySlice = createSlice({
   name: "categories",
   initialState,
   reducers: {
     openSuccess: (state, action: PayloadAction<IPayload>) => {
-      state.success = true;
-      state.message = action.payload;
+      toast.success(`🦄 ${action.payload}!`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     },
-    closeSuccess: (state) => {
-      state.success = false;
-    },
+
     openError: (state, action: PayloadAction<IPayload>) => {
-      state.error = true;
-      state.message = action.payload;
-    },
-    closeError: (state) => {
-      state.error = false;
+      console.log(action);
+
+      toast.error(`🦄 ${action.payload}!`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     },
   },
 });
-export const { closeError, closeSuccess, openError, openSuccess } =
-  notifySlice.actions;
+export const { openError, openSuccess } = notifySlice.actions;
 
 const notifyReducer = notifySlice.reducer;
 export default notifyReducer;

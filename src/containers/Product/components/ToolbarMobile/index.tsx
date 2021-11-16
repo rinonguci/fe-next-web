@@ -1,7 +1,7 @@
 import Filter from "@components/Filter";
 import useWindowSize from "@hooks/useWindowSize";
 import { IFacet } from "@interfaces/redux/product";
-import { FC, useCallback, useEffect, useRef, useState } from "react";
+import { FC, Fragment, useCallback, useEffect, useRef, useState } from "react";
 import styled, { css } from "styled-components";
 import tw from "twin.macro";
 
@@ -58,36 +58,41 @@ interface IToolbarMobile {
 }
 
 const ToolbarMobile: FC<IToolbarMobile> = ({ isActive, facets, onClick }) => {
+  const { width } = useWindowSize();
   return (
-    <ToolbarMobileContainer>
-      <ToolbarMobileBox>
-        <ItemContainer isActive={isActive}>
-          <ItemBox onClick={onClick}>
-            <ItemText>Filter</ItemText>
-            <ItemIcon />
-          </ItemBox>
-          <ItemBox onClick={onClick}>
-            <ItemText>Price low - hight</ItemText>
-            <ItemIcon />
-          </ItemBox>
-        </ItemContainer>
+    <Fragment>
+      {width && width < 767 && (
+        <ToolbarMobileContainer>
+          <ToolbarMobileBox>
+            <ItemContainer isActive={isActive}>
+              <ItemBox onClick={onClick}>
+                <ItemText>Filter</ItemText>
+                <ItemIcon />
+              </ItemBox>
+              <ItemBox onClick={onClick}>
+                <ItemText>Price low - hight</ItemText>
+                <ItemIcon />
+              </ItemBox>
+            </ItemContainer>
 
-        <FilterContainer isActive={isActive}>
-          <FilterBox>
-            {facets &&
-              facets.map((value: IFacet) => (
-                <Filter key={value.name} data={value} />
-              ))}
-          </FilterBox>
-        </FilterContainer>
-      </ToolbarMobileBox>
-      <ItemContainerBottom isActive={isActive}>
-        <ItemBoxBottom onClick={onClick}>
-          <ItemTextBottom>Filter</ItemTextBottom>
-          <ItemIcon />
-        </ItemBoxBottom>
-      </ItemContainerBottom>
-    </ToolbarMobileContainer>
+            <FilterContainer isActive={isActive}>
+              <FilterBox>
+                {facets &&
+                  facets.map((value: IFacet) => (
+                    <Filter key={value.name} data={value} />
+                  ))}
+              </FilterBox>
+            </FilterContainer>
+          </ToolbarMobileBox>
+          <ItemContainerBottom isActive={isActive}>
+            <ItemBoxBottom onClick={onClick}>
+              <ItemTextBottom>Filter</ItemTextBottom>
+              <ItemIcon />
+            </ItemBoxBottom>
+          </ItemContainerBottom>
+        </ToolbarMobileContainer>
+      )}
+    </Fragment>
   );
 };
 

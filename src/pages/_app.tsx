@@ -10,6 +10,7 @@ import GlobalStyles from "@common/styles/GlobalStyles";
 import "tailwindcss/tailwind.css";
 import "react-toastify/dist/ReactToastify.css";
 import "react-loading-skeleton/dist/skeleton.css";
+import "react-inner-image-zoom/lib/InnerImageZoom/styles.min.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

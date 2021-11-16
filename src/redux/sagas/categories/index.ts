@@ -13,13 +13,11 @@ function* getCategoriesSaga() {
     const response: IAxiosResponse<Array<ICategory>> = yield call(
       fetchCategories.getCategories
     );
-    console.log(123);
 
     const { data = [] } = response;
 
     yield put(getCategoriesSuccess(data as Array<ICategory>));
   } catch (error) {
-    getCategoriesSaga();
     yield put(openError("Loading category fail"));
   }
 }

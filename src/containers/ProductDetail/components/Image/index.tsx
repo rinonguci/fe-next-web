@@ -1,16 +1,17 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
+import InnerImageZoom from "react-inner-image-zoom";
 
 const ImageContainer = styled.div`
-  ${tw`sm:gap-10 gap-20 mx-auto flex items-center`}
+  ${tw`sm:gap-10 lg:gap-20 xl:gap-2 gap-10 flex items-center`}
 `;
 const ImageMainBox = styled.div`
-  ${tw``}
+  ${tw`flex-grow text-center`}
 `;
 
 const ListImageBox = styled.div`
-  ${tw`w-[90px] lg:w-[70px] flex-shrink-0`}
+  ${tw`w-[100px] lg:w-[90px] md:w-[80px] flex-shrink-0 `}
 `;
 
 const ListImage = styled.ul`
@@ -18,57 +19,65 @@ const ListImage = styled.ul`
 `;
 
 const ImageItem = styled.li<{ isActive?: boolean }>`
-  ${tw``}
+  ${tw`shadow`}
   ${({ isActive }) => isActive && tw`border border-black`};
 `;
 
-interface IImage {}
+interface IImage {
+  images: string[];
+  imageCover: string[];
+  name?: string;
+}
 
-const Image: FC<IImage> = () => {
+const Image: FC<IImage> = ({ images, imageCover, name = "" }) => {
+  const [arrImages, setArrImages] = useState<
+    Array<{ id: number; urlSmall: string; urlBig: string }>
+  >([]);
+
+  const [selected, setSelected] =
+    useState<{ id: number; urlSmall: string; urlBig: string }>();
+
+  useEffect(() => {
+    let imagesNew = images.map((value, index) => ({
+      id: index,
+      urlSmall: imageCover[index],
+      urlBig: value,
+    }));
+    setSelected(imagesNew[0]);
+    setArrImages(imagesNew);
+  }, []);
+
+  const handeleSelect = (value: {
+    id: number;
+    urlSmall: string;
+    urlBig: string;
+  }) => {
+    setSelected(value);
+  };
+
   return (
     <ImageContainer>
       <ListImageBox>
         <ListImage>
-          <ImageItem isActive={true}>
-            <img
-              alt="Foque - Boys Ivory &amp; Grey Shorts Set | Childrensalon"
-              data-src="https://cdn.childrensalon.com/media/catalog/product/cache/0/small_image/256x256/9df78eab33525d08d6e5fb8d27136e95/f/o/foque-boys-ivory-grey-shorts-set-399358-a3fd91f0e9d56d46da9e9b41c1b7c273319e6bec.jpg"
-              src="https://cdn.childrensalon.com/media/catalog/product/cache/0/small_image/256x256/9df78eab33525d08d6e5fb8d27136e95/f/o/foque-boys-ivory-grey-shorts-set-399358-a3fd91f0e9d56d46da9e9b41c1b7c273319e6bec.jpg"
-              className=" lazyloaded"
-            />
-          </ImageItem>
-          <ImageItem>
-            <img
-              alt="Foque - Boys Ivory &amp; Grey Shorts Set | Childrensalon"
-              data-src="https://cdn.childrensalon.com/media/catalog/product/cache/0/small_image/256x256/9df78eab33525d08d6e5fb8d27136e95/f/o/foque-boys-ivory-grey-shorts-set-399358-a3fd91f0e9d56d46da9e9b41c1b7c273319e6bec.jpg"
-              src="https://cdn.childrensalon.com/media/catalog/product/cache/0/small_image/256x256/9df78eab33525d08d6e5fb8d27136e95/f/o/foque-boys-ivory-grey-shorts-set-399358-a3fd91f0e9d56d46da9e9b41c1b7c273319e6bec.jpg"
-              className=" lazyloaded"
-            />
-          </ImageItem>
-          <ImageItem>
-            <img
-              alt="Foque - Boys Ivory &amp; Grey Shorts Set | Childrensalon"
-              data-src="https://cdn.childrensalon.com/media/catalog/product/cache/0/small_image/256x256/9df78eab33525d08d6e5fb8d27136e95/f/o/foque-boys-ivory-grey-shorts-set-399358-a3fd91f0e9d56d46da9e9b41c1b7c273319e6bec.jpg"
-              src="https://cdn.childrensalon.com/media/catalog/product/cache/0/small_image/256x256/9df78eab33525d08d6e5fb8d27136e95/f/o/foque-boys-ivory-grey-shorts-set-399358-a3fd91f0e9d56d46da9e9b41c1b7c273319e6bec.jpg"
-              className=" lazyloaded"
-            />
-          </ImageItem>
-          <ImageItem>
-            <img
-              alt="Foque - Boys Ivory &amp; Grey Shorts Set | Childrensalon"
-              data-src="https://cdn.childrensalon.com/media/catalog/product/cache/0/small_image/256x256/9df78eab33525d08d6e5fb8d27136e95/f/o/foque-boys-ivory-grey-shorts-set-399358-a3fd91f0e9d56d46da9e9b41c1b7c273319e6bec.jpg"
-              src="https://cdn.childrensalon.com/media/catalog/product/cache/0/small_image/256x256/9df78eab33525d08d6e5fb8d27136e95/f/o/foque-boys-ivory-grey-shorts-set-399358-a3fd91f0e9d56d46da9e9b41c1b7c273319e6bec.jpg"
-              className=" lazyloaded"
-            />
-          </ImageItem>
+          {arrImages &&
+            arrImages.map((value) => (
+              <ImageItem
+                onClick={() => handeleSelect(value)}
+                isActive={value.id === selected?.id}
+                key={value.id}
+              >
+                <img alt={name + value.id} src={value.urlSmall} />
+              </ImageItem>
+            ))}
         </ListImage>
       </ListImageBox>
       <ImageMainBox>
-        <img
-          alt="Foque - Boys Ivory &amp; Grey Shorts Set | Childrensalon"
-          data-src="https://cdn.childrensalon.com/media/catalog/product/cache/0/image/1000x1000/9df78eab33525d08d6e5fb8d27136e95/f/o/foque-boys-ivory-grey-shorts-set-399358-a3fd91f0e9d56d46da9e9b41c1b7c273319e6bec.jpg"
-          src="https://cdn.childrensalon.com/media/catalog/product/cache/0/image/1000x1000/9df78eab33525d08d6e5fb8d27136e95/f/o/foque-boys-ivory-grey-shorts-set-399358-a3fd91f0e9d56d46da9e9b41c1b7c273319e6bec.jpg"
-          className="j-zoom-image lazyloaded"
+        <InnerImageZoom
+          sizes="500"
+          className="shadow"
+          src={selected?.urlSmall || ""}
+          zoomSrc={selected?.urlBig}
+          alt={name}
         />
       </ImageMainBox>
     </ImageContainer>

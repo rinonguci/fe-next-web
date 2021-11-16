@@ -1,10 +1,11 @@
 import IconSVG from "@designs/IconSVG";
 import { IProduct } from "@interfaces/redux/product";
-import { FC } from "react";
+import { FC, useState } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import Skeleton from "react-loading-skeleton";
+import Delayed from "@components/Delayed";
 
 const ProductCardContainer = styled.div`
   ${tw`flex flex-col gap-2 relative pt-10`}
@@ -39,15 +40,22 @@ interface IProductCard {
 }
 
 const ProductCard: FC<IProductCard> = ({ data }) => {
+  const [check, setCheck] = useState<boolean>(false);
+
+  const handleLoadImage = () => {
+    setCheck(true);
+  };
+
   return (
     <ProductCardContainer>
       <ImageBox>
         <LazyLoadImage
-          effect="opacity"
+          afterLoad={handleLoadImage}
+          effect="blur"
           src={data.imageCovers[0]}
           alt={data.name}
           placeholder={<Skeleton className="rounded" />}
-          delayTime={2000}
+          delayTime={10000}
         />
       </ImageBox>
 
@@ -77,9 +85,9 @@ const ProductCard: FC<IProductCard> = ({ data }) => {
           </tbody>
         </table>
       </div> */}
-      <Design>{data.brand}</Design>
-      <Name>{data.name}</Name>
-      <Price> ${data.price} </Price>
+      <Design>{check ? data.brand : <Skeleton />}</Design>
+      <Name>{check ? data.name : <Skeleton />}</Name>
+      <Price>{check ? `$ ${data.price}` : <Skeleton />}</Price>
 
       <HeartBox>
         <IconSVG iconHref="/icon.svg#svgs-wishlist" />

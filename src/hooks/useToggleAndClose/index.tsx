@@ -8,12 +8,16 @@ const useToggleAndClose = (
 
   const handleClose = useCallback((e: MouseEvent) => {
     const element: HTMLDivElement | null = e?.target as HTMLDivElement;
+    console.log(element.dataset?.element === name);
+
     if (element.dataset?.element === name) return;
 
     setState(false);
   }, []);
 
   useEffect(() => {
+    console.log(state);
+
     if (state) {
       document.addEventListener("mousedown", handleClose, false);
     } else {

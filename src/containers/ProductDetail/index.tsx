@@ -1,22 +1,25 @@
 import Layout from "@components/Layout";
+import IconSVG from "@designs/IconSVG";
+import { useAppSelector } from "@hooks/redux";
 import { FC } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 import Image from "./components/Image";
+import Select from "./components/Select";
 
 const ProductDetailContainer = styled.div`
-  ${tw`container lg:max-w-full mx-auto xl:px-4 mt-20 px-20`}
+  ${tw`container lg:max-w-full mx-auto xl:px-4  mt-40 px-40`}
 `;
 const ProductDetailBox = styled.div`
   ${tw`grid grid-cols-6 lg:block`}
 `;
 
 const ProductImageContainer = styled.div`
-  ${tw`col-span-4 lg:w-[600px] md:w-full md:px-20 sm:px-4 px-10`}
+  ${tw`col-span-4 lg:w-[600px] lg:mx-auto md:w-full  md:px-20 sm:px-4 px-10`}
 `;
 
 const ProductInfoContainer = styled.div`
-  ${tw` `}
+  ${tw`col-span-2 px-20 py-20 xl:px-10 lg:px-20 sm:px-4 `}
 `;
 
 const ProductInfoTopContainer = styled.div`
@@ -24,53 +27,86 @@ const ProductInfoTopContainer = styled.div`
 `;
 
 const ProductInfoBox = styled.div`
-  ${tw``}
+  ${tw`grid gap-3`}
 `;
 const Design = styled.h3`
-  ${tw``}
+  ${tw`font-medium text-3xl`}
 `;
 const Name = styled.h3`
-  ${tw``}
+  ${tw`font-light text-lg`}
 `;
 const Price = styled.h3`
-  ${tw``}
+  ${tw`text-xl font-medium`}
 `;
 
 const ProductPayBox = styled.div`
-  ${tw``}
-`;
-
-const ProductPayControl = styled.div`
-  ${tw``}
+  ${tw`grid gap-6`}
 `;
 
 const ProductInfoBottomContainer = styled.div`
-  ${tw` `}
+  ${tw``}
 `;
 
-interface IProductDetailPage {}
+const DeliveryLink = styled.span`
+  ${tw`block text-sm underline text-black-lv3`}
+`;
 
-const ProductDetailPage: FC<IProductDetailPage> = () => {
+const ProductPayControl = styled.div`
+  ${tw`flex justify-between gap-x-10 gap-y-1`}
+`;
+
+const ButtonWishList = styled.button`
+  ${tw`h-20 w-20 flex justify-center items-center rounded border border-black`}
+`;
+
+const Button = styled.div`
+  ${tw`h-20 text-center pt-4 bg-green-500 rounded text-white font-bold  text-lg flex-grow`}
+`;
+
+const MoreProduct = styled.span`
+  ${tw`pb-1 border-b border-black cursor-pointer`}
+  max-width: max-content;
+`;
+
+interface IProductDetail {}
+
+const ProductDetail: FC<IProductDetail> = () => {
+  const { productDetail } = useAppSelector(
+    (state) => state.dataReducers.productReducer
+  );
+
   return (
     <Layout>
       <ProductDetailContainer>
         <ProductDetailBox>
           <ProductImageContainer>
-            <Image />
+            <Image
+              images={productDetail?.images!}
+              imageCover={productDetail?.imageCovers!}
+              name={productDetail?.name!}
+            />
           </ProductImageContainer>
           <ProductInfoContainer>
             <ProductInfoTopContainer>
               <ProductInfoBox>
-                <Design>Foque</Design>
-                <Name>Boys Ivory & Grey Shorts Set</Name>
-                <Price>$82</Price>
+                <Design>{productDetail?.brand}</Design>
+                <Name>{productDetail?.name}</Name>
+                <Price>${productDetail?.price}</Price>
               </ProductInfoBox>
-            </ProductInfoTopContainer>
-            <ProductInfoBottomContainer>
               <ProductPayBox>
-                <ProductPayControl></ProductPayControl>
+                <Select list={productDetail?.variants} />
+                <DeliveryLink>2-5 worrking days</DeliveryLink>
+                <DeliveryLink>21 day to return</DeliveryLink>
+                <ProductPayControl>
+                  <ButtonWishList>
+                    <IconSVG iconHref="/icon.svg#svgs-wishlist" />
+                  </ButtonWishList>
+                  <Button>Add to cart</Button>
+                </ProductPayControl>
+                <MoreProduct>More product infomation</MoreProduct>
               </ProductPayBox>
-            </ProductInfoBottomContainer>
+            </ProductInfoTopContainer>
+            <ProductInfoBottomContainer></ProductInfoBottomContainer>
           </ProductInfoContainer>
         </ProductDetailBox>
       </ProductDetailContainer>
@@ -78,4 +114,4 @@ const ProductDetailPage: FC<IProductDetailPage> = () => {
   );
 };
 
-export default ProductDetailPage;
+export default ProductDetail;

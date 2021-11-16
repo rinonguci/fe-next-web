@@ -4,6 +4,8 @@ import { IProduct } from "@interfaces/redux/product";
 import { FC } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
+import Skeleton from "react-loading-skeleton";
+import Delayed from "@components/Delayed";
 
 const CategoryProductContainer = styled.div`
   ${tw``}
@@ -34,7 +36,7 @@ const CategoryProduct: FC<ICategoryProduct> = ({ products, gapX }) => {
         {products &&
           products.map((value) => (
             <CategoryProductItem key={value._id}>
-              <Link href={value.slug}>
+              <Link href={`/product/${value._id}/${value.slug}`}>
                 <ProductCard data={value} />
               </Link>
             </CategoryProductItem>

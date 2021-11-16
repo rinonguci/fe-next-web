@@ -1,8 +1,9 @@
 import { IFacet } from "@interfaces/redux/product";
-import { FC, useState } from "react";
+import { FC, MouseEventHandler, useEffect, useRef, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 import tw from "twin.macro";
 import Check from "./components/Check";
+import { useRouter } from "next/router";
 
 const FilterContainer = styled.div`
   ${tw``}
@@ -40,29 +41,29 @@ const Text = styled.span`
 `;
 
 const Arrow = styled.span<{ isActive: boolean }>`
-  ${tw`relative top-1/2`}
+  ${tw`border-l border-b  border-black-lv1`}
 
-  &::before {
-    ${tw`border-l border-b  border-black-lv1`}
-    content: "";
-    position: absolute;
-    height: 7px;
-    aspect-ratio: 1/1;
+  height: 7px;
+  aspect-ratio: 1/1;
 
-    transform: rotate(135deg);
+  transform: rotate(135deg);
 
-    right: 26px;
-    transition: transform 300ms cubic-bezier(0.19, 1, 0.22, 1);
-  }
+  transition: transform 300ms cubic-bezier(0.19, 1, 0.22, 1);
 
   ${({ isActive }) =>
     isActive &&
     css`
-      &::before {
-        transform: rotate(-45deg);
-      }
+      transform: rotate(-45deg);
     `}
 `;
+
+const Box = styled.div`
+  ${tw`flex items-center gap-4`}
+`;
+const Clear = styled.span`
+  ${tw`text-black-lv3 font-normal cursor-pointer`}
+`;
+
 interface IFilter {
   data: IFacet;
 }
@@ -70,17 +71,69 @@ interface IFilter {
 const listCloumn2 = ["Clothing sizes", "Colors"];
 
 const Filter: FC<IFilter> = ({ data }) => {
+  const router = useRouter();
   const [isActive, setIsActive] = useState<boolean>(false);
+  const [isActiveFilter, setIsActiveFilter] = useState<boolean>(false);
 
-  const handleActive = () => {
+  useEffect(() => {
+    let check = document?.querySelectorAll(
+      `[data-checkedfilter=true][data-namefilter="${data.name.trim()}"]`
+    );
+    if (check.length > 0) {
+      setIsActiveFilter(true);
+    } else {
+      setIsActiveFilter(false);
+    }
+  }, [router.query]);
+
+  const handleActive = (e: any) => {
+    let element = e.target as HTMLDivElement;
+
+    if (element.dataset.element) {
+      return;
+    }
+
     setIsActive(!isActive);
+  };
+
+  const handleClear = () => {
+    let checked = Array.from(
+      document.querySelectorAll(
+        `[data-checkedfilter=true][data-namefilter=${data.name.trim()}]`
+      )
+    );
+
+    if (checked.length === 0) return;
+
+    let arrId = checked.map((value) => (value as HTMLElement).dataset.filterid);
+
+    let url = new URL(location.origin + router.asPath);
+    let p = url.searchParams.getAll("p");
+    let sort = url.searchParams.getAll("sort");
+
+    let newParam = p.filter((value) => arrId.indexOf(value) === -1);
+
+    router.push(
+      { pathname: url.pathname, query: { p: newParam, sort: sort } },
+      undefined,
+      {
+        shallow: true,
+      }
+    );
   };
 
   return (
     <FilterContainer>
       <FilterTitle onClick={handleActive}>
         <Text>{data.name}</Text>
-        <Arrow isActive={isActive} />
+        <Box>
+          {isActiveFilter && (
+            <Clear data-element="clear" onClick={handleClear}>
+              Clear
+            </Clear>
+          )}
+          <Arrow isActive={isActive} />
+        </Box>
       </FilterTitle>
 
       <FilterList
@@ -89,7 +142,11 @@ const Filter: FC<IFilter> = ({ data }) => {
       >
         {data.values.map((value) => (
           <FilterItem key={value.id}>
-            <Check onClick={() => {}} id={value.id} name={value.name} />
+            <Check
+              nameFilter={data.name.trim()}
+              id={value.id}
+              name={value.name}
+            />
           </FilterItem>
         ))}
       </FilterList>

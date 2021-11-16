@@ -15,7 +15,7 @@ export type Method =
 // axios.defaults.baseURL = "https://api-web-summon.vercel.app/api/v1/";
 axios.defaults.baseURL = "https://shopme-three.vercel.app/api/v1/";
 const axiosRepository: AxiosInstance = axios.create({
-  timeout: 10000,
+  timeout: 20000,
   headers: {
     "Content-Type": "application/json",
   },

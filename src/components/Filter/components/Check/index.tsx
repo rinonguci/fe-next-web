@@ -1,10 +1,9 @@
-import { FC, useEffect, useState } from "react";
+import { FC, MutableRefObject, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 import { useRouter } from "next/router";
 import { handlePathQuery } from "@common/helper/path/handlePathQuery";
 
-import { withRouter, SingletonRouter } from "next/router";
 const CheckContainer = styled.div`
   ${tw`flex items-center gap-3`}
 `;
@@ -43,19 +42,26 @@ const Name = styled.span`
 interface ICheck {
   name: string;
   id: string;
-  onClick: (id: string) => void;
-  router?: SingletonRouter;
+  nameFilter: string;
 }
 
-const Check: FC<ICheck> = ({ name, id }) => {
+const Check: FC<ICheck> = ({ name, id, nameFilter }) => {
   const router = useRouter();
   const {
     query: { p },
   } = router;
-  const [href, setHref] = useState<{ path: string; query?: string }>();
+  const [href, setHref] =
+    useState<{ path: string; query?: { p: string[]; sort: string[] } }>();
+  var ref = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    setHref(handlePathQuery(router, id));
+    handleChecked(id);
+  }, [p]);
+
+  useEffect(() => {
+    let url = new URL(location.origin + router.asPath);
+
+    setHref(handlePathQuery(url, id));
   }, [p]);
 
   const handlePushRouter = () => {
@@ -65,16 +71,21 @@ const Check: FC<ICheck> = ({ name, id }) => {
   };
 
   const handleChecked = (id: string) => {
-    if (typeof p === "string") return p === id;
-    if (p && p?.length > 1) return p.some((value) => value === id);
+    let url = new URL(location.origin + router.asPath);
+
+    let check = url?.searchParams.getAll("p").some((value) => value === id);
+
+    if (ref?.current) ref.current.checked = check;
   };
 
   return (
     <CheckContainer>
       <InputCheck
+        ref={ref}
         onChange={() => handlePushRouter()}
-        checked={handleChecked(id)}
-        id={id}
+        data-filterid={id}
+        data-namefilter={nameFilter}
+        data-checkedfilter={ref.current?.checked}
         type="checkbox"
       />
       <Name>{name}</Name>
