@@ -7,10 +7,12 @@ export interface INotifySlice {}
 const initialState: INotifySlice = {};
 
 const notifySlice = createSlice({
-  name: "categories",
+  name: "notify",
   initialState,
   reducers: {
     openSuccess: (state, action: PayloadAction<IPayload>) => {
+      console.log(action);
+
       toast.success(`🦄 ${action.payload}!`, {
         position: "top-right",
         autoClose: 5000,

@@ -35,8 +35,11 @@ const InputCheck = styled.input`
   }
 `;
 
-const Name = styled.span`
+const Name = styled.label`
   ${tw`text-sm line-height[1] text-black-lv1`}
+  &:hover {
+    filter: opacity(0.8);
+  }
 `;
 
 interface ICheck {
@@ -87,8 +90,9 @@ const Check: FC<ICheck> = ({ name, id, nameFilter }) => {
         data-namefilter={nameFilter}
         data-checkedfilter={ref.current?.checked}
         type="checkbox"
+        id={id}
       />
-      <Name>{name}</Name>
+      <Name htmlFor={id}>{name}</Name>
     </CheckContainer>
   );
 };

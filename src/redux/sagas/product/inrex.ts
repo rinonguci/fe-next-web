@@ -14,14 +14,21 @@ import {
 } from "@redux/slides/data/product";
 
 import { openError } from "@redux/slides/uiState/notify";
+import {
+  setStatusLoading,
+  setStatusLoadingClose,
+} from "@redux/slides/uiState/loading";
+import { useAppDispatch } from "@hooks/redux";
 
 function* getProductsByTypeSaga(action: any) {
   try {
     const { payload } = action;
+    yield put(setStatusLoading("start"));
     const response: IAxiosResponse<Array<IProduct>> = yield call(
       fetchProduct.getProductByType,
       payload
     );
+    yield put(setStatusLoading("end"));
 
     const { data } = response;
 

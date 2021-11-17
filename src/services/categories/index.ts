@@ -1,6 +1,6 @@
 import { ICategory } from "@interfaces/redux";
 
-import axiosRepository from "@utils/axios";
+import AxiosService from "@utils/axios";
 import { IAxiosResponse } from "@interfaces/common/IAxiosResponse";
 
 const axios = {
@@ -10,9 +10,9 @@ const axios = {
 const fetchCategories = {
   getCategories: async () => {
     try {
-      const response = await axiosRepository.get<
-        IAxiosResponse<Array<ICategory>>
-      >(axios.url);
+      const response = await AxiosService.get<IAxiosResponse<Array<ICategory>>>(
+        axios.url
+      );
 
       return response.data;
     } catch (error) {

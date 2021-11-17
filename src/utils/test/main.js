@@ -1,7 +1,7 @@
 const axios = require("axios");
 
 axios.defaults.baseURL = "https://shopme-three.vercel.app/api/v1/";
-const axiosRepository = axios.create({
+const AxiosService = axios.create({
   timeout: 10000,
   headers: {
     "User-Agent":
@@ -11,28 +11,28 @@ const axiosRepository = axios.create({
 });
 
 const axiosData = {
-  url: "categories/320/products",
+  url: "categories",
 };
 
 const fetchCategories = {
   getCategories: async () => {
     try {
-      const response = await axiosRepository.get(
-        axiosData.url,
-        {},
-        {
-          params: {
-            p: "000115",
-          },
-        }
-      );
-      return response.data;
+      const response1 = await AxiosService.get(axiosData.url);
+      const response2 = await AxiosService.get(axiosData.url);
+      const response3 = await AxiosService.get(axiosData.url);
+      const response4 = await AxiosService.get(axiosData.url);
+      const response5 = await AxiosService.get(axiosData.url);
+      const response6 = await AxiosService.get(axiosData.url);
+      const response7 = await AxiosService.get(axiosData.url);
+      const response8 = await AxiosService.get(axiosData.url);
+
+      return response1.data;
     } catch (error) {
       console.log(error);
     }
   },
 };
 
-fetchCategories.getCategories().then((value) => {
+Promise.all(fetchCategories.getCategories).then((value) => {
   console.log(value);
 });

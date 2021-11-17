@@ -1,3 +1,4 @@
+import Loading from "@components/Loading";
 import { useAppSelector } from "@hooks/redux";
 import { FC, Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
@@ -37,6 +38,7 @@ const Layout: FC<ILayout> = ({ children }) => {
 
   return (
     <Fragment>
+      <Loading />
       <Header />
       <Wrapper id="wrapper">
         {children}

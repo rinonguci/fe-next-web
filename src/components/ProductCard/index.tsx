@@ -9,6 +9,9 @@ import Delayed from "@components/Delayed";
 
 const ProductCardContainer = styled.div`
   ${tw`flex flex-col gap-2 relative pt-10`}
+  &:hover {
+    filter: opacity(0.8);
+  }
 `;
 
 const ImageBox = styled.div`

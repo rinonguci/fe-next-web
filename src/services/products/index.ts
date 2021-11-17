@@ -4,7 +4,7 @@ import {
   IGetAllProductsPayload,
   IGetProductDetailPayload,
 } from "@redux/slides/data/product";
-import axiosRepository from "@utils/axios";
+import AxiosService from "@utils/axios";
 import { IAxiosResponse } from "@interfaces/common/IAxiosResponse";
 import { IFacet, IProduct, IProductDetail } from "@interfaces/redux/product";
 
@@ -20,9 +20,9 @@ const axios = {
 const fetchProduct = {
   getProductByType: async (payload: IGetProductsByTypePayload) => {
     try {
-      const response = await axiosRepository.get<
-        IAxiosResponse<Array<IProduct>>
-      >(axios.urlGetProductByType(payload));
+      const response = await AxiosService.get<IAxiosResponse<Array<IProduct>>>(
+        axios.urlGetProductByType(payload)
+      );
 
       return response.data;
     } catch (error) {
@@ -31,9 +31,9 @@ const fetchProduct = {
   },
   getAllProduct: async (payload: IGetAllProductsPayload) => {
     try {
-      const response = await axiosRepository.get<
-        IAxiosResponse<Array<IProduct>>
-      >(axios.urlGetAllProduct(payload));
+      const response = await AxiosService.get<IAxiosResponse<Array<IProduct>>>(
+        axios.urlGetAllProduct(payload)
+      );
 
       return response.data;
     } catch (error) {
@@ -42,9 +42,9 @@ const fetchProduct = {
   },
   getProductDetail: async (payload: IGetProductDetailPayload) => {
     try {
-      const response = await axiosRepository.get<
-        IAxiosResponse<IProductDetail>
-      >(axios.urlGetProductDetail(payload));
+      const response = await AxiosService.get<IAxiosResponse<IProductDetail>>(
+        axios.urlGetProductDetail(payload)
+      );
 
       return response.data;
     } catch (error) {
@@ -53,7 +53,7 @@ const fetchProduct = {
   },
   getFacts: async (payload: IGetFacetsPayload) => {
     try {
-      const response = await axiosRepository.get<IAxiosResponse<IFacet>>(
+      const response = await AxiosService.get<IAxiosResponse<IFacet>>(
         axios.urlGetFacet(payload)
       );
 

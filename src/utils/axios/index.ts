@@ -12,13 +12,23 @@ export type Method =
   | "link"
   | "unlink";
 
-// axios.defaults.baseURL = "https://api-web-summon.vercel.app/api/v1/";
 axios.defaults.baseURL = "https://shopme-three.vercel.app/api/v1/";
-const axiosRepository: AxiosInstance = axios.create({
-  timeout: 20000,
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
 
-export default axiosRepository;
+class AxiosService {
+  #instance: AxiosInstance;
+  constructor() {
+    const instance = axios.create({
+      timeout: 20000,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    this.#instance = instance;
+  }
+  getInstance() {
+    return this.#instance;
+  }
+}
+
+export default new AxiosService().getInstance();
