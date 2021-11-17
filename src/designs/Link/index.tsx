@@ -1,15 +1,28 @@
-import { FC } from "react";
-import NextLink from "next/link";
+import { FC, MouseEvent, useEffect } from "react";
+import NextLink, { LinkProps } from "next/link";
+import { useAppDispatch } from "@hooks/redux";
+import { setStatusLoading } from "@redux/slides/uiState/loading";
+import { useRouter } from "next/router";
 
-interface ILink {
-  href?: any;
-}
+interface ILink extends LinkProps {}
 
-const Link: FC<ILink> = ({ children, href }, props) => {
+const Link: FC<ILink> = (props) => {
+  const { children, href, shallow } = props;
+
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+
+  const handleLoading = (e: MouseEvent<HTMLAnchorElement>) => {
+    dispatch(setStatusLoading({ status: "start", to: "link", time: 10 }));
+    if (!shallow) {
+      e.preventDefault();
+      router.push(href);
+    }
+  };
   return (
-    <NextLink href={href || "/notfound"}>
-      <a {...props}>{children}</a>
-    </NextLink>
+    <a {...props} onClick={handleLoading} href={href.toString() || "/notfound"}>
+      {children}
+    </a>
   );
 };
 

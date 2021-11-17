@@ -11,9 +11,9 @@ const LoadingContainer = styled.div`
   ${tw`absolute h-[4px] w-full top-0 left-0 right-0 z-[100] overflow-hidden`}
 `;
 
-const Load = styled.div<{ status: IStatusLoading }>`
+const Load = styled.div<{ status: IStatusLoading; time: number }>`
   ${tw`h-full w-full bg-green-500`}
-  ${({ status }) => {
+  ${({ status, time }) => {
     switch (status) {
       case "close":
         return css`
@@ -22,7 +22,7 @@ const Load = styled.div<{ status: IStatusLoading }>`
       case "start":
         return css`
           transform: translateX(-40%);
-          transition: all 6s cubic-bezier(0.39, 0.575, 0.565, 1);
+          transition: all ${time}s cubic-bezier(0.39, 0.575, 0.565, 1);
         `;
       case "close":
         return css`
@@ -37,7 +37,7 @@ interface ILoading {}
 
 const Loading: FC<ILoading> = () => {
   const dispatch = useAppDispatch();
-  const { status } = useAppSelector(
+  const { status, time } = useAppSelector(
     (state) => state.uiStateReducers.loadingReducer
   );
 
@@ -51,7 +51,7 @@ const Loading: FC<ILoading> = () => {
 
   return (
     <LoadingContainer>
-      <Load status={status} />
+      <Load time={time} status={status} />
     </LoadingContainer>
   );
 };

@@ -3,19 +3,37 @@ import { put } from "redux-saga/effects";
 
 export type IStatusLoading = "start" | "end" | "close";
 
-export interface ILoadingSlice {
+interface ILoadingSlice {
   status: IStatusLoading;
+  to?: "link" | "saga";
+  time: number;
 }
+
+interface ILoadingSlicePayload {
+  status: IStatusLoading;
+  to?: "link" | "saga";
+  time?: number;
+}
+
 const initialState: ILoadingSlice = {
   status: "close",
+  to: "saga",
+  time: 0,
 };
 
 const loadingSlice = createSlice({
   name: "loading",
   initialState,
   reducers: {
-    setStatusLoading: (state, action: PayloadAction<IStatusLoading>) => {
-      state.status = action.payload;
+    setStatusLoading: (
+      state,
+      {
+        payload: { status, to = "saga", time = 6 },
+      }: PayloadAction<ILoadingSlicePayload>
+    ) => {
+      state.status = status;
+      state.to = to;
+      state.time = time;
     },
   },
 });
@@ -23,7 +41,7 @@ const loadingSlice = createSlice({
 export const { setStatusLoading } = loadingSlice.actions;
 export const setStatusLoadingClose = () => async (dispatch: any) => {
   await setTimeout(() => {
-    dispatch(setStatusLoading("close"));
+    dispatch(setStatusLoading({ status: "close" }));
   }, 500);
 };
 

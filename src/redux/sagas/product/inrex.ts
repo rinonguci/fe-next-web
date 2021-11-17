@@ -23,12 +23,12 @@ import { useAppDispatch } from "@hooks/redux";
 function* getProductsByTypeSaga(action: any) {
   try {
     const { payload } = action;
-    yield put(setStatusLoading("start"));
+    yield put(setStatusLoading({ status: "start" }));
     const response: IAxiosResponse<Array<IProduct>> = yield call(
       fetchProduct.getProductByType,
       payload
     );
-    yield put(setStatusLoading("end"));
+    yield put(setStatusLoading({ status: "end" }));
 
     const { data } = response;
 
