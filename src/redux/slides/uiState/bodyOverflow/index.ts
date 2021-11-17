@@ -6,7 +6,7 @@ export interface ICategorySlice {
 }
 
 const initialState: ICategorySlice = {
-  overflow: false,
+  overflow: true,
 };
 
 const bodySlice = createSlice({

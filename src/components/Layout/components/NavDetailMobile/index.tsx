@@ -72,9 +72,8 @@ const NavDetailMobile: FC<INavDetailMobile> = () => {
 
   useEffect(() => {
     document.addEventListener("click", handleClose, false);
-    document.body.style.overflow = "hidden";
+
     return () => {
-      document.body.style.overflow = "auto";
       document.removeEventListener("click", handleClose, false);
     };
   }, []);
