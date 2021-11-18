@@ -11,13 +11,13 @@ import {
   getProductsByType,
   getProductsByTypeSuccess,
   getProductDetail,
-} from "@redux/slides/data/product";
+} from "@redux/slides/product";
 
-import { openError } from "@redux/slides/uiState/notify";
+import { openError } from "@redux/slides/common/notify";
 import {
   setStatusLoading,
   setStatusLoadingClose,
-} from "@redux/slides/uiState/loading";
+} from "@redux/slides/common/loading";
 import { useAppDispatch } from "@hooks/redux";
 
 function* getProductsByTypeSaga(action: any) {

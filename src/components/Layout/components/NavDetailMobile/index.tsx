@@ -2,7 +2,7 @@ import Link from "@designs/Link";
 import { useAppDispatch, useAppSelector } from "@hooks/redux";
 import useWindowSize, { ISize } from "@hooks/useWindowSize";
 import { ICategory } from "@interfaces/redux";
-import { setOverflowMenu } from "@redux/slides/uiState/bodyOverflow";
+import { setOverflowMenu } from "@redux/slides/common/bodyOverflow";
 import { FC, memo, useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
@@ -53,11 +53,9 @@ interface INavDetailMobile {}
 const NavDetailMobile: FC<INavDetailMobile> = () => {
   const dispatch = useAppDispatch();
   const { overflowMenu } = useAppSelector(
-    (state) => state.uiStateReducers.bodyReducer
+    (state) => state.commonReducers.bodyReducer
   );
-  const { categories } = useAppSelector(
-    (state) => state.dataReducers.categoriesReducer
-  );
+  const { categories } = useAppSelector((state) => state.categoriesReducers);
 
   const windowSize: ISize = useWindowSize();
   const [stateExtra, setStateExtra] = useState<boolean>(false);

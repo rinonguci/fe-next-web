@@ -6,10 +6,10 @@ import Product from "@containers/Product";
 import { wrapper } from "@redux/store";
 
 import MetaTitle from "@designs/MetaTitle";
-import { getFacets, getProductsByType } from "@redux/slides/data/product";
+import { getFacets, getProductsByType } from "@redux/slides/product";
 
 import { getPathProductByType } from "@common/helper/product/getPathProductByType";
-import { getCategories } from "@redux/slides/data/categories";
+import { getCategories } from "@redux/slides/categories";
 
 interface IProductPage {
   name?: string;
@@ -1554,19 +1554,19 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
   (store) =>
     async ({ params }) => {
       const { dispatch, sagaTask } = store;
-      const { product } = params as { product: Array<string> };
+      const { category } = params as { category: Array<string> };
 
       await dispatch(getCategories());
 
-      await dispatch(getProductsByType({ id: product[0] }));
-      await dispatch(getFacets({ id: product[0] }));
+      await dispatch(getProductsByType({ id: category[0] }));
+      await dispatch(getFacets({ id: category[0] }));
 
       dispatch(END);
       await sagaTask.toPromise();
 
       return {
         props: {
-          name: product[1],
+          name: category[1],
         },
         revalidate: 60 * 60 * 24,
       };

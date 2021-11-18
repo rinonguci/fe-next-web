@@ -89,5 +89,5 @@ export const {
   getProductDetailSuccess,
 } = productSlice.actions;
 
-const productReducer = productSlice.reducer;
-export default productReducer;
+const productReducers = productSlice.reducer;
+export default productReducers;

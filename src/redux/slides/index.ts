@@ -1,16 +1,15 @@
-import {
-  AnyAction,
-  CombinedState,
-  combineReducers,
-  Reducer,
-} from "@reduxjs/toolkit";
-import { HYDRATE } from "next-redux-wrapper";
-import dataReducers from "./data";
-import uiStateReducers from "./uiState";
+import { combineReducers } from "@reduxjs/toolkit";
+import categoriesReducers from "./categories";
+
+import commonReducers from "./common";
+import productReducers from "./product";
+import authReducers from "./auth";
 
 const rootReducers = combineReducers({
-  dataReducers,
-  uiStateReducers,
+  commonReducers,
+  productReducers,
+  categoriesReducers,
+  authReducers,
 });
 
 export default rootReducers;

@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from "@hooks/redux";
 import {
   IStatusLoading,
   setStatusLoadingClose,
-} from "@redux/slides/uiState/loading";
+} from "@redux/slides/common/loading";
 import { FC, useEffect } from "react";
 import styled, { css } from "styled-components";
 import tw from "twin.macro";
@@ -38,12 +38,10 @@ interface ILoading {}
 const Loading: FC<ILoading> = () => {
   const dispatch = useAppDispatch();
   const { status, time } = useAppSelector(
-    (state) => state.uiStateReducers.loadingReducer
+    (state) => state.commonReducers.loadingReducer
   );
 
   useEffect(() => {
- 
-
     if (status === "end") {
       dispatch(setStatusLoadingClose());
     }

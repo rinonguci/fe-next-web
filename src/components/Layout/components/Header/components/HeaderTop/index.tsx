@@ -8,8 +8,9 @@ import Logo from "../Logo";
 import {
   setOverflowMenu,
   setOverflowUser,
-} from "@redux/slides/uiState/bodyOverflow";
+} from "@redux/slides/common/bodyOverflow";
 import useToggleAndCloseVer2 from "@hooks/useToggleAndCloseVer2";
+import isNullObject from "@common/function/isNullObject";
 
 const HeaderTopContainer = styled.div`
   ${tw`md:pt-8 pt-14 text-2xl`}
@@ -34,9 +35,10 @@ interface IHeaderTop {}
 
 const HeaderTop: FC<IHeaderTop> = () => {
   const dispatch = useAppDispatch();
-  const { user } = useAppSelector((state) => state.dataReducers.authReducer);
+  const { user } = useAppSelector((state) => state.authReducers);
+
   const { overflowMenu, overflowUser } = useAppSelector(
-    (state) => state.uiStateReducers.bodyReducer
+    (state) => state.commonReducers.bodyReducer
   );
 
   const handleClickMenuMobile = () => {
@@ -55,7 +57,7 @@ const HeaderTop: FC<IHeaderTop> = () => {
           <UserIcon>
             <IconLeft
               onClick={handleOpenLogin}
-              title={user ? "My Account" : "Sign In"}
+              title={isNullObject(user) ? "Sign In" : "My Account"}
               icon="/icon.svg#svgs-account"
             />
           </UserIcon>

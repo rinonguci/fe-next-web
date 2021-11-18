@@ -13,7 +13,7 @@ const mapChildren: any = (catagories: Array<ICategory>) => {
 export const getPathProductByType = (data: Array<ICategory>) => {
   let result = mapChildren(data).map((path: { id: string; name: string }) => ({
     params: {
-      product: [path.id, path.name],
+      category: [path.id, path.name],
     },
   }));
   return result;

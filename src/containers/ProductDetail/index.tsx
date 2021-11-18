@@ -68,9 +68,7 @@ const MoreProduct = styled.span`
 interface IProductDetail {}
 
 const ProductDetail: FC<IProductDetail> = () => {
-  const { productDetail } = useAppSelector(
-    (state) => state.dataReducers.productReducer
-  );
+  const { productDetail } = useAppSelector((state) => state.productReducers);
 
   return (
     <Layout>

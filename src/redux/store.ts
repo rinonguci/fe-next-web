@@ -1,9 +1,17 @@
-import { Action, AnyAction, configureStore, Reducer } from "@reduxjs/toolkit";
+import {
+  Action,
+  AnyAction,
+  applyMiddleware,
+  configureStore,
+  Reducer,
+  Store,
+} from "@reduxjs/toolkit";
 import { Context, createWrapper, HYDRATE } from "next-redux-wrapper";
 
 import createSagaMiddleware from "redux-saga";
-import rootReducer from "./slides";
+import rootReducer, { RootState } from "./slides";
 import rootSaga from "./sagas";
+import { Persistor } from "redux-persist";
 
 const reducers: Reducer<any, Action> = (state, action: AnyAction) => {
   switch (action.type) {
@@ -18,22 +26,42 @@ const reducers: Reducer<any, Action> = (state, action: AnyAction) => {
   }
 };
 
-const makeStore = (context: Context) => {
-  // 1: Create the middleware
+const makeStore: (Store<RootState> & Persistor) | any = () => {
   const sagaMiddleware = createSagaMiddleware();
 
-  // 2: Add an extra parameter for applying middleware:
-  const store = configureStore({
-    reducer: reducers,
-    middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware({ thunk: true }).concat(sagaMiddleware),
-  });
+  const ISSERVER = typeof window === "undefined";
+  if (ISSERVER) {
+    const store: Store<RootState> = configureStore({
+      reducer: reducers,
+      middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({ thunk: true }).concat(sagaMiddleware),
+    });
 
-  // 3: Run your sagas on server
-  store.sagaTask = sagaMiddleware.run(rootSaga);
+    store.sagaTask = sagaMiddleware.run(rootSaga);
+    return store;
+  } else {
+    const { persistStore, persistReducer } = require("redux-persist");
+    const storage = require("redux-persist/lib/storage").default;
 
-  // 4: now return the store:
-  return store;
+    const persistConfig = {
+      key: "nextjs",
+      storage,
+      whitelist: ["authReducers", "categoriesReducers"],
+    };
+
+    const store: Store<RootState> = configureStore({
+      reducer: persistReducer(persistConfig, reducers),
+      middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({ thunk: true }).concat(sagaMiddleware),
+    });
+
+    let per = persistStore(store);
+
+    store.__persistor = per;
+    store.sagaTask = sagaMiddleware.run(rootSaga);
+
+    return store;
+  }
 };
 
 export const wrapper = createWrapper(makeStore, { debug: false });

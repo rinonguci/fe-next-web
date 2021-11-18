@@ -6,17 +6,16 @@ import { wrapper } from "@redux/store";
 
 import MetaTitle from "@designs/MetaTitle";
 
-import { getCategories } from "@redux/slides/data/categories";
 import fetchProduct from "@services/products";
 import { getPathProductAll } from "@common/helper/product/getPathAllProduct";
 import ProductDetail from "@containers/ProductDetail";
-import { getProductDetail } from "@redux/slides/data/product";
+
 import { useAppSelector } from "@hooks/redux";
+import { getCategories } from "@redux/slides/categories";
+import { getProductDetail } from "@redux/slides/product";
 
 const ProductDetailPage: NextPage = (props) => {
-  const { productDetail } = useAppSelector(
-    (state) => state.dataReducers.productReducer
-  );
+  const { productDetail } = useAppSelector((state) => state.productReducers);
   return (
     <Fragment>
       <MetaTitle title={productDetail?.name || "Product"} />

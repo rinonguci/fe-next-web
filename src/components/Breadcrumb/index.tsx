@@ -28,7 +28,7 @@ interface IBreadcrumb {}
 
 const Breadcrumb: FC<IBreadcrumb> = () => {
   const { breadcrumb } = useAppSelector(
-    (state) => state.uiStateReducers.breadcrumbReducer
+    (state) => state.commonReducers.breadcrumbReducer
   );
   return (
     <BreadcrumbContainer>

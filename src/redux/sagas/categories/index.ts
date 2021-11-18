@@ -1,13 +1,9 @@
-import { useAppDispatch } from "./../../../hooks/redux/index";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import fetchCategories from "@services/categories";
 import { IAxiosResponse } from "@interfaces/common/IAxiosResponse";
 import { ICategory } from "@interfaces/redux";
-import { openError } from "@redux/slides/uiState/notify";
-import {
-  getCategories,
-  getCategoriesSuccess,
-} from "@redux/slides/data/categories";
+import { openError } from "@redux/slides/common/notify";
+import { getCategories, getCategoriesSuccess } from "@redux/slides/categories";
 
 function* getCategoriesSaga() {
   try {

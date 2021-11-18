@@ -2,11 +2,10 @@ import StorageToken from "@common/utils/storage";
 import Button from "@designs/Button";
 import Input from "@designs/Input";
 import { useAppDispatch } from "@hooks/redux";
-import { ILoginDataReponse } from "@interfaces/auth";
-import { login, loginSuccess } from "@redux/slides/data/auth";
-import { setStatusLoading } from "@redux/slides/uiState/loading";
+import { ILoginDataResponse } from "@interfaces/auth";
+import { addUserSuccess } from "@redux/slides/auth";
 import fetchAuth from "@services/auth";
-import { Formik, FormikProps, withFormik } from "formik";
+import { Formik } from "formik";
 import { FC, useState } from "react";
 import { toast } from "react-toastify";
 import styled from "styled-components";
@@ -57,10 +56,11 @@ const Login: FC<ILogin> = ({ handleClickForm }) => {
       })}
       onSubmit={async (payload: IFormValues) => {
         try {
-          let result: ILoginDataReponse = await fetchAuth.login(payload);
+          let result: ILoginDataResponse = await fetchAuth.login(payload);
           StorageToken.setUser(result.token);
+          console.log(result);
 
-          dispatch(loginSuccess({ user: result.data.user }));
+          dispatch(addUserSuccess({ user: result.data.user }));
         } catch (error: any) {
           toast.error(error);
         }

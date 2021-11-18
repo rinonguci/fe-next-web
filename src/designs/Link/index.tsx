@@ -1,7 +1,7 @@
-import { FC, MouseEvent, useEffect } from "react";
-import NextLink, { LinkProps } from "next/link";
+import { FC, MouseEvent } from "react";
+import { LinkProps } from "next/link";
 import { useAppDispatch } from "@hooks/redux";
-import { setStatusLoading } from "@redux/slides/uiState/loading";
+import { setStatusLoading } from "@redux/slides/common/loading";
 import { useRouter } from "next/router";
 
 interface ILink extends LinkProps {}

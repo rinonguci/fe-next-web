@@ -8,7 +8,7 @@ import {
   getFacets,
   getProductsByType,
   IGetProductsByTypePayload,
-} from "@redux/slides/data/product";
+} from "@redux/slides/product";
 import { useRouter } from "next/router";
 import { FC, memo, useEffect, useState } from "react";
 import styled from "styled-components";
@@ -66,7 +66,7 @@ const Product: FC<IProduct> = () => {
   const [isActive, setActive] = useState<boolean>(false);
 
   const { productsByType, facets } = useAppSelector(
-    (state) => state.dataReducers.productReducer
+    (state) => state.productReducers
   );
 
   useEffect(() => {
@@ -77,6 +77,7 @@ const Product: FC<IProduct> = () => {
   }, [router.asPath]);
 
   useEffect(() => {
+    if (!query) return;
     if (!(productId && productId[0])) return;
 
     let payload: IGetProductsByTypePayload = { id: productId[0] };
