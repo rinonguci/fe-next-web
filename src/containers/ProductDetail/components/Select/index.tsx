@@ -1,5 +1,5 @@
 import useToggleAndClose from "@hooks/useToggleAndClose";
-import { IVariant } from "@interfaces/redux/product";
+import { IVariant } from "@interfaces/product";
 import { FC, useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import tw from "twin.macro";

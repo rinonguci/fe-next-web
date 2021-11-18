@@ -1,11 +1,15 @@
 import IconSVG from "@designs/IconSVG";
-import { IProduct } from "@interfaces/redux/product";
-import { FC, useState } from "react";
-import styled from "styled-components";
+import { IProduct } from "@interfaces/product";
+import { FC, useEffect, useState } from "react";
+import styled, { css } from "styled-components";
 import tw from "twin.macro";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import Skeleton from "react-loading-skeleton";
 import Delayed from "@components/Delayed";
+import { useAppDispatch } from "@hooks/redux";
+import { addWishlist } from "@redux/slides/auth";
+import { IAddWishListPayload } from "@interfaces/wishlist";
+import Link from "@designs/Link";
 
 const ProductCardContainer = styled.div`
   ${tw`flex flex-col gap-2 relative pt-10`}
@@ -34,35 +38,79 @@ const Price = styled.span`
   ${tw`text-lg font-medium`}
 `;
 
-const HeartBox = styled.div`
-  ${tw`absolute right-0 top-[0px]`}
+const HeartBox = styled.div<{ isCheck: boolean }>`
+  ${tw`absolute right-0 top-[0px] cursor-pointer text-black hover:text-transparent`}
+  ${({ isCheck }) =>
+    isCheck &&
+    css`
+      color: transparent !important;
+      use {
+        fill: #ff3f3f !important;
+      }
+    `}
+  &:hover {
+    color: transparent !important;
+    use {
+      fill: #ff8484;
+    }
+  }
 `;
 
 interface IProductCard {
   data: IProduct;
+  isCheck?: boolean;
 }
 
-const ProductCard: FC<IProductCard> = ({ data }) => {
+const ProductCard: FC<IProductCard> = ({ data, isCheck = false }) => {
+  const dispatch = useAppDispatch();
   const [check, setCheck] = useState<boolean>(false);
+  const [isLike, setIsLike] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsLike(isCheck);
+  }, []);
 
   const handleLoadImage = () => {
     setCheck(true);
   };
 
+  const handleAddWishlist = () => {
+    setIsLike(!isLike);
+
+    let payload: IAddWishListPayload = {
+      product: data._id,
+    };
+
+    dispatch(addWishlist(payload));
+  };
+
   return (
     <ProductCardContainer>
-      <ImageBox>
-        <LazyLoadImage
-          afterLoad={handleLoadImage}
-          effect="blur"
-          src={data.imageCovers[0]}
-          alt={data.name}
-          placeholder={<Skeleton className="rounded" />}
-          delayTime={10000}
-        />
-      </ImageBox>
+      <Link href={`/product/${data._id}/${data.slug}`}>
+        <ImageBox>
+          <LazyLoadImage
+            afterLoad={handleLoadImage}
+            src={data.imageCovers[0]}
+            alt={data.name}
+            placeholder={<Skeleton className="rounded" />}
+          />
+        </ImageBox>
 
-      {/* <div >
+        <Design>{check ? data.brand : <Skeleton />}</Design>
+        <Name>{check ? data.name : <Skeleton />}</Name>
+        <Price>{check ? `$ ${data.price}` : <Skeleton />}</Price>
+      </Link>
+
+      <HeartBox isCheck={isCheck} onClick={() => handleAddWishlist()}>
+        <IconSVG iconHref="/icon.svg#svgs-wishlist" />
+      </HeartBox>
+    </ProductCardContainer>
+  );
+};
+
+export default ProductCard;
+
+/* <div >
         <strong>Available Sizes</strong>
         <table >
           <tbody>
@@ -87,16 +135,4 @@ const ProductCard: FC<IProductCard> = ({ data }) => {
             </tr>
           </tbody>
         </table>
-      </div> */}
-      <Design>{check ? data.brand : <Skeleton />}</Design>
-      <Name>{check ? data.name : <Skeleton />}</Name>
-      <Price>{check ? `$ ${data.price}` : <Skeleton />}</Price>
-
-      <HeartBox>
-        <IconSVG iconHref="/icon.svg#svgs-wishlist" />
-      </HeartBox>
-    </ProductCardContainer>
-  );
-};
-
-export default ProductCard;
+      </div> */

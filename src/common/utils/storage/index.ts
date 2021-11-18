@@ -1,4 +1,4 @@
-import { IAddUserSuccessPayload, IUser } from "@interfaces/auth";
+import { IGetUserSuccessPayload, IUser } from "@interfaces/auth";
 import jwt from "jwt-decode";
 import { setToken } from "../auth";
 

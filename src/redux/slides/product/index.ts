@@ -1,4 +1,4 @@
-import { IFacet, IProduct, IProductDetail } from "@interfaces/redux/product";
+import { IFacet, IProduct, IProductDetail } from "@interfaces/product";
 
 import { createAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
 

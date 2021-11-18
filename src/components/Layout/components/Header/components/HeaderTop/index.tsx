@@ -35,7 +35,7 @@ interface IHeaderTop {}
 
 const HeaderTop: FC<IHeaderTop> = () => {
   const dispatch = useAppDispatch();
-  const { user } = useAppSelector((state) => state.authReducers);
+  const { user, wishList } = useAppSelector((state) => state.authReducers);
 
   const { overflowMenu, overflowUser } = useAppSelector(
     (state) => state.commonReducers.bodyReducer
@@ -77,7 +77,7 @@ const HeaderTop: FC<IHeaderTop> = () => {
             href="/wishlist"
             icon="/icon.svg#svgs-wish-main"
             title="Wishlist"
-            itemCount={2}
+            itemCount={wishList?.length || 0}
           />
           <IconRight
             href="/cart"

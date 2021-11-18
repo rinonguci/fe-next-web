@@ -4,6 +4,6 @@ export interface ILoginPayload {
 }
 
 export interface ILoginDataResponse {
-  data: { user: IUser };
+  data: IUser;
   token: string;
 }

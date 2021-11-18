@@ -1,12 +1,11 @@
 import {
   Action,
   AnyAction,
-  applyMiddleware,
   configureStore,
   Reducer,
   Store,
 } from "@reduxjs/toolkit";
-import { Context, createWrapper, HYDRATE } from "next-redux-wrapper";
+import { createWrapper, HYDRATE } from "next-redux-wrapper";
 
 import createSagaMiddleware from "redux-saga";
 import rootReducer, { RootState } from "./slides";
@@ -16,9 +15,14 @@ import { Persistor } from "redux-persist";
 const reducers: Reducer<any, Action> = (state, action: AnyAction) => {
   switch (action.type) {
     case HYDRATE:
+      let payload = { ...action.payload };
+
+      // Eliminate client-side stores
+      delete payload.authReducers;
+
       const nextState = {
         ...state,
-        ...action.payload,
+        ...payload,
       };
       return nextState;
     default:

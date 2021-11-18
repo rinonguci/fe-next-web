@@ -6,7 +6,7 @@ import {
 } from "@redux/slides/product";
 import AxiosService from "@common/utils/axios";
 import { IAxiosResponse } from "@interfaces/common/IAxiosResponse";
-import { IFacet, IProduct, IProductDetail } from "@interfaces/redux/product";
+import { IFacet, IProduct, IProductDetail } from "@interfaces/product";
 
 const axios = {
   urlGetProductByType: ({ params, id }: IGetProductsByTypePayload) =>

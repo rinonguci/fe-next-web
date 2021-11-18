@@ -5,6 +5,7 @@ import tw from "twin.macro";
 
 const IconSVGContainer = styled.svg`
   ${tw`bg-transparent fill-[transparent] h-9 w-9`}
+  color: currentColor;
   use {
     color: currentColor;
   }

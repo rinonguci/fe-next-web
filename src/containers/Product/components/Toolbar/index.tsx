@@ -46,7 +46,7 @@ const dataFilter: Array<IItemSelect> = [
 const Toolbar: FC<IToolbar> = ({ gap, count }) => {
   const router = useRouter();
   const [dataSelect, setDataSelect] = useState<Array<IItemSelect>>(dataFilter);
-  const { asPath, query } = router;
+  const { asPath } = router;
 
   useEffect(() => {
     handleDataSelect();

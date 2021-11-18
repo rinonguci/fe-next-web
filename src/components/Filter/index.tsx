@@ -1,4 +1,4 @@
-import { IFacet } from "@interfaces/redux/product";
+import { IFacet } from "@interfaces/product";
 import { FC, MouseEventHandler, useEffect, useRef, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 import tw from "twin.macro";

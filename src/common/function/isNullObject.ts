@@ -3,8 +3,9 @@ interface IObject {
 }
 
 const isNullObject = <T extends IObject>(obj: T) => {
-  if (obj) return true;
-
-  return false;
+  for (var key in obj) {
+    if (obj.hasOwnProperty(key)) return false;
+  }
+  return true;
 };
 export default isNullObject;

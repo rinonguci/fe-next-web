@@ -1,4 +1,4 @@
-import { IProduct } from "@interfaces/redux/product";
+import { IProduct } from "@interfaces/product";
 
 export const getPathProductAll = (data: Array<IProduct>) => {
   let result = data.map((path) => ({

@@ -3,7 +3,7 @@ import Layout from "@components/Layout";
 import ProductCard from "@components/ProductCard";
 import Breadcrumb from "@components/Breadcrumb";
 import { useAppDispatch, useAppSelector } from "@hooks/redux";
-import { IFacet } from "@interfaces/redux/product";
+import { IFacet } from "@interfaces/product";
 import {
   getFacets,
   getProductsByType,
@@ -58,8 +58,7 @@ const GAPCOMMON = 20;
 const Product: FC<IProduct> = () => {
   const dispatch = useAppDispatch();
   const {
-    asPath,
-    query: { p, product: productId },
+    query: { p, category: categoryId },
   } = useRouter();
   const router = useRouter();
   const [query, setQuery] = useState<string>();
@@ -77,10 +76,9 @@ const Product: FC<IProduct> = () => {
   }, [router.asPath]);
 
   useEffect(() => {
-    if (!query) return;
-    if (!(productId && productId[0])) return;
+    if (!categoryId?.[0]) return;
 
-    let payload: IGetProductsByTypePayload = { id: productId[0] };
+    let payload: IGetProductsByTypePayload = { id: categoryId[0] };
     payload.params = query ? query : undefined;
 
     dispatch(getProductsByType(payload));

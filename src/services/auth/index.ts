@@ -1,14 +1,13 @@
 import {
+  ISignupStatusResponse,
+  ILoginDataResponse,
   ILoginPayload,
-  ILoginDataReponse,
   ISignupPayload,
-  ISignupStatus,
   IUser,
 } from "@interfaces/auth";
 
 import AxiosService from "@common/utils/axios";
 import { IAxiosResponse } from "@interfaces/common/IAxiosResponse";
-import handleError from "@common/utils/axios/handleError";
 
 const axios = {
   urlSignup: "user/signup",
@@ -21,7 +20,7 @@ const fetchAuth = {
     try {
       const response = await AxiosService.post<
         any,
-        IAxiosResponse<ISignupStatus>,
+        IAxiosResponse<ISignupStatusResponse>,
         ISignupPayload
       >(axios.urlSignup, payload);
 
@@ -30,11 +29,11 @@ const fetchAuth = {
       throw error;
     }
   },
-  login: async (payload: ILoginPayload): Promise<ILoginDataReponse> => {
+  login: async (payload: ILoginPayload): Promise<ILoginDataResponse> => {
     try {
       const response = await AxiosService.post<
         any,
-        IAxiosResponse<ILoginDataReponse>,
+        IAxiosResponse<ILoginDataResponse>,
         ILoginPayload
       >(axios.urlLogin, payload);
 
@@ -45,7 +44,7 @@ const fetchAuth = {
   },
   getMe: async (): Promise<IUser> => {
     try {
-      const response = await AxiosService.post<any, IAxiosResponse<IUser>>(
+      const response = await AxiosService.get<any, IAxiosResponse<IUser>>(
         axios.urlMe
       );
 

@@ -3,7 +3,7 @@ import Button from "@designs/Button";
 import Input from "@designs/Input";
 import { useAppDispatch } from "@hooks/redux";
 import { ILoginDataResponse } from "@interfaces/auth";
-import { addUserSuccess } from "@redux/slides/auth";
+import { getUserSuccess, getWishlist } from "@redux/slides/auth";
 import fetchAuth from "@services/auth";
 import { Formik } from "formik";
 import { FC, useState } from "react";
@@ -57,10 +57,12 @@ const Login: FC<ILogin> = ({ handleClickForm }) => {
       onSubmit={async (payload: IFormValues) => {
         try {
           let result: ILoginDataResponse = await fetchAuth.login(payload);
-          StorageToken.setUser(result.token);
-          console.log(result);
 
-          dispatch(addUserSuccess({ user: result.data.user }));
+          StorageToken.setUser(result.token);
+
+          dispatch(getWishlist());
+
+          dispatch(getUserSuccess({ user: result.data }));
         } catch (error: any) {
           toast.error(error);
         }

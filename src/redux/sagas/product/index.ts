@@ -1,6 +1,6 @@
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import { IAxiosResponse } from "@interfaces/common/IAxiosResponse";
-import { IFacet, IProduct, IProductDetail } from "@interfaces/redux/product";
+import { IFacet, IProduct, IProductDetail } from "@interfaces/product";
 import fetchProduct from "@services/products";
 import {
   getAllProducts,

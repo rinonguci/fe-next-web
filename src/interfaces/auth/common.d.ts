@@ -5,9 +5,6 @@ export interface IUser {
   phoneNumber?: string;
 }
 
-
-export interface IAddUserSuccessPayload {
+export interface IGetUserSuccessPayload {
   user: IUser;
 }
-
-
