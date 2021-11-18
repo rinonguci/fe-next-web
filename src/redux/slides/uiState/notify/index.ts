@@ -11,8 +11,6 @@ const notifySlice = createSlice({
   initialState,
   reducers: {
     openSuccess: (state, action: PayloadAction<IPayload>) => {
-      console.log(action);
-
       toast.success(`🦄 ${action.payload}!`, {
         position: "top-right",
         autoClose: 5000,
@@ -25,8 +23,6 @@ const notifySlice = createSlice({
     },
 
     openError: (state, action: PayloadAction<IPayload>) => {
-      console.log(action);
-
       toast.error(`🦄 ${action.payload}!`, {
         position: "top-right",
         autoClose: 5000,

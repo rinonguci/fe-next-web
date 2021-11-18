@@ -2,7 +2,7 @@ import Link from "@designs/Link";
 import { useAppDispatch, useAppSelector } from "@hooks/redux";
 import useWindowSize, { ISize } from "@hooks/useWindowSize";
 import { ICategory } from "@interfaces/redux";
-import { setOverflow } from "@redux/slides/uiState/bodyOverflow";
+import { setOverflowMenu } from "@redux/slides/uiState/bodyOverflow";
 import { FC, memo, useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
@@ -52,7 +52,7 @@ interface INavDetailMobile {}
 
 const NavDetailMobile: FC<INavDetailMobile> = () => {
   const dispatch = useAppDispatch();
-  const { overflow } = useAppSelector(
+  const { overflowMenu } = useAppSelector(
     (state) => state.uiStateReducers.bodyReducer
   );
   const { categories } = useAppSelector(
@@ -67,7 +67,7 @@ const NavDetailMobile: FC<INavDetailMobile> = () => {
     const element: HTMLDivElement | null = e?.target as HTMLDivElement;
     if (element.dataset?.element) return;
 
-    dispatch(setOverflow(false));
+    dispatch(setOverflowMenu(false));
   }, []);
 
   useEffect(() => {
@@ -81,10 +81,10 @@ const NavDetailMobile: FC<INavDetailMobile> = () => {
   useEffect(() => {});
 
   useEffect(() => {
-    if (!overflow) return;
+    if (!overflowMenu) return;
     if (windowSize && windowSize.width) {
       if (windowSize.width > 767) {
-        dispatch(setOverflow(false));
+        dispatch(setOverflowMenu(false));
       }
     }
   }, [windowSize]);

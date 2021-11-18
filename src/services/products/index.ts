@@ -4,7 +4,7 @@ import {
   IGetAllProductsPayload,
   IGetProductDetailPayload,
 } from "@redux/slides/data/product";
-import AxiosService from "@utils/axios";
+import AxiosService from "@common/utils/axios";
 import { IAxiosResponse } from "@interfaces/common/IAxiosResponse";
 import { IFacet, IProduct, IProductDetail } from "@interfaces/redux/product";
 

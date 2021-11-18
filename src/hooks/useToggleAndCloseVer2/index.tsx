@@ -1,7 +1,7 @@
-import { Ref, useCallback, useEffect, useState } from "react";
+import { RefObject, useCallback, useEffect, useState } from "react";
 
-const useToggleAndClose = (
-  name: string,
+const useToggleAndCloseVer2 = (
+  ref: RefObject<HTMLDivElement>,
   initialState: boolean = false
 ): [boolean, any] => {
   const [state, setState] = useState<boolean>(initialState);
@@ -9,13 +9,19 @@ const useToggleAndClose = (
   const handleClose = useCallback((e: MouseEvent) => {
     const element: HTMLDivElement | null = e?.target as HTMLDivElement;
 
-    if (element.dataset?.element === name) return;
+    if (ref && ref.current) {
+      const isFound = !ref.current.contains(element);
 
-    setState(false);
+      if (isFound) {
+        setState(false);
+      }
+    }
   }, []);
 
   useEffect(() => {
-    if (state) {
+    let { current } = ref;
+
+    if (current) {
       document.addEventListener("mousedown", handleClose, false);
     } else {
       document.removeEventListener("mousedown", handleClose, false);
@@ -26,4 +32,4 @@ const useToggleAndClose = (
   return [state, toggle];
 };
 
-export default useToggleAndClose;
+export default useToggleAndCloseVer2;

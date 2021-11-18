@@ -1,5 +1,8 @@
+import StorageToken from "@common/utils/storage";
+import Auth from "@components/Auth";
 import Loading from "@components/Loading";
-import { useAppSelector } from "@hooks/redux";
+import { useAppDispatch, useAppSelector } from "@hooks/redux";
+import { addUserSuccess } from "@redux/slides/data/auth";
 import { FC, Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
@@ -20,13 +23,14 @@ const NavDetailMobileContaier = styled.div<{ isActive: boolean }>`
 interface ILayout {}
 
 const Layout: FC<ILayout> = ({ children }) => {
-  const { overflow } = useAppSelector(
+  const dispatch = useAppDispatch();
+  const { overflowMenu } = useAppSelector(
     (state) => state.uiStateReducers.bodyReducer
   );
-  const [isActive, setIsActive] = useState<boolean>(overflow);
+  const [isActive, setIsActive] = useState<boolean>(overflowMenu);
 
   useEffect(() => {
-    if (overflow) {
+    if (overflowMenu) {
       setIsActive(true);
       return;
     }
@@ -34,17 +38,28 @@ const Layout: FC<ILayout> = ({ children }) => {
     setTimeout(() => {
       setIsActive(false);
     }, 300);
-  }, [overflow]);
+  }, [overflowMenu]);
+
+  useEffect(() => {
+    let user = StorageToken.getUser();
+
+    if (!user) return;
+
+    console.log(user);
+
+    dispatch(addUserSuccess({ user: user }));
+  }, []);
 
   return (
     <Fragment>
       <Loading />
+      <Auth />
       <Header />
       <Wrapper id="wrapper">
         {children}
         <Footer />
       </Wrapper>
-      <NavDetailMobileContaier isActive={overflow}>
+      <NavDetailMobileContaier isActive={overflowMenu}>
         {isActive && <NavDetailMobile />}
       </NavDetailMobileContaier>
     </Fragment>

@@ -1,4 +1,4 @@
 export interface IAxiosResponse<T> {
   status: string | number;
-  data: T | null;
+  data: T;
 }

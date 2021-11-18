@@ -42,7 +42,7 @@ const Loading: FC<ILoading> = () => {
   );
 
   useEffect(() => {
-    console.log(status);
+ 
 
     if (status === "end") {
       dispatch(setStatusLoadingClose());

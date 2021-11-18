@@ -1,6 +1,6 @@
 import { ICategory } from "@interfaces/redux";
 
-import AxiosService from "@utils/axios";
+import AxiosService from "@common/utils/axios";
 import { IAxiosResponse } from "@interfaces/common/IAxiosResponse";
 
 const axios = {

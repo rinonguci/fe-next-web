@@ -19,8 +19,8 @@ const IconTitle = styled.span`
 `;
 
 interface IIconLeft {
-  href: string;
-  title: string;
+  href?: string;
+  title?: string;
   icon: string;
   onClick?: () => void;
   style?: CSSProperties;
@@ -36,7 +36,7 @@ const IconLeft: FC<IIconLeft> = ({
   className,
 }) => {
   return !onClick ? (
-    <IconLeftContainerLink passHref href={href}>
+    <IconLeftContainerLink passHref href={href || "/notfound"}>
       <IconLink className={className}>
         <IconSVG iconHref={icon} />
 

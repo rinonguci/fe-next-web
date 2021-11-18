@@ -27,9 +27,7 @@ const fetchCategories = {
       const response8 = await AxiosService.get(axiosData.url);
 
       return response1.data;
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   },
 };
 

@@ -1,11 +1,15 @@
 import { useAppDispatch, useAppSelector } from "@hooks/redux";
-import { setOverflow } from "@redux/slides/uiState/bodyOverflow";
-import { FC } from "react";
+import { FC, MutableRefObject, useEffect, useRef } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 import IconLeft from "./components/IconLeft";
 import IconRight from "./components/IconRight";
 import Logo from "../Logo";
+import {
+  setOverflowMenu,
+  setOverflowUser,
+} from "@redux/slides/uiState/bodyOverflow";
+import useToggleAndCloseVer2 from "@hooks/useToggleAndCloseVer2";
 
 const HeaderTopContainer = styled.div`
   ${tw`md:pt-8 pt-14 text-2xl`}
@@ -30,12 +34,17 @@ interface IHeaderTop {}
 
 const HeaderTop: FC<IHeaderTop> = () => {
   const dispatch = useAppDispatch();
-  const { overflow } = useAppSelector(
+  const { user } = useAppSelector((state) => state.dataReducers.authReducer);
+  const { overflowMenu, overflowUser } = useAppSelector(
     (state) => state.uiStateReducers.bodyReducer
   );
 
   const handleClickMenuMobile = () => {
-    dispatch(setOverflow(!overflow));
+    dispatch(setOverflowMenu(!overflowMenu));
+  };
+
+  const handleOpenLogin = () => {
+    dispatch(setOverflowUser(!overflowUser));
   };
 
   return (
@@ -45,17 +54,16 @@ const HeaderTop: FC<IHeaderTop> = () => {
         <NavExtraLeft>
           <UserIcon>
             <IconLeft
-              href="/login"
-              title="Sign In"
+              onClick={handleOpenLogin}
+              title={user ? "My Account" : "Sign In"}
               icon="/icon.svg#svgs-account"
             />
           </UserIcon>
           <HumburgerIcon>
             <IconLeft
-              style={{ pointerEvents: overflow ? "none" : "auto" }}
+              style={{ pointerEvents: overflowMenu ? "none" : "auto" }}
               onClick={() => handleClickMenuMobile()}
               href="/login"
-              title="Sign In"
               icon="/icon.svg#svgs-burger"
             />
           </HumburgerIcon>

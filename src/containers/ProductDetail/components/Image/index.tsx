@@ -42,8 +42,6 @@ const Image: FC<IImage> = ({ images, imageCover, name = "" }) => {
     useState<{ id: number; urlSmall: string; urlBig: string }>();
 
   useEffect(() => {
-    console.log(images, imageCover);
-
     let imagesNew = images.map((value, index) => ({
       id: index,
       urlSmall: imageCover[index] ? imageCover[index] : value,

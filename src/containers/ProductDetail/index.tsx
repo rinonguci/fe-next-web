@@ -1,4 +1,5 @@
 import Layout from "@components/Layout";
+import Button from "@designs/Button";
 import IconSVG from "@designs/IconSVG";
 import { useAppSelector } from "@hooks/redux";
 import { FC } from "react";
@@ -56,11 +57,7 @@ const ProductPayControl = styled.div`
 `;
 
 const ButtonWishList = styled.button`
-  ${tw`h-20 w-20 flex justify-center items-center rounded border border-black`}
-`;
-
-const Button = styled.div`
-  ${tw`h-20 text-center pt-4 bg-green-500 rounded text-white font-bold  text-lg flex-grow`}
+  ${tw`h-20 w-20 flex-shrink-0 flex justify-center items-center rounded border border-black`}
 `;
 
 const MoreProduct = styled.span`
@@ -101,7 +98,7 @@ const ProductDetail: FC<IProductDetail> = () => {
                   <ButtonWishList>
                     <IconSVG iconHref="/icon.svg#svgs-wishlist" />
                   </ButtonWishList>
-                  <Button>Add to cart</Button>
+                  <Button variant="container">Add to cart</Button>
                 </ProductPayControl>
                 <MoreProduct>More product infomation</MoreProduct>
               </ProductPayBox>

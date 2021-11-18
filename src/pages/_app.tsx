@@ -14,18 +14,27 @@ import "react-inner-image-zoom/lib/InnerImageZoom/styles.min.css";
 import { useAppSelector } from "@hooks/redux";
 
 const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
-  const { overflow } = useAppSelector(
+  const { overflowMenu, overflowUser } = useAppSelector(
     (state) => state.uiStateReducers.bodyReducer
   );
 
   useEffect(() => {
-    if (overflow) {
+    if (overflowMenu) {
       document.body.style.overflow = "hidden";
       return;
     }
 
     document.body.style.overflow = "auto";
-  }, [overflow]);
+  }, [overflowMenu]);
+
+  useEffect(() => {
+    if (overflowUser) {
+      document.body.style.overflow = "hidden";
+      return;
+    }
+
+    document.body.style.overflow = "auto";
+  }, [overflowUser]);
 
   return (
     <Fragment>

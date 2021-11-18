@@ -9,8 +9,8 @@ const reducers: Reducer<any, Action> = (state, action: AnyAction) => {
   switch (action.type) {
     case HYDRATE:
       const nextState = {
-        ...state, // use previous state
-        ...action.payload, // apply delta from hydration
+        ...state,
+        ...action.payload,
       };
       return nextState;
     default:
@@ -36,5 +36,4 @@ const makeStore = (context: Context) => {
   return store;
 };
 
-// console.clear();
 export const wrapper = createWrapper(makeStore, { debug: false });
