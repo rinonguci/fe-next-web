@@ -11,26 +11,21 @@ const AxiosService = axios.create({
 });
 
 const axiosData = {
-  url: "categories",
+  url: "categories1",
 };
 
 const fetchCategories = {
   getCategories: async () => {
     try {
       const response1 = await AxiosService.get(axiosData.url);
-      const response2 = await AxiosService.get(axiosData.url);
-      const response3 = await AxiosService.get(axiosData.url);
-      const response4 = await AxiosService.get(axiosData.url);
-      const response5 = await AxiosService.get(axiosData.url);
-      const response6 = await AxiosService.get(axiosData.url);
-      const response7 = await AxiosService.get(axiosData.url);
-      const response8 = await AxiosService.get(axiosData.url);
 
       return response1.data;
-    } catch (error) {}
+    } catch (error) {
+      return Promise.reject(error);
+    }
   },
 };
 
-Promise.all(fetchCategories.getCategories).then((value) => {
+fetchCategories.getCategories().then((value) => {
   console.log(value);
 });
