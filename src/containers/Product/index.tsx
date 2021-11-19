@@ -53,7 +53,7 @@ const GAPCOMMON = 20;
 const Product: FC<IProduct> = () => {
   const dispatch = useAppDispatch();
   const {
-    query: { p, category: categoryId },
+    query: { slug },
   } = useRouter();
   const router = useRouter();
   const [query, setQuery] = useState<string>();
@@ -71,9 +71,9 @@ const Product: FC<IProduct> = () => {
   }, [router.asPath]);
 
   useEffect(() => {
-    if (!categoryId?.[0]) return;
+    if (!slug?.[0]) return;
 
-    let payload: IGetProductsByTypePayload = { id: categoryId[0] };
+    let payload: IGetProductsByTypePayload = { id: slug[0] };
     payload.params = query ? query : undefined;
 
     dispatch(getProductsByType(payload));

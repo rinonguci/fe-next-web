@@ -2,7 +2,7 @@ import { ICategory } from "@redux/types/common";
 
 const mapChildren: any = (catagories: Array<ICategory>) => {
   return catagories?.reduce(function (r: any, a: any) {
-    r.push({ id: a?._id, name: a?.name });
+    r.push({ id: a?._id, slug: a?.slug });
     if (a?.children && Array.isArray(a.children)) {
       r = r.concat(mapChildren(a.children));
     }
@@ -11,9 +11,9 @@ const mapChildren: any = (catagories: Array<ICategory>) => {
 };
 
 export const getPathProductByType = (data: Array<ICategory>) => {
-  let result = mapChildren(data).map((path: { id: string; name: string }) => ({
+  let result = mapChildren(data).map((path: { id: string; slug: string }) => ({
     params: {
-      category: [path.id, path.name],
+      slug: [path.id, path.slug],
     },
   }));
   return result;

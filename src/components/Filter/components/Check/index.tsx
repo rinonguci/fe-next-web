@@ -1,4 +1,4 @@
-import { FC, MutableRefObject, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 import { useRouter } from "next/router";

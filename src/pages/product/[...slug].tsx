@@ -26,7 +26,7 @@ export default ProductDetailPage;
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const { data } = await fetchProduct.getAllProduct({});
-  const paths = getPathProductAll(data!);
+  const paths = getPathProductAll(data);
 
   return {
     paths: paths,
@@ -38,10 +38,10 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
   (store) =>
     async ({ params }) => {
       const { dispatch, sagaTask } = store;
-      const { productDetail } = params as { productDetail: string[] };
+      const { slug } = params as { slug: string[] };
 
       dispatch(getCategories());
-      dispatch(getProductDetail({ id: productDetail[0] }));
+      dispatch(getProductDetail({ id: slug[0] }));
       dispatch(END);
       await sagaTask.toPromise();
 
