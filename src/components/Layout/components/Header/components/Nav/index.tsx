@@ -16,7 +16,7 @@ const NavList = styled.ul`
 `;
 
 const NavText = styled.span`
-  ${tw`uppercase cursor-pointer text-[1.2em] pb-3 font-medium`}
+  ${tw`uppercase text-[1.2em] pb-3 font-medium`}
 `;
 
 const NavItem = styled.li`

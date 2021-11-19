@@ -77,7 +77,7 @@ const Image: FC<IImage> = ({ images, imageCover, name = "" }) => {
       </ListImageBox>
       <ImageMainBox>
         <InnerImageZoom
-          className="shadow pointer"
+          className="shadow"
           src={selected?.urlSmall || ""}
           zoomSrc={selected?.urlBig}
           alt={name}

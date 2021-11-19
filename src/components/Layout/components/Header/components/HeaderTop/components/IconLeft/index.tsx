@@ -1,10 +1,10 @@
 import { FC } from "react";
-import Link from "next/link";
 import tw from "twin.macro";
 import styled, { CSSProperties } from "styled-components";
 import IconSVG from "@designs/IconSVG";
+import Link from "@designs/Link";
 
-const IconLeftContainerLink = styled(Link)`
+const IconLeftContainerLink = styled.div`
   ${tw``}
 `;
 const IconLeftContainer = styled.div`
@@ -36,13 +36,15 @@ const IconLeft: FC<IIconLeft> = ({
   className,
 }) => {
   return !onClick ? (
-    <IconLeftContainerLink passHref href={href || "/notfound"}>
-      <IconLink className={className}>
-        <IconSVG iconHref={icon} />
+    <Link href={href || "/notfound"}>
+      <IconLeftContainerLink>
+        <IconLink className={className}>
+          <IconSVG iconHref={icon} />
 
-        <IconTitle>{title}</IconTitle>
-      </IconLink>
-    </IconLeftContainerLink>
+          <IconTitle>{title}</IconTitle>
+        </IconLink>
+      </IconLeftContainerLink>
+    </Link>
   ) : (
     <IconLeftContainer style={style} onClick={onClick}>
       <IconLink>

@@ -12,7 +12,8 @@ export interface IWish {
   name?: string;
   category?: string;
   categoryName?: string;
-  brand?: string[];
+  brand: string;
+  imageCovers?: string[];
   slug?: string;
   discountPrice?: number;
   price?: number;

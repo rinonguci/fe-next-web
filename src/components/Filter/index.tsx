@@ -61,7 +61,7 @@ const Box = styled.div`
   ${tw`flex items-center gap-4`}
 `;
 const Clear = styled.span`
-  ${tw`text-black-lv3 font-normal cursor-pointer`}
+  ${tw`text-black-lv3 font-normal`}
 `;
 
 interface IFilter {

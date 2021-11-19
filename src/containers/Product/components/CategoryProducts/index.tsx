@@ -29,18 +29,18 @@ interface ICategoryProduct {
 }
 
 const CategoryProduct: FC<ICategoryProduct> = ({ products, gapX }) => {
-  const { wishList } = useAppSelector((state) => state.userReducers);
+  const { wishlist } = useAppSelector((state) => state.userReducers);
 
   const handleCheckIsLike = useCallback(
     (id: string) => {
-      if (!(wishList && wishList.length > 0)) return;
+      if (!(wishlist && wishlist.length > 0)) return;
 
-      let index = wishList.findIndex((value: IWish) => value._id === id);
+      let index = wishlist.findIndex((value: IWish) => value._id === id);
 
       if (index === -1) return false;
       return true;
     },
-    [wishList]
+    [wishlist]
   );
 
   return (

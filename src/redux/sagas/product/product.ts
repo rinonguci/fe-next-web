@@ -10,7 +10,6 @@ import { setStatusLoading } from "@redux/slides/ui";
 
 export function* getProductsByTypeSaga(action: any) {
   const { payload } = action;
-  console.log(payload);
 
   yield put(setStatusLoading({ status: "start" }));
   const response: IDataResponse = yield call(

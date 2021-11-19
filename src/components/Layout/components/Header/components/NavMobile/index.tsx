@@ -1,9 +1,9 @@
 import { FC } from "react";
 import tw from "twin.macro";
-import Link from "next/link";
 import { INavItem } from "@interfaces/UI/INavItem";
 import { IMediaQuery } from "@interfaces/UI/IMediaQuery";
 import styled from "styled-components";
+import Link from "@designs/Link";
 
 const NavMobileContainer = styled.div`
   ${tw`mt-16`}

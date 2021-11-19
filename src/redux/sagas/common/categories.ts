@@ -7,5 +7,6 @@ export function* getCategoriesSaga() {
   const response: IDataResponse = yield call(fetchCommon.getCategories);
 
   const { data } = response;
+
   yield put(getCategoriesSuccess(data));
 }

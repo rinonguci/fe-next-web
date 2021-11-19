@@ -46,17 +46,21 @@ const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
   }, [overflowUser]);
 
   return process.browser ? (
-    <PersistGate persistor={store?.__persistor} loading={<div>Loading</div>}>
-      <GlobalStyles />
-      <Component {...pageProps} />
-      <Toastify />
-    </PersistGate>
+    <div id="root">
+      <PersistGate persistor={store?.__persistor} loading={<div>Loading</div>}>
+        <GlobalStyles />
+        <Component {...pageProps} />
+        <Toastify />
+      </PersistGate>
+    </div>
   ) : (
-    <PersistGate persistor={store as any}>
-      <GlobalStyles />
-      <Component {...pageProps} />
-      <Toastify />
-    </PersistGate>
+    <div id="root">
+      <PersistGate persistor={store as any}>
+        <GlobalStyles />
+        <Component {...pageProps} />
+        <Toastify />
+      </PersistGate>
+    </div>
   );
 };
 

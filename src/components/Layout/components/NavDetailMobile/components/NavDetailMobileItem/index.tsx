@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 import tw from "twin.macro";
 
 const NavDetailMobileItemContainer = styled.div<{ iconLeft: boolean }>`
-  ${tw`py-6 px-4 border-b relative cursor-pointer hover:bg-gray-100`}
+  ${tw`py-6 px-4 border-b relative hover:bg-gray-100`}
 
   ${({ iconLeft }) =>
     iconLeft &&

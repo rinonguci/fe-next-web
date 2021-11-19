@@ -7,6 +7,7 @@ import IconRight from "./components/IconRight";
 import Logo from "../Logo";
 import isNullObject from "@common/function/isNullObject";
 import { setOverflowMenu, setOverflowUser } from "@redux/slides/ui";
+import HoverDropdown from "./components/HoverDropdown";
 
 const HeaderTopContainer = styled.div`
   ${tw`md:pt-8 pt-14 text-2xl`}
@@ -26,12 +27,18 @@ const UserIcon = styled.div`
 const HumburgerIcon = styled.div`
   ${tw`md:block hidden`}
 `;
+const WishlistIcon = styled.div`
+  ${tw``}
+`;
+const CartIcon = styled.div`
+  ${tw``}
+`;
 
 interface IHeaderTop {}
 
 const HeaderTop: FC<IHeaderTop> = () => {
   const dispatch = useAppDispatch();
-  const { user, wishList } = useAppSelector((state) => state.userReducers);
+  const { user, wishlist } = useAppSelector((state) => state.userReducers);
 
   const { overflowMenu, overflowUser } = useAppSelector(
     (state) => state.uiReducers
@@ -69,18 +76,22 @@ const HeaderTop: FC<IHeaderTop> = () => {
           <IconLeft href="/help" title="Search" icon="/icon.svg#svgs-search" />
         </NavExtraLeft>
         <NavExtraRight>
-          <IconRight
-            href="/wishlist"
-            icon="/icon.svg#svgs-wish-main"
-            title="Wishlist"
-            itemCount={wishList?.length || 0}
-          />
-          <IconRight
-            href="/cart"
-            icon="/icon.svg#svgs-bag"
-            title="Shopping Bag"
-            itemCount={1}
-          />
+          <WishlistIcon>
+            <IconRight
+              href="/wishlist"
+              icon="/icon.svg#svgs-wish-main"
+              title="Wishlist"
+              itemCount={wishlist?.length || 0}
+            />
+          </WishlistIcon>
+          <CartIcon>
+            <IconRight
+              href="/cart"
+              icon="/icon.svg#svgs-bag"
+              title="Shopping Bag"
+              itemCount={1}
+            />
+          </CartIcon>
         </NavExtraRight>
       </NavExtra>
     </HeaderTopContainer>

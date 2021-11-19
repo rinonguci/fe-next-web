@@ -3,12 +3,12 @@ import { createSlice } from "@redux-ts-starter-kit/slice";
 
 interface IUserSlice {
   user: IUser;
-  wishList: IWishlist;
+  wishlist: IWishlist;
 }
 
 const initialState: IUserSlice = {
   user: {},
-  wishList: [],
+  wishlist: [],
 };
 
 const userSlice = createSlice({
@@ -24,14 +24,14 @@ const userSlice = createSlice({
       const handleData = action.products.map(
         (value: { product: any }) => value.product
       );
-      state.wishList = handleData;
+      state.wishlist = handleData;
     },
     addWishlist(state, action: IAddWishlistPayload) {},
     addWishlistSuccess(state, action) {
       const handleData = action.products.map(
         (value: { product: any }) => value.product
       );
-      state.wishList = handleData;
+      state.wishlist = handleData;
     },
   },
 });

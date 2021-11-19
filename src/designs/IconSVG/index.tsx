@@ -8,6 +8,9 @@ const IconSVGContainer = styled.svg`
   color: currentColor;
   use {
     color: currentColor;
+    &:hover {
+      ${tw`text-green-500`}
+    }
   }
 `;
 

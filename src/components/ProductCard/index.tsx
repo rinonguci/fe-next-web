@@ -37,7 +37,7 @@ const Price = styled.span`
 `;
 
 const HeartBox = styled.div<{ isCheck?: boolean }>`
-  ${tw`absolute right-0 top-[0px] cursor-pointer text-black hover:text-transparent`}
+  ${tw`absolute right-0 top-[0px] text-black hover:text-transparent`}
   ${({ isCheck = false }) =>
     isCheck &&
     css`

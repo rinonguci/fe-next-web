@@ -38,14 +38,14 @@ const NavDetailMobileExtraBox = styled.div`
 `;
 
 const NavDetailMobileExtraTitle = styled.div`
-  ${tw`text-base font-medium px-4 mb-2 mt-4 cursor-pointer`}
+  ${tw`text-base font-medium px-4 mb-2 mt-4`}
 `;
 
 const NavDetailMobileExtraList = styled.ul`
   ${tw`flex flex-col`}
 `;
 const BackToMenu = styled.div`
-  ${tw`pl-14 border-b border-t py-6 relative text-lg font-medium text-gray-700 cursor-pointer`}
+  ${tw`pl-14 border-b border-t py-6 relative text-lg font-medium text-gray-700`}
 
   &:before {
     content: "";
