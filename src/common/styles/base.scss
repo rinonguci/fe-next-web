@@ -1,5 +1,6 @@
 @tailwind "tailwindcss/base";
 @tailwind "tailwindcss/components";
+@import "./root.scss";
 @tailwind "tailwindcss/utilities";
 
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
@@ -35,6 +36,18 @@ body {
 #__next {
   position: relative;
   // overflow: auto;
+}
+
+.overflow-auto {
+  overflow: auto;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+
+  #wrapper {
+    pointer-events: none !important;
+  }
 }
 
 use {

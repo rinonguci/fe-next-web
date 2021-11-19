@@ -13,29 +13,13 @@ import NavDetailMobile from "./components/NavDetailMobile";
 const Wrapper = styled.div`
   ${tw`pt-[145.5px] lg:pt-[125.5px] pb-20`}
 `;
-const NavDetailMobileContaier = styled.div<{ isActive: boolean }>`
-  ${tw`fixed top-[145.5px] transition-transform`}
-  transform: ${({ isActive }) =>
-    isActive ? "translateX(0)" : "translateX(-286px)"};
+const NavDetailMobileContaier = styled.div`
+  ${tw`fixed top-[144px]`}
 `;
 
 interface ILayout {}
 
 const Layout: FC<ILayout> = ({ children }) => {
-  const { overflowMenu } = useAppSelector((state) => state.uiReducers);
-  const [isActive, setIsActive] = useState<boolean>(overflowMenu);
-
-  useEffect(() => {
-    if (overflowMenu) {
-      setIsActive(true);
-      return;
-    }
-
-    setTimeout(() => {
-      setIsActive(false);
-    }, 300);
-  }, [overflowMenu]);
-
   return (
     <Fragment>
       <Loading />
@@ -45,8 +29,8 @@ const Layout: FC<ILayout> = ({ children }) => {
         {children}
         <Footer />
       </Wrapper>
-      <NavDetailMobileContaier isActive={overflowMenu}>
-        {isActive && <NavDetailMobile />}
+      <NavDetailMobileContaier>
+        <NavDetailMobile />
       </NavDetailMobileContaier>
     </Fragment>
   );

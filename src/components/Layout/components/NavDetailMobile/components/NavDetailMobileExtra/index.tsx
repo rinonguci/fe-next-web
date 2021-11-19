@@ -6,10 +6,11 @@ import Link from "@designs/Link";
 import { ICategory } from "@redux/types/common";
 
 const NavDetailMobileExtraContainer = styled.div<{ stateExtra: boolean }>`
-  ${tw`absolute w-[286px]  bg-white top-0 bottom-0 overflow-y-scroll`}
+  width: var(--width-nav-mobile);
+  ${tw`absolute   bg-white top-0 bottom-0 overflow-y-scroll`}
   transform: ${({ stateExtra }) =>
     stateExtra ? `translateX(0)` : `translateX(286px)`};
-  transition: transform 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: transform 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
 
   /* width */
   ::-webkit-scrollbar {

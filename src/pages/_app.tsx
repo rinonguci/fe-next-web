@@ -25,20 +25,24 @@ const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
 
   useEffect(() => {
     if (overflowMenu) {
-      document.body.style.overflow = "hidden";
+      document.body.classList.remove("overflow-auto");
+      document.body.classList.add("overflow-hidden");
       return;
     }
 
-    document.body.style.overflow = "auto";
+    document.body.classList.remove("overflow-hidden");
+    document.body.classList.add("overflow-auto");
   }, [overflowMenu]);
 
   useEffect(() => {
     if (overflowUser) {
-      document.body.style.overflow = "hidden";
+      document.body.classList.remove("overflow-auto");
+      document.body.classList.add("overflow-hidden");
       return;
     }
 
-    document.body.style.overflow = "auto";
+    document.body.classList.remove("overflow-hidden");
+    document.body.classList.add("overflow-auto");
   }, [overflowUser]);
 
   return process.browser ? (

@@ -1,17 +1,27 @@
 import Link from "@designs/Link";
 import { useAppDispatch, useAppSelector } from "@hooks/redux";
+import useToggleAndCloseVer2 from "@hooks/useToggleAndCloseVer2";
 import useWindowSize, { ISize } from "@hooks/useWindowSize";
 import { setOverflowMenu } from "@redux/slides/ui";
 import { ICategory } from "@redux/types/common";
-import { FC, memo, useCallback, useEffect, useState } from "react";
+import { FC, memo, useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 import NavDetailMobileExtra from "./components/NavDetailMobileExtra";
 import NavDetailMobileItem from "./components/NavDetailMobileItem";
 
-const NavDetailMobileContainer = styled.div`
-  ${tw`w-[286px] bg-white fixed overflow-hidden z-50`}
+const NavDetailMobileContainer = styled.div<{ isActive: boolean }>`
+  ${tw`bg-white fixed overflow-hidden z-50`}
   height: calc(100vh - 145.5px);
+  width: 286px;
+
+  transition: transform 300ms ease-in;
+  transform: ${({ isActive }) =>
+    isActive ? "translateX(0)" : "translateX(-286px)"};
+`;
+
+const NavDetailWrraper = styled.div`
+  ${tw``}
 `;
 
 const NavDetailMobileBox = styled.div`
@@ -59,28 +69,24 @@ const NavDetailMobile: FC<INavDetailMobile> = () => {
   const [stateExtra, setStateExtra] = useState<boolean>(false);
   const [dataExtra, setDataExtra] = useState<Array<ICategory> | null>();
 
-  const handleClose = useCallback((e: MouseEvent) => {
-    const element: HTMLDivElement | null = e?.target as HTMLDivElement;
-    if (element.dataset?.element) return;
-
-    dispatch(setOverflowMenu(false));
-  }, []);
+  const ref = useRef<HTMLDivElement>(null);
+  const [isOpen, setIsOpen] = useToggleAndCloseVer2(ref);
 
   useEffect(() => {
-    document.addEventListener("click", handleClose, false);
+    if (isOpen) return;
+    dispatch(setOverflowMenu(false));
+  }, [isOpen]);
 
-    return () => {
-      document.removeEventListener("click", handleClose, false);
-    };
-  }, []);
-
-  useEffect(() => {});
+  useEffect(() => {
+    if (!overflowMenu) return;
+    setIsOpen(true);
+  }, [overflowMenu]);
 
   useEffect(() => {
     if (!overflowMenu) return;
     if (windowSize && windowSize.width) {
       if (windowSize.width > 767) {
-        dispatch(setOverflowMenu(false));
+        setIsOpen(false);
       }
     }
   }, [windowSize]);
@@ -110,29 +116,35 @@ const NavDetailMobile: FC<INavDetailMobile> = () => {
   });
 
   return (
-    <NavDetailMobileContainer>
-      <NavDetailMobileBox>
-        <NavDetailMobileAuth>
-          <NavDetailMobileAuthTitle>Welcome</NavDetailMobileAuthTitle>
-          <Link href="/login">
-            <NavDetailMobileAuthItem>Sign In</NavDetailMobileAuthItem>
-          </Link>
-          |
-          <Link href="/signup">
-            <NavDetailMobileAuthItem>Create Account</NavDetailMobileAuthItem>
-          </Link>
-        </NavDetailMobileAuth>
-        <ListMemo />
-        <NavDetailMobileMoney>
-          <b>VND</b> Việt Nam Đồng
-        </NavDetailMobileMoney>
-      </NavDetailMobileBox>
+    <NavDetailMobileContainer isActive={isOpen}>
+      {isOpen && (
+        <NavDetailWrraper ref={ref}>
+          <NavDetailMobileBox>
+            <NavDetailMobileAuth>
+              <NavDetailMobileAuthTitle>Welcome</NavDetailMobileAuthTitle>
+              <Link href="/login">
+                <NavDetailMobileAuthItem>Sign In</NavDetailMobileAuthItem>
+              </Link>
+              |
+              <Link href="/signup">
+                <NavDetailMobileAuthItem>
+                  Create Account
+                </NavDetailMobileAuthItem>
+              </Link>
+            </NavDetailMobileAuth>
+            <ListMemo />
+            <NavDetailMobileMoney>
+              <b>VND</b> Việt Nam Đồng
+            </NavDetailMobileMoney>
+          </NavDetailMobileBox>
 
-      <NavDetailMobileExtra
-        stateExtra={stateExtra}
-        data={dataExtra}
-        onClick={() => handelExtra(false)}
-      />
+          <NavDetailMobileExtra
+            stateExtra={stateExtra}
+            data={dataExtra}
+            onClick={() => handelExtra(false)}
+          />
+        </NavDetailWrraper>
+      )}
     </NavDetailMobileContainer>
   );
 };
