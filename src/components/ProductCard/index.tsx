@@ -1,15 +1,13 @@
 import IconSVG from "@designs/IconSVG";
-import { IProduct } from "@interfaces/product";
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import styled, { css } from "styled-components";
 import tw from "twin.macro";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import Skeleton from "react-loading-skeleton";
-import Delayed from "@components/Delayed";
 import { useAppDispatch } from "@hooks/redux";
-import { addWishlist } from "@redux/slides/auth";
-import { IAddWishListPayload } from "@interfaces/wishlist";
+import { addWishlist } from "@redux/slides/user";
 import Link from "@designs/Link";
+import { IProduct } from "@redux/types/product";
 
 const ProductCardContainer = styled.div`
   ${tw`flex flex-col gap-2 relative pt-10`}
@@ -38,9 +36,9 @@ const Price = styled.span`
   ${tw`text-lg font-medium`}
 `;
 
-const HeartBox = styled.div<{ isCheck: boolean }>`
+const HeartBox = styled.div<{ isCheck?: boolean }>`
   ${tw`absolute right-0 top-[0px] cursor-pointer text-black hover:text-transparent`}
-  ${({ isCheck }) =>
+  ${({ isCheck = false }) =>
     isCheck &&
     css`
       color: transparent !important;
@@ -64,7 +62,7 @@ interface IProductCard {
 const ProductCard: FC<IProductCard> = ({ data, isCheck = false }) => {
   const dispatch = useAppDispatch();
   const [check, setCheck] = useState<boolean>(false);
-  const [isLike, setIsLike] = useState<boolean>(false);
+  const [isLike, setIsLike] = useState<boolean>();
 
   useEffect(() => {
     setIsLike(isCheck);
@@ -77,10 +75,13 @@ const ProductCard: FC<IProductCard> = ({ data, isCheck = false }) => {
   const handleAddWishlist = () => {
     setIsLike(!isLike);
 
-    let payload: IAddWishListPayload = {
+    addWishlistApi();
+  };
+
+  const addWishlistApi = () => {
+    let payload = {
       product: data._id,
     };
-
     dispatch(addWishlist(payload));
   };
 
@@ -92,6 +93,8 @@ const ProductCard: FC<IProductCard> = ({ data, isCheck = false }) => {
             afterLoad={handleLoadImage}
             src={data.imageCovers[0]}
             alt={data.name}
+            effect="opacity"
+            delayTime={1000}
             placeholder={<Skeleton className="rounded" />}
           />
         </ImageBox>
@@ -101,7 +104,7 @@ const ProductCard: FC<IProductCard> = ({ data, isCheck = false }) => {
         <Price>{check ? `$ ${data.price}` : <Skeleton />}</Price>
       </Link>
 
-      <HeartBox isCheck={isCheck} onClick={() => handleAddWishlist()}>
+      <HeartBox isCheck={isLike} onClick={handleAddWishlist}>
         <IconSVG iconHref="/icon.svg#svgs-wishlist" />
       </HeartBox>
     </ProductCardContainer>

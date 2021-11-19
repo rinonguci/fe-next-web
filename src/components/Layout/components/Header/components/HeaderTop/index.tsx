@@ -1,16 +1,12 @@
 import { useAppDispatch, useAppSelector } from "@hooks/redux";
-import { FC, MutableRefObject, useEffect, useRef } from "react";
+import { FC } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 import IconLeft from "./components/IconLeft";
 import IconRight from "./components/IconRight";
 import Logo from "../Logo";
-import {
-  setOverflowMenu,
-  setOverflowUser,
-} from "@redux/slides/common/bodyOverflow";
-import useToggleAndCloseVer2 from "@hooks/useToggleAndCloseVer2";
 import isNullObject from "@common/function/isNullObject";
+import { setOverflowMenu, setOverflowUser } from "@redux/slides/ui";
 
 const HeaderTopContainer = styled.div`
   ${tw`md:pt-8 pt-14 text-2xl`}
@@ -35,10 +31,10 @@ interface IHeaderTop {}
 
 const HeaderTop: FC<IHeaderTop> = () => {
   const dispatch = useAppDispatch();
-  const { user, wishList } = useAppSelector((state) => state.authReducers);
+  const { user, wishList } = useAppSelector((state) => state.userReducers);
 
   const { overflowMenu, overflowUser } = useAppSelector(
-    (state) => state.commonReducers.bodyReducer
+    (state) => state.uiReducers
   );
 
   const handleClickMenuMobile = () => {

@@ -27,9 +27,7 @@ const Item = styled.span`
 interface IBreadcrumb {}
 
 const Breadcrumb: FC<IBreadcrumb> = () => {
-  const { breadcrumb } = useAppSelector(
-    (state) => state.commonReducers.breadcrumbReducer
-  );
+  const { breadcrumb } = useAppSelector((state) => state.uiReducers);
   return (
     <BreadcrumbContainer>
       {breadcrumb?.map((value, index) => (

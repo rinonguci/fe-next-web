@@ -1,9 +1,7 @@
 import Button from "@designs/Button";
 import Input from "@designs/Input";
-import { ISignupPayload } from "@interfaces/auth";
 import fetchAuth from "@services/auth";
-import { AxiosError } from "axios";
-import { Formik, FormikProps, withFormik } from "formik";
+import { Formik } from "formik";
 import { FC, useState } from "react";
 import { toast } from "react-toastify";
 import styled from "styled-components";
@@ -81,7 +79,7 @@ const Signup: FC<ISignup> = ({ handleClickForm }) => {
           .required("Please enter your phone"),
       })}
       onSubmit={async (dataForm) => {
-        let payload: ISignupPayload = {
+        let payload = {
           email: dataForm.email,
           fname: dataForm.firstname,
           lname: dataForm.lastname,
@@ -96,7 +94,6 @@ const Signup: FC<ISignup> = ({ handleClickForm }) => {
           toast.success("You have successfully registered");
         } catch (error: any) {
           toast.error(error);
-     
         }
       }}
     >

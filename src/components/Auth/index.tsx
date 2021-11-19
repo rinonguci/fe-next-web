@@ -5,7 +5,7 @@ import Login from "./Login";
 import Signup from "./Signup";
 import { useAppDispatch, useAppSelector } from "@hooks/redux";
 import useToggleAndCloseVer2 from "@hooks/useToggleAndCloseVer2";
-import { setOverflowUser } from "@redux/slides/common/bodyOverflow";
+import { setOverflowUser } from "@redux/slides/ui";
 
 const AuthContainer = styled.div<{ isActive: boolean }>`
   ${tw`fixed z-[1000] w-full min-h-[100vh] flex items-center justify-center`}
@@ -38,9 +38,7 @@ interface IAuth {}
 const Auth: FC<IAuth> = () => {
   const dispatch = useAppDispatch();
   const [isForm, setIsForm] = useState<boolean>(false);
-  const { overflowUser } = useAppSelector(
-    (state) => state.commonReducers.bodyReducer
-  );
+  const { overflowUser } = useAppSelector((state) => state.uiReducers);
 
   const ref = useRef<HTMLDivElement>(null);
   const [isActive, setIsActive] = useToggleAndCloseVer2(ref);

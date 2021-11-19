@@ -1,3 +1,5 @@
+import { PayloadAction } from "@reduxjs/toolkit";
+
 export interface ICategory {
   _id: string;
   name: string;
@@ -7,3 +9,4 @@ export interface ICategory {
   slug: string;
   children?: Array<ICategory>;
 }
+export type ICategoies = Array<ICategory>;

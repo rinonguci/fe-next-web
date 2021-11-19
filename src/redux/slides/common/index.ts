@@ -1,14 +1,25 @@
-import { combineReducers } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import { ICategoies } from "@redux/types/common";
 
-import bodyReducer from "./bodyOverflow";
-import breadcrumbReducer from "./breadcrumb";
-import loadingReducer from "./loading";
-import notifyReducer from "./notify";
+export interface ICommonSlice {
+  categories: ICategoies;
+}
 
-const uiStateReducers = combineReducers({
-  bodyReducer,
-  breadcrumbReducer,
-  notifyReducer,
-  loadingReducer,
+const initialState: ICommonSlice = {
+  categories: [],
+};
+
+const commonSlice = createSlice({
+  name: "common",
+  initialState,
+  reducers: {
+    getCategories() {},
+    getCategoriesSuccess(state, action) {
+      state.categories = action.payload;
+    },
+  },
 });
-export default uiStateReducers;
+export const { getCategories, getCategoriesSuccess } = commonSlice.actions;
+
+const commonReducers = commonSlice.reducer;
+export default commonReducers;

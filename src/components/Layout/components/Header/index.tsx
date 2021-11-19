@@ -28,7 +28,7 @@ const NavContainer = styled.div`
 interface IHeader {}
 
 const Header: FC<IHeader> = () => {
-  const { categories } = useAppSelector((state) => state.categoriesReducers);
+  const { categories } = useAppSelector((state) => state.commonReducers);
   const [isScroll, setIsScroll] = useState<boolean>(false);
   let lastScrollTop = useRef<number>(0);
 

@@ -18,7 +18,7 @@ const reducers: Reducer<any, Action> = (state, action: AnyAction) => {
       let payload = { ...action.payload };
 
       // Eliminate client-side stores
-      delete payload.authReducers;
+      delete payload.userReducers;
 
       const nextState = {
         ...state,
@@ -50,7 +50,7 @@ const makeStore: (Store<RootState> & Persistor) | any = () => {
     const persistConfig = {
       key: "nextjs",
       storage,
-      whitelist: ["authReducers", "categoriesReducers"],
+      whitelist: ["userReducers"],
     };
 
     const store: Store<RootState> = configureStore({

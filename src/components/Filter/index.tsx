@@ -1,9 +1,9 @@
-import { IFacet } from "@interfaces/product";
-import { FC, MouseEventHandler, useEffect, useRef, useState } from "react";
-import styled, { css, keyframes } from "styled-components";
+import { FC, useEffect, useState } from "react";
+import styled, { css } from "styled-components";
 import tw from "twin.macro";
 import Check from "./components/Check";
 import { useRouter } from "next/router";
+import { IFacet } from "@redux/types/product";
 
 const FilterContainer = styled.div`
   ${tw``}

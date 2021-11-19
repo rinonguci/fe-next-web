@@ -1,8 +1,6 @@
 import { useAppDispatch, useAppSelector } from "@hooks/redux";
-import {
-  IStatusLoading,
-  setStatusLoadingClose,
-} from "@redux/slides/common/loading";
+import { setStatusLoading } from "@redux/slides/ui";
+import { IStatusLoading } from "@redux/types/ui";
 import { FC, useEffect } from "react";
 import styled, { css } from "styled-components";
 import tw from "twin.macro";
@@ -11,7 +9,7 @@ const LoadingContainer = styled.div`
   ${tw`absolute h-[4px] w-full top-0 left-0 right-0 z-[100] overflow-hidden`}
 `;
 
-const Load = styled.div<{ status: IStatusLoading; time: number }>`
+const Load = styled.div<{ status?: IStatusLoading; time?: number }>`
   ${tw`h-full w-full bg-green-500`}
   ${({ status, time }) => {
     switch (status) {
@@ -37,9 +35,13 @@ interface ILoading {}
 
 const Loading: FC<ILoading> = () => {
   const dispatch = useAppDispatch();
-  const { status, time } = useAppSelector(
-    (state) => state.commonReducers.loadingReducer
-  );
+  const { status, time } = useAppSelector((state) => state.uiReducers.loading);
+
+  const setStatusLoadingClose = () => async (dispatch: any) => {
+    await setTimeout(() => {
+      dispatch(setStatusLoading({ status: "close" }));
+    }, 500);
+  };
 
   useEffect(() => {
     if (status === "end") {

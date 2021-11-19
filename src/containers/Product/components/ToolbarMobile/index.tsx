@@ -1,8 +1,8 @@
 import Filter from "@components/Filter";
 import useWindowSize from "@hooks/useWindowSize";
-import { IFacet } from "@interfaces/product";
-import { FC, Fragment, useCallback, useEffect, useRef, useState } from "react";
-import styled, { css } from "styled-components";
+import { IFacet } from "@redux/types/product";
+import { FC, Fragment } from "react";
+import styled from "styled-components";
 import tw from "twin.macro";
 
 const ToolbarMobileContainer = styled.div`

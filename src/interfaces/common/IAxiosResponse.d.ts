@@ -1,4 +1,3 @@
-export interface IAxiosResponse<T> {
-  status: string | number;
-  data: T;
+export interface IDataResponse {
+  data?: any;
 }

@@ -2,17 +2,15 @@ import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { Fragment } from "react";
 import { END } from "redux-saga";
 
-import { wrapper } from "@redux/store";
-
-import MetaTitle from "@designs/MetaTitle";
-
-import fetchProduct from "@services/products";
-import { getPathProductAll } from "@common/helper/product/getPathAllProduct";
 import ProductDetail from "@containers/ProductDetail";
 
-import { useAppSelector } from "@hooks/redux";
-import { getCategories } from "@redux/slides/categories";
+import { wrapper } from "@redux/store";
 import { getProductDetail } from "@redux/slides/product";
+import { getCategories } from "@redux/slides/common";
+import fetchProduct from "@services/products";
+import { getPathProductAll } from "@common/helper/product/getPathAllProduct";
+import { useAppSelector } from "@hooks/redux";
+import MetaTitle from "@designs/MetaTitle";
 
 const ProductDetailPage: NextPage = (props) => {
   const { productDetail } = useAppSelector((state) => state.productReducers);

@@ -1,4 +1,4 @@
-import { IGetUserSuccessPayload, IUser } from "@interfaces/auth";
+import { IUser } from "@redux/types/user";
 import jwt from "jwt-decode";
 import { setToken } from "../auth";
 

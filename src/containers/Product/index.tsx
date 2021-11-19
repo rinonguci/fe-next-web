@@ -1,21 +1,16 @@
 import Filter from "@components/Filter";
 import Layout from "@components/Layout";
-import ProductCard from "@components/ProductCard";
 import Breadcrumb from "@components/Breadcrumb";
 import { useAppDispatch, useAppSelector } from "@hooks/redux";
-import { IFacet } from "@interfaces/product";
-import {
-  getFacets,
-  getProductsByType,
-  IGetProductsByTypePayload,
-} from "@redux/slides/product";
+import { getProductsByType } from "@redux/slides/product";
 import { useRouter } from "next/router";
-import { FC, memo, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 import CategoryProduct from "./components/CategoryProducts";
 import Toolbar from "./components/Toolbar";
 import ToolbarMobile from "./components/ToolbarMobile";
+import { IFacet, IGetProductsByTypePayload } from "@redux/types/product";
 
 const ProductContainer = styled.div<{ isActive: boolean }>`
   ${tw`container lg:max-w-full mx-auto xl:px-4 lg:mt-10 px-20 `}

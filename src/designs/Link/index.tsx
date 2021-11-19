@@ -1,8 +1,8 @@
 import { FC, MouseEvent } from "react";
 import { LinkProps } from "next/link";
 import { useAppDispatch } from "@hooks/redux";
-import { setStatusLoading } from "@redux/slides/common/loading";
 import { useRouter } from "next/router";
+import { setStatusLoading } from "@redux/slides/ui";
 
 interface ILink extends LinkProps {}
 
@@ -20,7 +20,11 @@ const Link: FC<ILink> = (props) => {
     }
   };
   return (
-    <a {...props} onClick={handleLoading} href={href.toString() || "/notfound"}>
+    <a
+      {...props}
+      onClick={(e) => handleLoading(e)}
+      href={href.toString() || "/notfound"}
+    >
       {children}
     </a>
   );

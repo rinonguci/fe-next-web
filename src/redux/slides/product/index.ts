@@ -1,39 +1,19 @@
-import { IFacet, IProduct, IProductDetail } from "@interfaces/product";
-
-import { createAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-export interface IGetProductsByTypePayload {
-  id: string;
-  params?: string;
-}
-export interface IGetProductsByTypeSuccessPayload {
-  data: Array<IProduct>;
-}
-
-export interface IGetAllProductsPayload {}
-export interface IGetAllProductsSuccessPayload {
-  data: Array<IProduct>;
-}
-
-export interface IGetProductDetailPayload {
-  id: string;
-}
-export interface IGetProductDetailSuccessPayload {
-  data: IProductDetail;
-}
-
-export interface IGetFacetsPayload {
-  id: string;
-}
-export interface IGetFacetsSuccessPayload {
-  data: Array<IFacet>;
-}
+import { createSlice } from "@reduxjs/toolkit";
+import {
+  IAllProducts,
+  IFacets,
+  IGetFacetsPayload,
+  IGetProductDetailPayload,
+  IGetProductsByTypePayload,
+  IProductDetail,
+  IProductsByType,
+} from "@redux/types/product";
 
 interface IProductSlice {
-  productsByType?: Array<IProduct>;
-  allProducts?: Array<IProduct>;
-  facets?: Array<IFacet>;
-  productDetail?: IProductDetail;
+  productsByType: IProductsByType;
+  allProducts: IAllProducts;
+  facets: IFacets;
+  productDetail: IProductDetail;
 }
 
 const initialState: IProductSlice = {
@@ -47,46 +27,37 @@ const productSlice = createSlice({
   name: "products",
   initialState,
   reducers: {
-    getProductsByTypeSuccess: (
-      state,
-      action: PayloadAction<IGetProductsByTypeSuccessPayload>
-    ) => {
-      state.productsByType = action.payload.data;
+    getProductsByType(state, { payload: IGetProductsByTypePayload }) {},
+    getProductsByTypeSuccess(state, action) {
+      state.productsByType = action.payload;
     },
-    getAllProductsSuccess: (
-      state,
-      action: PayloadAction<IGetAllProductsSuccessPayload>
-    ) => {
-      state.allProducts = action.payload.data;
+
+    getAllProducts: () => {},
+    getAllProductsSuccess: (state, action) => {
+      state.allProducts = action.payload;
     },
-    getProductDetailSuccess: (
-      state,
-      action: PayloadAction<IGetProductDetailSuccessPayload>
-    ) => {
-      state.productDetail = action.payload.data;
+
+    getProductDetail: (state, { payload: IGetProductDetailPayload }) => {},
+    getProductDetailSuccess: (state, action) => {
+      state.productDetail = action.payload;
     },
-    getFacetsSuccess: (
-      state,
-      action: PayloadAction<IGetFacetsSuccessPayload>
-    ) => {
-      state.facets = action.payload.data;
+
+    getFacets: (state, { payload: IGetFacetsPayload }) => {},
+    getFacetsSuccess: (state, action) => {
+      state.facets = action.payload;
     },
   },
 });
 
-export const getProductsByType =
-  createAction<IGetProductsByTypePayload>("getProducts");
-export const getAllProducts =
-  createAction<IGetAllProductsPayload>("getAllProducts");
-export const getProductDetail =
-  createAction<IGetProductDetailPayload>("getProductDetail");
-export const getFacets = createAction<IGetFacetsPayload>("getFacets");
-
 export const {
-  getFacetsSuccess,
-  getProductsByTypeSuccess,
+  getAllProducts,
   getAllProductsSuccess,
+  getFacets,
+  getFacetsSuccess,
+  getProductDetail,
   getProductDetailSuccess,
+  getProductsByType,
+  getProductsByTypeSuccess,
 } = productSlice.actions;
 
 const productReducers = productSlice.reducer;

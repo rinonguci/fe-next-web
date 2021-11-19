@@ -1,15 +1,15 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import categoriesReducers from "./categories";
 
 import commonReducers from "./common";
+import uiReducers from "./ui";
 import productReducers from "./product";
-import authReducers from "./auth";
+import userReducers from "./user";
 
 const rootReducers = combineReducers({
   commonReducers,
+  uiReducers,
   productReducers,
-  categoriesReducers,
-  authReducers,
+  userReducers,
 });
 
 export default rootReducers;

@@ -1,5 +1,5 @@
-import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { Fragment } from "react";
+import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { END } from "redux-saga";
 
 import Product from "@containers/Product";
@@ -9,7 +9,7 @@ import MetaTitle from "@designs/MetaTitle";
 import { getFacets, getProductsByType } from "@redux/slides/product";
 
 import { getPathProductByType } from "@common/helper/product/getPathProductByType";
-import { getCategories } from "@redux/slides/categories";
+import { getCategories } from "@redux/slides/common";
 
 interface IProductPage {
   name?: string;
@@ -1557,7 +1557,6 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
       const { category } = params as { category: Array<string> };
 
       await dispatch(getCategories());
-
       await dispatch(getProductsByType({ id: category[0] }));
       await dispatch(getFacets({ id: category[0] }));
 

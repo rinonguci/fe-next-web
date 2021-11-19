@@ -1,66 +1,29 @@
-import {
-  IGetProductsByTypePayload,
-  IGetFacetsPayload,
-  IGetAllProductsPayload,
-  IGetProductDetailPayload,
-} from "@redux/slides/product";
 import AxiosService from "@common/utils/axios";
-import { IAxiosResponse } from "@interfaces/common/IAxiosResponse";
-import { IFacet, IProduct, IProductDetail } from "@interfaces/product";
 
-const axios = {
-  urlGetProductByType: ({ params, id }: IGetProductsByTypePayload) =>
+const url = {
+  urlGetProductByType: ({ params, id }: any) =>
     `categories/${id}/products/${params !== undefined ? "?" + params : ""}`,
-  urlGetAllProduct: ({}: IGetAllProductsPayload) => `products`,
-  urlGetProductDetail: ({ id }: IGetProductDetailPayload) => `products/${id}`,
-  urlGetFacet: (payload: IGetFacetsPayload) =>
-    `categories/${payload.id}/products/facets`,
+  urlGetAllProduct: () => `products`,
+  urlGetProductDetail: ({ id }: any) => `products/${id}`,
+  urlGetFacet: (payload: any) => `categories/${payload.id}/products/facets`,
 };
 
 const fetchProduct = {
-  getProductByType: async (payload: IGetProductsByTypePayload) => {
-    try {
-      const response = await AxiosService.get<IAxiosResponse<Array<IProduct>>>(
-        axios.urlGetProductByType(payload)
-      );
-
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+  async getProductByType(payload: any) {
+    const response = await AxiosService.get(url.urlGetProductByType(payload));
+    return response;
   },
-  getAllProduct: async (payload: IGetAllProductsPayload) => {
-    try {
-      const response = await AxiosService.get<IAxiosResponse<Array<IProduct>>>(
-        axios.urlGetAllProduct(payload)
-      );
-
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+  async getAllProduct(payload: any) {
+    const response = await AxiosService.get(url.urlGetAllProduct());
+    return response;
   },
-  getProductDetail: async (payload: IGetProductDetailPayload) => {
-    try {
-      const response = await AxiosService.get<IAxiosResponse<IProductDetail>>(
-        axios.urlGetProductDetail(payload)
-      );
-
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+  async getProductDetail(payload: any) {
+    const response = await AxiosService.get(url.urlGetProductDetail(payload));
+    return response;
   },
-  getFacts: async (payload: IGetFacetsPayload) => {
-    try {
-      const response = await AxiosService.get<IAxiosResponse<IFacet>>(
-        axios.urlGetFacet(payload)
-      );
-
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+  async getFacts(payload: any) {
+    const response = await AxiosService.get(url.urlGetFacet(payload));
+    return response;
   },
 };
 

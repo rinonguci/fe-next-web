@@ -1,9 +1,9 @@
 import { FC } from "react";
 import styled, { keyframes } from "styled-components";
 import tw from "twin.macro";
-import { ICategory } from "@interfaces/redux";
 import NavDetailMobileItem from "../NavDetailMobileItem";
 import Link from "@designs/Link";
+import { ICategory } from "@redux/types/common";
 
 const NavDetailMobileExtraContainer = styled.div<{ stateExtra: boolean }>`
   ${tw`absolute w-[286px]  bg-white top-0 bottom-0 overflow-y-scroll`}

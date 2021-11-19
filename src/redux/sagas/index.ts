@@ -1,9 +1,8 @@
 import { all } from "@redux-saga/core/effects";
-
-import wishlistSaga from "./auth";
-import categoriesSaga from "./categories";
+import userReducers from "./user";
+import commonSaga from "./common";
 import productsSaga from "./product";
 
 export default function* rootSaga() {
-  yield all([categoriesSaga(), productsSaga(), wishlistSaga()]);
+  yield all([commonSaga(), productsSaga(), userReducers()]);
 }

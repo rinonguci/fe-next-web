@@ -8,6 +8,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@redux-ts-starter-kit/slice": "^3.0.7-alpha.0",
     "@reduxjs/toolkit": "^1.6.2",
     "@types/react-inner-image-zoom": "^2.0.1",
     "@types/react-lazy-load-image-component": "^1.5.2",

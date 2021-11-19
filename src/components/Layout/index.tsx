@@ -22,9 +22,7 @@ const NavDetailMobileContaier = styled.div<{ isActive: boolean }>`
 interface ILayout {}
 
 const Layout: FC<ILayout> = ({ children }) => {
-  const { overflowMenu } = useAppSelector(
-    (state) => state.commonReducers.bodyReducer
-  );
+  const { overflowMenu } = useAppSelector((state) => state.uiReducers);
   const [isActive, setIsActive] = useState<boolean>(overflowMenu);
 
   useEffect(() => {

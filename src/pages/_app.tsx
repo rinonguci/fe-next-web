@@ -18,7 +18,7 @@ import { useStore } from "react-redux";
 
 const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
   const { overflowMenu, overflowUser } = useAppSelector(
-    (state) => state.commonReducers.bodyReducer
+    (state) => state.uiReducers
   );
 
   const store = useStore();

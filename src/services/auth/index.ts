@@ -1,57 +1,23 @@
-import {
-  ISignupStatusResponse,
-  ILoginDataResponse,
-  ILoginPayload,
-  ISignupPayload,
-  IUser,
-} from "@interfaces/auth";
-
 import AxiosService from "@common/utils/axios";
-import { IAxiosResponse } from "@interfaces/common/IAxiosResponse";
 
-const axios = {
-  urlSignup: "user/signup",
-  urlLogin: "user/login",
-  urlMe: "user/me",
+const url = {
+  signup: "user/signup",
+  login: "user/login",
+  me: "user/me",
 };
 
 const fetchAuth = {
-  signup: async (payload: ISignupPayload) => {
-    try {
-      const response = await AxiosService.post<
-        any,
-        IAxiosResponse<ISignupStatusResponse>,
-        ISignupPayload
-      >(axios.urlSignup, payload);
-
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+  async signup(payload: any) {
+    const response = await AxiosService.post(url.signup, payload);
+    return response;
   },
-  login: async (payload: ILoginPayload): Promise<ILoginDataResponse> => {
-    try {
-      const response = await AxiosService.post<
-        any,
-        IAxiosResponse<ILoginDataResponse>,
-        ILoginPayload
-      >(axios.urlLogin, payload);
-
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+  async login(payload: any) {
+    const response = await AxiosService.post(url.login, payload);
+    return response;
   },
-  getMe: async (): Promise<IUser> => {
-    try {
-      const response = await AxiosService.get<any, IAxiosResponse<IUser>>(
-        axios.urlMe
-      );
-
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+  async getMe() {
+    const response = await AxiosService.get(url.me);
+    return response;
   },
 };
 

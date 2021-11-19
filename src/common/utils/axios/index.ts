@@ -1,3 +1,4 @@
+import { IDataAxios, IResponseAxios } from "./interface";
 import handleError from "@common/utils/axios/handleError";
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
 
@@ -51,9 +52,26 @@ class AxiosService {
 
     this.#instance = instance;
   }
-  getInstance() {
-    return this.#instance;
+
+  async get(url: string, params?: IDataAxios): IResponseAxios {
+    try {
+      return await (
+        await this.#instance.get(url, { params })
+      ).data;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  async post(url: string, data?: IDataAxios): IResponseAxios {
+    try {
+      return await (
+        await this.#instance.post(url, data)
+      ).data;
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 }
 
-export default new AxiosService().getInstance();
+export default new AxiosService();

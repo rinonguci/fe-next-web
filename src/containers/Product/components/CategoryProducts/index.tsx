@@ -1,13 +1,10 @@
 import ProductCard from "@components/ProductCard";
-import Link from "@designs/Link";
-import { IProduct } from "@interfaces/product";
 import { FC, useCallback } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
-import Skeleton from "react-loading-skeleton";
-import Delayed from "@components/Delayed";
 import { useAppSelector } from "@hooks/redux";
-import { IWishlist } from "@interfaces/wishlist";
+import { IProduct } from "@redux/types/product";
+import { IWish } from "@redux/types/user";
 
 const CategoryProductContainer = styled.div`
   ${tw``}
@@ -32,13 +29,13 @@ interface ICategoryProduct {
 }
 
 const CategoryProduct: FC<ICategoryProduct> = ({ products, gapX }) => {
-  const { wishList } = useAppSelector((state) => state.authReducers);
+  const { wishList } = useAppSelector((state) => state.userReducers);
 
   const handleCheckIsLike = useCallback(
     (id: string) => {
       if (!(wishList && wishList.length > 0)) return;
 
-      let index = wishList.findIndex((value: IWishlist) => value._id === id);
+      let index = wishList.findIndex((value: IWish) => value._id === id);
 
       if (index === -1) return false;
       return true;

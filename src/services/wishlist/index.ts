@@ -1,6 +1,4 @@
 import AxiosService from "@common/utils/axios";
-import { IAxiosResponse } from "@interfaces/common/IAxiosResponse";
-import { IAddWishListPayload } from "@interfaces/wishlist";
 
 const axios = {
   urlGet: "wishlist",
@@ -8,30 +6,13 @@ const axios = {
 };
 
 const fetchWishlist = {
-  get: async (): Promise<any> => {
-    try {
-      const response = await AxiosService.get<any, IAxiosResponse<any>>(
-        axios.urlGet
-      );
-
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+  async get() {
+    const response = await AxiosService.get(axios.urlGet);
+    return response;
   },
-  add: async (payload: IAddWishListPayload): Promise<any> => {
-    try {
-      console.log(payload);
-
-      const response = await AxiosService.post<any, IAxiosResponse<any>>(
-        axios.urlAdd,
-        { product: payload.product }
-      );
-
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+  async add(payload: any): Promise<any> {
+    const response = await AxiosService.post(axios.urlAdd, payload);
+    return response;
   },
 };
 

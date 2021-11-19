@@ -4,9 +4,9 @@ import tw from "twin.macro";
 import styled, { css } from "styled-components";
 
 import { IMediaQuery } from "@interfaces/UI/IMediaQuery";
-import { ICategory } from "@interfaces/redux";
 import NavDetail from "../NavDetail";
 import Link from "@designs/Link";
+import { ICategory } from "@redux/types/common";
 
 const NavContainer = styled.div`
   ${tw`justify-center`}

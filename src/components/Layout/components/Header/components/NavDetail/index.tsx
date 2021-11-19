@@ -1,6 +1,5 @@
 import Link from "@designs/Link";
-import { ICategory } from "@interfaces/redux";
-
+import { ICategory } from "@redux/types/common";
 import { FC, useEffect, useState } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
