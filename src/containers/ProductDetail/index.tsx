@@ -1,12 +1,12 @@
 import Layout from "@components/Layout";
 import Button from "@designs/Button";
 import IconSVG from "@designs/IconSVG";
+import SelectVariant from "@designs/SelectVariant";
 import { useAppSelector } from "@hooks/redux";
 import { FC } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 import Image from "./components/Image";
-import Select from "./components/Select";
 
 const ProductDetailContainer = styled.div`
   ${tw`container lg:max-w-full mx-auto xl:px-4  mt-40 px-40`}
@@ -89,7 +89,7 @@ const ProductDetail: FC<IProductDetail> = () => {
                 <Price>${productDetail?.price}</Price>
               </ProductInfoBox>
               <ProductPayBox>
-                <Select list={productDetail?.variants} />
+                <SelectVariant list={productDetail?.variants} />
                 <DeliveryLink>2-5 worrking days</DeliveryLink>
                 <DeliveryLink>21 day to return</DeliveryLink>
                 <ProductPayControl>

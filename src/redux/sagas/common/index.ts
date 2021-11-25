@@ -1,4 +1,4 @@
-import { getCategories } from "@redux/slides/common";
+import { getCategories } from "@redux/slices/common";
 import { all, takeLatest } from "redux-saga/effects";
 import { getCategoriesSaga } from "./categories";
 

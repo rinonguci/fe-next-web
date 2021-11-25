@@ -1,7 +1,7 @@
 import Filter from "@components/Filter";
 import useWindowSize from "@hooks/useWindowSize";
 import { IFacet } from "@redux/types/product";
-import { FC, Fragment } from "react";
+import { FC, Fragment, memo } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 
@@ -59,6 +59,14 @@ interface IToolbarMobile {
 
 const ToolbarMobile: FC<IToolbarMobile> = ({ isActive, facets, onClick }) => {
   const { width } = useWindowSize();
+
+  const FilterWrraper = memo(
+    function FilterMemo(value: any) {
+      return <Filter data={value} />;
+    },
+    () => false
+  );
+
   return (
     <Fragment>
       {width && width < 767 && (
@@ -79,7 +87,7 @@ const ToolbarMobile: FC<IToolbarMobile> = ({ isActive, facets, onClick }) => {
               <FilterBox>
                 {facets &&
                   facets.map((value: IFacet) => (
-                    <Filter key={value.name} data={value} />
+                    <FilterWrraper key={value.name} data={value} />
                   ))}
               </FilterBox>
             </FilterContainer>

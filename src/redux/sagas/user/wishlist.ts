@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import { call, put } from "redux-saga/effects";
-import { addWishlistSuccess, getWishlistSuccess } from "@redux/slides/user";
+import { addWishlistSuccess, getWishlistSuccess } from "@redux/slices/user";
 import fetchWishlist from "@services/wishlist";
 import { IDataResponse } from "@interfaces/common/IAxiosResponse";
 
@@ -17,13 +17,13 @@ export function* addWishlistSaga(action: any) {
 
   const response: IDataResponse = yield call(fetchWishlist.add, payload);
 
-  const { data } = response;
+  const { data, status } = response;
 
   if (!data) {
-    toast.error("Update Fail");
+    toast.error(response);
     return;
   }
 
-  toast.success("Update Success");
+  toast.success(status);
   yield put(addWishlistSuccess(data));
 }

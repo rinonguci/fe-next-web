@@ -1,19 +1,20 @@
 import AxiosService from "@common/utils/axios";
 
 const url = {
-  get: "wishlist",
-  add: "wishlist/add",
+  get: "cart",
+  add: "cart/add-to-cart",
 };
 
-const fetchWishlist = {
+const fetchCart = {
   async get() {
     const response = await AxiosService.get(url.get);
     return response;
   },
-  async add(payload: any) {
+  async add(payload: any): Promise<any> {
     const response = await AxiosService.post(url.add, payload);
+    debugger;
     return response;
   },
 };
 
-export default fetchWishlist;
+export default fetchCart;

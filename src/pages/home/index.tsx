@@ -5,7 +5,7 @@ import { END } from "redux-saga";
 import Home from "@containers/Home";
 import MetaTitle from "@designs/MetaTitle";
 import { wrapper } from "@redux/store";
-import { getCategories } from "@redux/slides/common";
+import { getCategories } from "@redux/slices/common";
 
 const HomePage: NextPage = (props) => {
   return (

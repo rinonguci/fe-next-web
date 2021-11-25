@@ -5,7 +5,7 @@ import Login from "./Login";
 import Signup from "./Signup";
 import { useAppDispatch, useAppSelector } from "@hooks/redux";
 import useToggleAndCloseVer2 from "@hooks/useToggleAndCloseVer2";
-import { setOverflowUser } from "@redux/slides/ui";
+import { setOverflowUser } from "@redux/slices/ui";
 
 const AuthContainer = styled.div<{ isActive: boolean }>`
   ${tw`fixed z-[1000] w-full min-h-[100vh] flex items-center justify-center`}

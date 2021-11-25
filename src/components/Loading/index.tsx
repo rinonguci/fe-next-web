@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "@hooks/redux";
-import { setStatusLoading } from "@redux/slides/ui";
+import { setStatusLoading } from "@redux/slices/ui";
 import { IStatusLoading } from "@redux/types/ui";
 import { FC, useEffect } from "react";
 import styled, { css } from "styled-components";

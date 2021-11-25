@@ -8,7 +8,7 @@ import {
 import { createWrapper, HYDRATE } from "next-redux-wrapper";
 
 import createSagaMiddleware from "redux-saga";
-import rootReducer, { RootState } from "./slides";
+import rootReducer, { RootState } from "./slices";
 import rootSaga from "./sagas";
 import { Persistor } from "redux-persist";
 

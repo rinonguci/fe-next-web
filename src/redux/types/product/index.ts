@@ -15,6 +15,7 @@ export interface IVariant {
   price?: string;
   discountPrice?: number;
   size?: string;
+  sizeId?: string;
 }
 
 export interface IProductDetail {

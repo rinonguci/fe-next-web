@@ -2,7 +2,7 @@ import Link from "@designs/Link";
 import { useAppDispatch, useAppSelector } from "@hooks/redux";
 import useToggleAndCloseVer2 from "@hooks/useToggleAndCloseVer2";
 import useWindowSize, { ISize } from "@hooks/useWindowSize";
-import { setOverflowMenu } from "@redux/slides/ui";
+import { setOverflowMenu } from "@redux/slices/ui";
 import { ICategory } from "@redux/types/common";
 import { FC, memo, useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";

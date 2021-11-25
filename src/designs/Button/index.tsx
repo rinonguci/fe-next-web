@@ -27,17 +27,14 @@ interface IButton {
   style?: React.CSSProperties;
   type?: "submit" | "reset" | "button" | undefined;
   disabled?: boolean;
+  className?: string;
 }
 
-const Button: FC<IButton> = ({
-  children,
-  variant,
-  type,
-  disabled,
-  onClick,
-}) => {
+const Button: FC<IButton> = (props) => {
+  const { className, children, variant, type, disabled, onClick } = props;
   return (
     <ButtonContainer
+      className={className}
       disabled={disabled}
       type={type}
       variant={variant}

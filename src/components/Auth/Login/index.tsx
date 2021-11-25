@@ -2,7 +2,7 @@ import StorageToken from "@common/utils/storage";
 import Button from "@designs/Button";
 import Input from "@designs/Input";
 import { useAppDispatch } from "@hooks/redux";
-import { getUserSuccess, getWishlist } from "@redux/slides/user";
+import { getUserSuccess, getWishlist } from "@redux/slices/user";
 import fetchAuth from "@services/auth";
 import { Formik } from "formik";
 import { FC, useState } from "react";

@@ -59,7 +59,7 @@ class AxiosService {
         await this.#instance.get(url, { params })
       ).data;
     } catch (error) {
-      return Promise.reject(error);
+      return error;
     }
   }
 
@@ -69,7 +69,7 @@ class AxiosService {
         await this.#instance.post(url, data)
       ).data;
     } catch (error) {
-      return Promise.reject(error);
+      return error;
     }
   }
 }

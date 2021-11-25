@@ -1,5 +1,5 @@
 import { IDataResponse } from "@interfaces/common/IAxiosResponse";
-import { getFacetsSuccess } from "@redux/slides/product";
+import { getFacetsSuccess } from "@redux/slices/product";
 import fetchProduct from "@services/products";
 import { call, put } from "redux-saga/effects";
 

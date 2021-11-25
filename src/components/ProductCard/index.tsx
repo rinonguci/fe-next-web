@@ -5,7 +5,7 @@ import tw from "twin.macro";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import Skeleton from "react-loading-skeleton";
 import { useAppDispatch } from "@hooks/redux";
-import { addWishlist } from "@redux/slides/user";
+import { addWishlist } from "@redux/slices/user";
 import Link from "@designs/Link";
 import { IProduct } from "@redux/types/product";
 

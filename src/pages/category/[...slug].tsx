@@ -6,10 +6,10 @@ import Product from "@containers/Product";
 import { wrapper } from "@redux/store";
 
 import MetaTitle from "@designs/MetaTitle";
-import { getFacets, getProductsByType } from "@redux/slides/product";
+import { getFacets, getProductsByType } from "@redux/slices/product";
 
 import { getPathProductByType } from "@common/helper/product/getPathProductByType";
-import { getCategories } from "@redux/slides/common";
+import { getCategories } from "@redux/slices/common";
 import fetchCommon from "@services/common";
 
 interface IProductPage {

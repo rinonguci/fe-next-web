@@ -2,7 +2,7 @@ import Filter from "@components/Filter";
 import Layout from "@components/Layout";
 import Breadcrumb from "@components/Breadcrumb";
 import { useAppDispatch, useAppSelector } from "@hooks/redux";
-import { getProductsByType } from "@redux/slides/product";
+import { getProductsByType } from "@redux/slices/product";
 import { useRouter } from "next/router";
 import { FC, useEffect, useState } from "react";
 import styled from "styled-components";

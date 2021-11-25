@@ -4,7 +4,7 @@ import {
   getFacets,
   getProductsByType,
   getProductDetail,
-} from "@redux/slides/product";
+} from "@redux/slices/product";
 import {
   getAllProductsSaga,
   getProductDetailSaga,

@@ -3,14 +3,13 @@ import {
   getAllProductsSuccess,
   getProductDetailSuccess,
   getProductsByTypeSuccess,
-} from "@redux/slides/product";
+} from "@redux/slices/product";
 import fetchProduct from "@services/products";
 import { IDataResponse } from "@interfaces/common/IAxiosResponse";
-import { setStatusLoading } from "@redux/slides/ui";
+import { setStatusLoading } from "@redux/slices/ui";
 
 export function* getProductsByTypeSaga(action: any) {
   const { payload } = action;
-  console.log(payload);
 
   yield put(setStatusLoading({ status: "start" }));
   const response: IDataResponse = yield call(

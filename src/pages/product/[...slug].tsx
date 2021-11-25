@@ -5,8 +5,8 @@ import { END } from "redux-saga";
 import ProductDetail from "@containers/ProductDetail";
 
 import { wrapper } from "@redux/store";
-import { getProductDetail } from "@redux/slides/product";
-import { getCategories } from "@redux/slides/common";
+import { getProductDetail } from "@redux/slices/product";
+import { getCategories } from "@redux/slices/common";
 import fetchProduct from "@services/products";
 import { getPathProductAll } from "@common/helper/product/getPathAllProduct";
 import { useAppSelector } from "@hooks/redux";

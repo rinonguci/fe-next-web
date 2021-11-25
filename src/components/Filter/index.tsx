@@ -77,14 +77,22 @@ const Filter: FC<IFilter> = ({ data }) => {
 
   useEffect(() => {
     let check = document?.querySelectorAll(
-      `[data-checkedfilter=true][data-namefilter="${data.name.trim()}"]`
+      `[data-checkedfilter=true][data-namefilter="${data.name
+        ?.split(" ")
+        ?.join("")}"]`
     );
+    console.log(data.name + check);
+
     if (check.length > 0) {
       setIsActiveFilter(true);
     } else {
       setIsActiveFilter(false);
     }
   }, [router.query]);
+
+  useEffect(() => {
+    console.log(isActiveFilter);
+  }, [isActiveFilter]);
 
   const handleActive = (e: any) => {
     let element = e.target as HTMLDivElement;
@@ -99,7 +107,9 @@ const Filter: FC<IFilter> = ({ data }) => {
   const handleClear = () => {
     let checked = Array.from(
       document.querySelectorAll(
-        `[data-checkedfilter=true][data-namefilter=${data.name.trim()}]`
+        `[data-checkedfilter=true][data-namefilter=${data.name
+          ?.split(" ")
+          ?.join("")}]`
       )
     );
 
@@ -112,7 +122,7 @@ const Filter: FC<IFilter> = ({ data }) => {
     let sort = url.searchParams.getAll("sort");
 
     let newParam = p.filter((value) => arrId.indexOf(value) === -1);
-
+    // setIsActiveFilter(false);
     router.push(
       { pathname: url.pathname, query: { p: newParam, sort: sort } },
       undefined,
@@ -143,7 +153,7 @@ const Filter: FC<IFilter> = ({ data }) => {
         {data.values.map((value) => (
           <FilterItem key={value.id}>
             <Check
-              nameFilter={data.name.trim()}
+              nameFilter={data.name?.split(" ")?.join("")}
               id={value.id}
               name={value.name}
             />

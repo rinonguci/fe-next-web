@@ -1,4 +1,5 @@
 import { PayloadAction } from "@reduxjs/toolkit";
+import { IVariant } from "../product";
 
 export interface IUser {
   email?: string;
@@ -18,7 +19,10 @@ export interface IWish {
   discountPrice?: number;
   price?: number;
   id?: string;
+  variants: Array<IVariant>;
 }
 export type IWishlist = Array<IWish>;
 
 export type IAddWishlistPayload = { product: string };
+
+export type IAddCartPayload = { quantity: number; productVariation: string };

@@ -6,7 +6,7 @@ import IconLeft from "./components/IconLeft";
 import IconRight from "./components/IconRight";
 import Logo from "../Logo";
 import isNullObject from "@common/function/isNullObject";
-import { setOverflowMenu, setOverflowUser } from "@redux/slides/ui";
+import { setOverflowMenu, setOverflowUser } from "@redux/slices/ui";
 import HoverDropdown from "./components/HoverDropdown";
 
 const HeaderTopContainer = styled.div`
