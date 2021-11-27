@@ -2,7 +2,7 @@ import StorageToken from "@common/utils/storage";
 import Button from "@designs/Button";
 import Input from "@designs/Input";
 import { useAppDispatch } from "@hooks/redux";
-import { getUserSuccess, getWishlist } from "@redux/slices/user";
+import { getCart, getUserSuccess, getWishlist } from "@redux/slices/user";
 import fetchAuth from "@services/auth";
 import { Formik } from "formik";
 import { FC, useState } from "react";
@@ -60,6 +60,7 @@ const Login: FC<ILogin> = ({ handleClickForm }) => {
           await StorageToken.setUser(result.token);
 
           dispatch(getWishlist());
+          dispatch(getCart());
 
           dispatch(getUserSuccess({ payload: result.data }));
         } catch (error: any) {

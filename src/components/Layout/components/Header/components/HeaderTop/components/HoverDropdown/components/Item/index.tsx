@@ -1,4 +1,4 @@
-import { IWish } from "@redux/types/user";
+import { IDropdown } from "@redux/types/ui";
 import { FC } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
@@ -37,7 +37,7 @@ const Price = styled.p`
 `;
 
 interface IItem {
-  data: IWish;
+  data: IDropdown;
 }
 
 const Item: FC<IItem> = ({ data }) => {

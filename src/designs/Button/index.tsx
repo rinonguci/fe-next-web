@@ -1,9 +1,10 @@
-import { FC } from "react";
+import { FC, ReactChild } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 
 const ButtonContainer = styled.button<{
   variant: IVariant;
+  hoverColor?: string;
 }>`
   ${tw`block w-full h-20 text-center rounded text-white font-bold text-lg flex-grow`}
   ${({ variant }) => {
@@ -16,11 +17,15 @@ const ButtonContainer = styled.button<{
         return tw`border border-gray-700 text-black-lv1 font-semibold hover:text-white hover:bg-gray-700 `;
     }
   }}
+  &:hover {
+    border: none;
+    background-color: ${({ hoverColor }) => hoverColor} !important;
+  }
 `;
 
 type IVariant = "text" | "container" | "outlined";
 interface IButton {
-  children?: string;
+  children?: ReactChild;
   variant: IVariant;
   rounded?: boolean;
   onClick?: () => void;
@@ -28,12 +33,15 @@ interface IButton {
   type?: "submit" | "reset" | "button" | undefined;
   disabled?: boolean;
   className?: string;
+  hoverColor?: string;
 }
 
 const Button: FC<IButton> = (props) => {
-  const { className, children, variant, type, disabled, onClick } = props;
+  const { className, children, variant, type, disabled, onClick, hoverColor } =
+    props;
   return (
     <ButtonContainer
+      hoverColor={hoverColor}
       className={className}
       disabled={disabled}
       type={type}

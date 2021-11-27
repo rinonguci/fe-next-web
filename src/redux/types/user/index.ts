@@ -26,3 +26,17 @@ export type IWishlist = Array<IWish>;
 export type IAddWishlistPayload = { product: string };
 
 export type IAddCartPayload = { quantity: number; productVariation: string };
+
+export interface ICart {
+  _id: string;
+  idProduct: string;
+  price: number;
+  quantity: number;
+  name: string;
+  imageCovers: string[];
+  images: string[];
+  variants: IVariant;
+  slug: string;
+}
+
+export type ICartList = Array<ICart>;

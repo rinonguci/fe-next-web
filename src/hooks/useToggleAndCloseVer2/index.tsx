@@ -1,7 +1,7 @@
 import { RefObject, useCallback, useEffect, useState } from "react";
 
 const useToggleAndCloseVer2 = (
-  ref: RefObject<HTMLDivElement>,
+  ref: RefObject<HTMLElement>,
   initialState: boolean = false
 ): [boolean, any] => {
   const [state, setState] = useState<boolean>(initialState);

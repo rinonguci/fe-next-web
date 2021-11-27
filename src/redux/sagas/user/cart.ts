@@ -9,6 +9,8 @@ export function* getCartSaga() {
   const response: IDataResponse = yield call(fetchCart.get);
 
   const { data } = response;
+  debugger;
+  console.log(data);
 
   yield put(getCartSuccess(data));
 }
@@ -19,7 +21,6 @@ export function* addCartSaga(action: any) {
   console.log("addcard: ", payload);
   const response: IDataResponse = yield call(fetchCart.add, payload);
 
-  debugger;
   const { data, status } = response;
 
   if (!data) {

@@ -19,3 +19,10 @@ export interface ILoadingPayload {
   to?: IToLoading;
   time?: number;
 }
+
+export interface IDropdown extends Record<string, any> {
+  imageCovers?: string[];
+  brand?: string;
+  name?: string;
+  price?: string;
+}

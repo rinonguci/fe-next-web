@@ -38,7 +38,9 @@ interface IHeaderTop {}
 
 const HeaderTop: FC<IHeaderTop> = () => {
   const dispatch = useAppDispatch();
-  const { user, wishlist } = useAppSelector((state) => state.userReducers);
+  const { user, wishlist, cart } = useAppSelector(
+    (state) => state.userReducers
+  );
 
   const { overflowMenu, overflowUser } = useAppSelector(
     (state) => state.uiReducers
@@ -78,6 +80,8 @@ const HeaderTop: FC<IHeaderTop> = () => {
         <NavExtraRight>
           <WishlistIcon>
             <IconRight
+              titleDropdow="Wishlist"
+              data={wishlist}
               href="/wishlist"
               icon="/icon.svg#svgs-wish-main"
               title="Wishlist"
@@ -86,10 +90,12 @@ const HeaderTop: FC<IHeaderTop> = () => {
           </WishlistIcon>
           <CartIcon>
             <IconRight
-              href="/cart"
+              titleDropdow="Cart"
+              data={cart}
+              href="/checkout/cart"
               icon="/icon.svg#svgs-bag"
               title="Shopping Bag"
-              itemCount={1}
+              itemCount={cart?.length || 0}
             />
           </CartIcon>
         </NavExtraRight>

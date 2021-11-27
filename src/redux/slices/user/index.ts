@@ -1,6 +1,7 @@
 import {
   IAddCartPayload,
   IAddWishlistPayload,
+  ICartList,
   IUser,
   IWishlist,
 } from "@redux/types/user";
@@ -9,7 +10,7 @@ import { createSlice } from "@redux-ts-starter-kit/slice";
 interface IUserSlice {
   user: IUser;
   wishlist: IWishlist;
-  cart: any;
+  cart: ICartList;
 }
 
 const initialState: IUserSlice = {
@@ -44,12 +45,17 @@ const userSlice = createSlice({
 
     getCart() {},
     getCartSuccess(state, action) {
-      console.log(action);
+      debugger;
+      const handleData = action.items.map((value: any) => ({
+        ...value.data,
+        _id: value.data.variants._id,
+        idProduct: value.data._id,
+        idVariant: value.data.variants.sizeId,
+        price: value.data.variants.price,
+        quantity: value.quantity,
+      }));
 
-      // const handleData = action.products.map(
-      //   (value: { product: any }) => value.product
-      // );
-      // state.wishlist = handleData;
+      state.cart = handleData;
     },
     addCart(state, action: IAddCartPayload) {},
     addCartSuccess(state, action) {

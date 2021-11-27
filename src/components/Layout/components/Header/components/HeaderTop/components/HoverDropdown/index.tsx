@@ -4,6 +4,7 @@ import styled from "styled-components";
 import tw from "twin.macro";
 import Item from "./components/Item";
 import useHover from "@hooks/useHover";
+import { IDropdown } from "@redux/types/ui";
 
 const HoverDropdownContainer = styled.div`
   ${tw`absolute right-0`}
@@ -44,22 +45,27 @@ const HoverDropdownMain = styled.div`
   }
 `;
 
-interface IHoverDropdown {}
+interface IHoverDropdown {
+  title: string;
+  data: IDropdown;
+}
 
-const HoverDropdown: FC<IHoverDropdown> = () => {
-  const { wishlist } = useAppSelector((state) => state.userReducers);
-
+const HoverDropdown: FC<IHoverDropdown> = ({ title, data }) => {
   return (
     <HoverDropdownContainer>
       <HoverDropdownBox>
         <ViewWishlistTop>
-          <Count>You have {wishlist?.length || 0} items in your Wishlist</Count>
-          <ViewWishlist>View Wishlist</ViewWishlist>
+          <Count>
+            You have {data?.length || 0} items in your {title}
+          </Count>
+          <ViewWishlist>View {title}</ViewWishlist>
         </ViewWishlistTop>
 
         <HoverDropdownMain>
-          {wishlist &&
-            wishlist.map((value) => <Item key={value._id} data={value} />)}
+          {data &&
+            data.map((value: IDropdown) => (
+              <Item key={value._id} data={value} />
+            ))}
         </HoverDropdownMain>
       </HoverDropdownBox>
     </HoverDropdownContainer>

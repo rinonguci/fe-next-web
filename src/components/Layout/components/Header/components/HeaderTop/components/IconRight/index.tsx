@@ -4,6 +4,7 @@ import tw from "twin.macro";
 import styled from "styled-components";
 import HoverDropdown from "../HoverDropdown";
 import Link from "@designs/Link";
+import { IDropdown } from "@redux/types/ui";
 
 const HoverDropdownBox = styled.div`
   ${tw`transition-all`}
@@ -38,9 +39,20 @@ interface IIconRight {
   icon: string;
   title: string;
   itemCount: number;
+  titleDropdow: string;
+  data: IDropdown;
 }
 
-const IconRight: FC<IIconRight> = ({ href, icon, title, itemCount }) => {
+const IconRight: FC<IIconRight> = ({
+  href,
+  icon,
+  title,
+  itemCount,
+  titleDropdow,
+  data,
+}) => {
+  console.log(data);
+
   return (
     <IconRightContainer>
       <Link href={href}>
@@ -56,7 +68,7 @@ const IconRight: FC<IIconRight> = ({ href, icon, title, itemCount }) => {
       </Link>
 
       <HoverDropdownBox>
-        <HoverDropdown />
+        <HoverDropdown title={titleDropdow} data={data} />
       </HoverDropdownBox>
     </IconRightContainer>
   );

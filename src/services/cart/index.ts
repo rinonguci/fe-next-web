@@ -12,7 +12,6 @@ const fetchCart = {
   },
   async add(payload: any): Promise<any> {
     const response = await AxiosService.post(url.add, payload);
-    debugger;
     return response;
   },
 };
