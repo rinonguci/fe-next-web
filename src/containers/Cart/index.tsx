@@ -46,7 +46,7 @@ const Cart: FC<ICart> = () => {
 
   useEffect(() => {
     handleTotalPrice();
-  }, []);
+  }, [cart]);
 
   const handleTotalPrice = () => {
     let totalPrice = cart.reduce(
