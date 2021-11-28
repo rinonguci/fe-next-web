@@ -1,3 +1,4 @@
+import IconSVG from "@designs/IconSVG";
 import { FC } from "react";
 import styled from "styled-components";
 
@@ -210,10 +211,8 @@ const Footer: FC<IFooter> = () => {
                     </div>
                     <div className="btn-col">
                       <button type="submit" className="btn btn-full">
-                        <span>
-                          <svg data-cs="svgLoader" className="lazyloaded">
-                            <use xlinkHref="/icon.svg#svgs-arrow-right-thin"></use>
-                          </svg>
+                        <span className="text-gray-200">
+                          <IconSVG iconHref="/icon.svg#svgs-arrow-right-thin" />
                         </span>
                       </button>
                     </div>

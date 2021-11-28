@@ -72,6 +72,16 @@ class AxiosService {
       return error;
     }
   }
+
+  async patch(url: string, data?: IDataAxios): IResponseAxios {
+    try {
+      return await (
+        await this.#instance.patch(url, data)
+      ).data;
+    } catch (error) {
+      return error;
+    }
+  }
 }
 
 export default new AxiosService();

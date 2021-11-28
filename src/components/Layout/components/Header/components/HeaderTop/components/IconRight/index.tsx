@@ -51,8 +51,6 @@ const IconRight: FC<IIconRight> = ({
   titleDropdow,
   data,
 }) => {
-  console.log(data);
-
   return (
     <IconRightContainer>
       <Link href={href}>

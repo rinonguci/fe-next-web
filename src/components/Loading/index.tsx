@@ -19,7 +19,7 @@ const Load = styled.div<{ status?: IStatusLoading; time?: number }>`
         `;
       case "start":
         return css`
-          transform: translateX(-40%);
+          transform: translateX(-5%);
           transition: all ${time}s cubic-bezier(0.39, 0.575, 0.565, 1);
         `;
       case "close":

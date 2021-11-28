@@ -27,6 +27,8 @@ export type IAddWishlistPayload = { product: string };
 
 export type IAddCartPayload = { quantity: number; productVariation: string };
 
+export type IUpdateCartPayload = { quantity: number; productVariation: string };
+
 export interface ICart {
   _id: string;
   idProduct: string;

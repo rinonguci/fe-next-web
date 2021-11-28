@@ -2,6 +2,7 @@ import {
   IAddCartPayload,
   IAddWishlistPayload,
   ICartList,
+  IUpdateCartPayload,
   IUser,
   IWishlist,
 } from "@redux/types/user";
@@ -45,7 +46,9 @@ const userSlice = createSlice({
 
     getCart() {},
     getCartSuccess(state, action) {
-      debugger;
+      if (action.items.length < 0) {
+        return;
+      }
       const handleData = action.items.map((value: any) => ({
         ...value.data,
         _id: value.data.variants._id,
@@ -59,10 +62,40 @@ const userSlice = createSlice({
     },
     addCart(state, action: IAddCartPayload) {},
     addCartSuccess(state, action) {
-      // const handleData = action.products.map(
-      //   (value: { product: any }) => value.product
-      // );
-      // state.wishlist = handleData;
+      if (action.items.length < 0) {
+        return;
+      }
+      const handleData = action.items.map((value: any) => ({
+        ...value.data,
+        _id: value.data.variants._id,
+        idProduct: value.data._id,
+        idVariant: value.data.variants.sizeId,
+        price: value.data.variants.price,
+        quantity: value.quantity,
+      }));
+
+      state.cart = handleData;
+    },
+
+    updateCart(state, action: IUpdateCartPayload) {},
+    updateCartSuccess(state, action) {
+      if (action.items.length < 0) {
+        return;
+      }
+      const handleData = action.items.map((value: any) => ({
+        ...value.data,
+        _id: value.data.variants._id,
+        idProduct: value.data._id,
+        idVariant: value.data.variants.sizeId,
+        price: value.data.variants.price,
+        quantity: value.quantity,
+      }));
+
+      state.cart = handleData;
+    },
+    addBill(state, action: any) {},
+    addBillSuccess(state, action) {
+      state.cart = [];
     },
   },
 });
@@ -78,6 +111,10 @@ export const {
   addCartSuccess,
   getCart,
   getCartSuccess,
+  updateCart,
+  updateCartSuccess,
+  addBill,
+  addBillSuccess,
 } = userSlice.actions;
 
 const userReducers = userSlice.reducer;

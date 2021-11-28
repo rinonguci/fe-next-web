@@ -4,6 +4,7 @@ const url = {
   signup: "user/signup",
   login: "user/login",
   me: "user/me",
+  verify: "user/verify",
 };
 
 const fetchAuth = {
@@ -17,6 +18,10 @@ const fetchAuth = {
   },
   async getMe() {
     const response = await AxiosService.get(url.me);
+    return response;
+  },
+  async verify(payload: any) {
+    const response = await AxiosService.post(url.verify, payload);
     return response;
   },
 };

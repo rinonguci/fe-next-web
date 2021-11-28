@@ -1,7 +1,14 @@
 import { all, takeLatest } from "redux-saga/effects";
-import { addCart, addWishlist, getCart, getWishlist } from "@redux/slices/user";
+import {
+  addBill,
+  addCart,
+  addWishlist,
+  getCart,
+  getWishlist,
+  updateCart,
+} from "@redux/slices/user";
 import { addWishlistSaga, getWishlistSaga } from "./wishlist";
-import { addCartSaga, getCartSaga } from "./cart";
+import { addBillSaga, addCartSaga, getCartSaga, updateCartSaga } from "./cart";
 
 export default function* userSaga() {
   yield all([
@@ -9,5 +16,7 @@ export default function* userSaga() {
     takeLatest(addWishlist.type, addWishlistSaga),
     takeLatest(getCart.type, getCartSaga),
     takeLatest(addCart.type, addCartSaga),
+    takeLatest(updateCart.type, updateCartSaga),
+    takeLatest(addBill.type, addBillSaga),
   ]);
 }

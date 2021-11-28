@@ -81,7 +81,6 @@ const Filter: FC<IFilter> = ({ data }) => {
         ?.split(" ")
         ?.join("")}"]`
     );
-    console.log(data.name + check);
 
     if (check.length > 0) {
       setIsActiveFilter(true);
@@ -89,10 +88,6 @@ const Filter: FC<IFilter> = ({ data }) => {
       setIsActiveFilter(false);
     }
   }, [router.query]);
-
-  useEffect(() => {
-    console.log(isActiveFilter);
-  }, [isActiveFilter]);
 
   const handleActive = (e: any) => {
     let element = e.target as HTMLDivElement;

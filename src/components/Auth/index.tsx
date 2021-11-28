@@ -59,6 +59,10 @@ const Auth: FC<IAuth> = () => {
     setIsForm(!isForm);
   };
 
+  const handleCloseForm = () => {
+    setIsActive(false);
+  };
+
   return (
     <AuthContainer isActive={overflowUser}>
       {overflowUser && (
@@ -67,7 +71,12 @@ const Auth: FC<IAuth> = () => {
             <Title>Sign In</Title>
           </TitleBox>
           <FormBox>
-            {!isForm && <Login handleClickForm={handleForm} />}
+            {!isForm && (
+              <Login
+                handleCloseForm={handleCloseForm}
+                handleClickForm={handleForm}
+              />
+            )}
             {isForm && <Signup handleClickForm={handleForm} />}
           </FormBox>
         </AuthBox>

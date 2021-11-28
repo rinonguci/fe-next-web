@@ -74,8 +74,8 @@ const Item: FC<IItem> = ({ data }) => {
           </IdProdcut>
           <Name>{data.name}</Name>
           <InfoBox>
-            <Price>${data.price}</Price>
-            <Select />
+            <Price>${data.price * data.quantity}</Price>
+            <Select data={data} />
           </InfoBox>
           <ControlBox>
             <ButtonWrraper variant="outlined">

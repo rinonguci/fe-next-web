@@ -1,15 +1,17 @@
 import StorageToken from "@common/utils/storage";
 import Button from "@designs/Button";
 import Input from "@designs/Input";
-import { useAppDispatch } from "@hooks/redux";
+import { useAppDispatch, useAppSelector } from "@hooks/redux";
 import { getCart, getUserSuccess, getWishlist } from "@redux/slices/user";
 import fetchAuth from "@services/auth";
 import { Formik } from "formik";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import styled from "styled-components";
 import tw from "twin.macro";
 import * as Yup from "yup";
+import { useRouter } from "next/router";
+import isNullObject from "@common/function/isNullObject";
 
 const LoginContainer = styled.div`
   ${tw``}
@@ -23,13 +25,14 @@ const FormControl = styled.div`
 
 interface ILogin {
   handleClickForm?: () => void;
+  handleCloseForm?: () => void;
 }
 interface IFormValues extends ILogin {
   email: string;
   password: string;
 }
 
-const Login: FC<ILogin> = ({ handleClickForm }) => {
+const Login: FC<ILogin> = ({ handleClickForm, handleCloseForm }) => {
   const dispatch = useAppDispatch();
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
 
@@ -57,12 +60,17 @@ const Login: FC<ILogin> = ({ handleClickForm }) => {
         try {
           let result = await fetchAuth.login(payload);
 
-          await StorageToken.setUser(result.token);
+          if (typeof result === "string") {
+            toast.error(result);
+            return;
+          }
 
-          dispatch(getWishlist());
-          dispatch(getCart());
+          StorageToken.setUser(result.token);
 
           dispatch(getUserSuccess({ payload: result.data }));
+          dispatch(getWishlist());
+          dispatch(getCart());
+          handleCloseForm?.();
         } catch (error: any) {
           toast.error(error);
         }

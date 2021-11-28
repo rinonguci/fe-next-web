@@ -1,4 +1,7 @@
+import { useAppDispatch } from "@hooks/redux";
 import useToggleAndCloseVer2 from "@hooks/useToggleAndCloseVer2";
+import { updateCart } from "@redux/slices/user";
+import { ICart } from "@redux/types/user";
 import { FC, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
@@ -37,18 +40,30 @@ const SelectItem = styled.li`
   ${tw`py-1 pl-5 text-xs text-black-lv2 hover:bg-gray-200`}
 `;
 
-interface ISelect {}
+interface ISelect {
+  data: ICart;
+}
 
-const Select: FC<ISelect> = () => {
+const Select: FC<ISelect> = ({ data }) => {
+  const dispatch = useAppDispatch();
   const ref = useRef<HTMLUListElement>(null);
   const [isOpen, setIsOpen] = useToggleAndCloseVer2(ref);
   const [selected, setSelected] = useState<{ id: number; value: number }>();
 
   useEffect(() => {
-    setSelected(data[0]);
+    setSelected({ id: data.quantity, value: data.quantity });
   }, []);
 
+  const handleUpdateApi = (value: number) => {
+    console.log(value);
+
+    dispatch(
+      updateCart({ productVariation: data.variants._id!, quantity: value })
+    );
+  };
+
   const handleSelect = (value: { id: number; value: number }) => {
+    handleUpdateApi(value.id);
     setSelected(value);
     setIsOpen(false);
   };
@@ -62,7 +77,7 @@ const Select: FC<ISelect> = () => {
         <SelectListBox>
           {isOpen && (
             <SelectList ref={ref}>
-              {data.map(
+              {dataList.map(
                 (value) =>
                   value.id !== selected?.id && (
                     <SelectItem
@@ -83,7 +98,7 @@ const Select: FC<ISelect> = () => {
 
 export default Select;
 
-let data = [
+let dataList = [
   {
     id: 1,
     value: 1,
