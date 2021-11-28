@@ -89,7 +89,7 @@ const ProductDetail: FC<IProductDetail> = () => {
                 <Price>${productDetail?.price}</Price>
               </ProductInfoBox>
               <ProductPayBox>
-                <SelectVariant list={productDetail?.variants} />
+                <SelectVariant list={productDetail?.variants!} />
                 <DeliveryLink>2-5 worrking days</DeliveryLink>
                 <DeliveryLink>21 day to return</DeliveryLink>
                 <ProductPayControl>
