@@ -71,9 +71,15 @@ const Paypal: FC<IPaypal> = ({ price, data }) => {
   };
 
   const handleDataSuccess = () => {
+    let quantityTotal = dataItem?.data.reduce(
+      (result, value) => result + Number(value.quantity),
+      0
+    );
+
     return {
       shipping_address: dataPaypal?.shipping_address,
       data: dataItem?.data,
+      quantityTotal: quantityTotal,
       total: price,
     };
   };

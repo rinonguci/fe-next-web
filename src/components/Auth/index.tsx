@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useContext, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 import Login from "./Login";
@@ -6,6 +6,8 @@ import Signup from "./Signup";
 import { useAppDispatch, useAppSelector } from "@hooks/redux";
 import useToggleAndCloseVer2 from "@hooks/useToggleAndCloseVer2";
 import { setOverflowUser } from "@redux/slices/ui";
+import React from "react";
+import ForgotPassword from "./ForgotPassword";
 
 const AuthContainer = styled.div<{ isActive: boolean }>`
   ${tw`fixed z-[1000] w-full min-h-[100vh] flex items-center justify-center`}
@@ -35,13 +37,27 @@ const Form = styled.form`
 
 interface IAuth {}
 
+type IStateForm = "LOGIN" | "FORGOT_PASSWORD" | "SIGNUP";
+interface IAuthContext {
+  setTitle?: React.Dispatch<React.SetStateAction<string>>;
+  setStateForm?: React.Dispatch<React.SetStateAction<IStateForm>>;
+  handleCloseForm?: () => void;
+}
+export const AuthContext = React.createContext<IAuthContext>({});
+
 const Auth: FC<IAuth> = () => {
   const dispatch = useAppDispatch();
-  const [isForm, setIsForm] = useState<boolean>(false);
   const { overflowUser } = useAppSelector((state) => state.uiReducers);
 
   const ref = useRef<HTMLDivElement>(null);
   const [isActive, setIsActive] = useToggleAndCloseVer2(ref);
+
+  const [title, setTitle] = useState("");
+  const [stateForm, setStateForm] = useState<IStateForm>("LOGIN");
+
+  useEffect(() => {
+    setStateForm("LOGIN");
+  }, [overflowUser]);
 
   useEffect(() => {
     if (isActive === false) {
@@ -55,33 +71,40 @@ const Auth: FC<IAuth> = () => {
     }
   }, [overflowUser]);
 
-  const handleForm = () => {
-    setIsForm(!isForm);
-  };
-
   const handleCloseForm = () => {
     setIsActive(false);
   };
 
+  const handleForm = (action: IStateForm) => {
+    switch (action) {
+      case "LOGIN":
+        return <Login />;
+      case "SIGNUP":
+        return <Signup />;
+      case "FORGOT_PASSWORD":
+        return <ForgotPassword />;
+    }
+  };
+
   return (
-    <AuthContainer isActive={overflowUser}>
-      {overflowUser && (
-        <AuthBox ref={ref}>
-          <TitleBox>
-            <Title>Sign In</Title>
-          </TitleBox>
-          <FormBox>
-            {!isForm && (
-              <Login
-                handleCloseForm={handleCloseForm}
-                handleClickForm={handleForm}
-              />
-            )}
-            {isForm && <Signup handleClickForm={handleForm} />}
-          </FormBox>
-        </AuthBox>
-      )}
-    </AuthContainer>
+    <AuthContext.Provider
+      value={{
+        setTitle,
+        setStateForm,
+        handleCloseForm,
+      }}
+    >
+      <AuthContainer isActive={overflowUser}>
+        {overflowUser && (
+          <AuthBox ref={ref}>
+            <TitleBox>
+              <Title>{title}</Title>
+            </TitleBox>
+            <FormBox>{handleForm(stateForm)}</FormBox>
+          </AuthBox>
+        )}
+      </AuthContainer>
+    </AuthContext.Provider>
   );
 };
 

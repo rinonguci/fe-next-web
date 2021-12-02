@@ -27,9 +27,7 @@ const Text = styled.span`
 const SignupContainer = styled.div`
   ${tw``}
 `;
-interface ISignup {
-  handleClickForm?: () => void;
-}
+interface ISignup {}
 
 const Email = (() => {
   let email: string = "";
@@ -48,7 +46,7 @@ const Email = (() => {
 
 export const EmailContext = React.createContext(Email);
 
-const Signup: FC<ISignup> = ({ handleClickForm }) => {
+const Signup: FC<ISignup> = () => {
   const [isVerify, setisVerify] = useState<boolean>(false);
 
   const handleVerify = () => {
@@ -57,12 +55,7 @@ const Signup: FC<ISignup> = ({ handleClickForm }) => {
 
   return (
     <EmailContext.Provider value={Email}>
-      {!isVerify && (
-        <Main
-          handleClickForm={handleClickForm}
-          handleClickVerify={handleVerify}
-        />
-      )}
+      {!isVerify && <Main handleClickVerify={handleVerify} />}
       {isVerify && <Verify handleClickVerify={handleVerify} />}
     </EmailContext.Provider>
   );

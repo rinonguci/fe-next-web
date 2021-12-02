@@ -1,4 +1,5 @@
 import StorageToken from "@common/utils/storage";
+import { AuthContext } from "@components/Auth";
 import Button from "@designs/Button";
 import Input from "@designs/Input";
 import { useAppDispatch, useAppSelector } from "@hooks/redux";
@@ -10,7 +11,6 @@ import { toast } from "react-toastify";
 import styled from "styled-components";
 import tw from "twin.macro";
 import * as Yup from "yup";
-import { AuthContext } from "..";
 
 const LoginContainer = styled.div`
   ${tw``}
@@ -21,65 +21,50 @@ const Form = styled.form`
 const FormControl = styled.div`
   ${tw`grid gap-4 mt-4`}
 `;
+const Notify = styled.p`
+  ${tw`text-center font-semibold`}
+`;
 const ForgotPassword = styled.div`
-  ${tw`text-right cursor-pointer`}
+  ${tw`text-right`}
 `;
 const ForgotText = styled.div`
   ${tw`font-semibold`}
 `;
 
-interface ILogin {}
-interface IFormValues extends ILogin {
+interface ILogin {
+  handleClickVerify: () => void;
+}
+interface IFormValues {
   email: string;
-  password: string;
 }
 
-const Main: FC<ILogin> = () => {
-  const dispatch = useAppDispatch();
-  const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
-
-  const { setTitle, setStateForm, handleCloseForm } = useContext(AuthContext);
-
+const Main: FC<ILogin> = ({ handleClickVerify }) => {
+  const { setTitle, setStateForm } = useContext(AuthContext);
   useEffect(() => {
-    setTitle?.("Login");
+    setTitle?.("Forgot Password");
   }, []);
-
-  const handleShowPassword = () => {
-    setIsShowPassword(!isShowPassword);
-  };
 
   return (
     <Formik
       initialValues={{
         email: "minhphatdev@gmail.com",
-        password: "12345678",
       }}
       validationSchema={Yup.object().shape({
         email: Yup.string()
           .email("Must be a valid email")
           .max(255)
           .required("Please enter your email"),
-        password: Yup.string()
-          .min(6, "Password is more than 6 characters")
-          .max(30, "Username less than 20 characters")
-          .required("Please enter your password"),
       })}
       onSubmit={async (payload: IFormValues) => {
         try {
-          let result = await fetchAuth.login(payload);
+          let result = await fetchAuth.forgotPassword(payload);
 
           if (typeof result === "string") {
             toast.error(result);
             return;
           }
 
-          StorageToken.setUser(result.token);
-
-          dispatch(getUserSuccess({ payload: result.data }));
-          dispatch(getWishlist());
-          dispatch(getCart());
-
-          handleCloseForm?.();
+          handleClickVerify?.();
         } catch (error: any) {
           toast.error(error);
         }
@@ -98,9 +83,14 @@ const Main: FC<ILogin> = () => {
         return (
           <LoginContainer>
             <Form onSubmit={handleSubmit}>
+              <Notify>
+                Enter the email address used for your Childrensalon account and
+                click 'Send'. We will then email you with a link that you can
+                click to create a new password.
+              </Notify>
               <Input
                 name="email"
-                title="Username"
+                title="Email address"
                 type="text"
                 value={values.email}
                 onChange={handleChange}
@@ -108,37 +98,16 @@ const Main: FC<ILogin> = () => {
                 errors={errors.email}
                 touched={touched.email}
               />
-              <Input
-                name="password"
-                title="Password"
-                type={isShowPassword ? "text" : "password"}
-                value={values.password}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                errors={errors.password}
-                touched={touched.password}
-                iconLeft={
-                  <i
-                    onClick={handleShowPassword}
-                    className="text-base ri-eye-line"
-                  />
-                }
-              />
-              <ForgotPassword>
-                <ForgotText onClick={() => setStateForm?.("FORGOT_PASSWORD")}>
-                  Forgot Password ?
-                </ForgotText>
-              </ForgotPassword>
               <FormControl>
                 <Button type="submit" variant="container">
-                  Sign in
+                  Send
                 </Button>
                 <Button
                   type="button"
-                  onClick={() => setStateForm?.("SIGNUP")}
+                  onClick={() => setStateForm?.("LOGIN")}
                   variant="outlined"
                 >
-                  New to Summon Shop? Create account
+                  It you can remember it, go back to login
                 </Button>
               </FormControl>
             </Form>

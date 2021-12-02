@@ -1,3 +1,4 @@
+import { AuthContext } from "@components/Auth";
 import Button from "@designs/Button";
 import Input from "@designs/Input";
 import fetchAuth from "@services/auth";
@@ -32,6 +33,12 @@ interface IFormValues {
 const Verify: FC<IVerify> = ({ handleClickVerify }) => {
   const { getEmail } = useContext(EmailContext);
 
+  const { setTitle, setStateForm } = useContext(AuthContext);
+
+  useEffect(() => {
+    setTitle?.("Verify Account");
+  }, []);
+
   return (
     <Formik
       initialValues={{
@@ -54,8 +61,9 @@ const Verify: FC<IVerify> = ({ handleClickVerify }) => {
           toast.error(result);
           return;
         }
-
         toast.success("You have successfully registered");
+
+        setStateForm?.("LOGIN");
       }}
     >
       {(props) => {

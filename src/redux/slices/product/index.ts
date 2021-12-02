@@ -27,7 +27,7 @@ const productSlice = createSlice({
   name: "products",
   initialState,
   reducers: {
-    getProductsByType(state, { payload: IGetProductsByTypePayload }) {},
+    getProductsByType(state, action: { payload: IGetProductsByTypePayload }) {},
     getProductsByTypeSuccess(state, action) {
       state.productsByType = action.payload;
     },
@@ -37,12 +37,15 @@ const productSlice = createSlice({
       state.allProducts = action.payload;
     },
 
-    getProductDetail: (state, { payload: IGetProductDetailPayload }) => {},
+    getProductDetail: (
+      state,
+      action: { payload: IGetProductDetailPayload }
+    ) => {},
     getProductDetailSuccess: (state, action) => {
       state.productDetail = action.payload;
     },
 
-    getFacets: (state, { payload: IGetFacetsPayload }) => {},
+    getFacets: (state, action: { payload: IGetFacetsPayload }) => {},
     getFacetsSuccess: (state, action) => {
       state.facets = action.payload;
     },

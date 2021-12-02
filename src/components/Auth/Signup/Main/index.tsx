@@ -1,8 +1,9 @@
+import { AuthContext } from "@components/Auth";
 import Button from "@designs/Button";
 import Input from "@designs/Input";
 import fetchAuth from "@services/auth";
 import { Formik } from "formik";
-import { FC, useContext, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import styled from "styled-components";
 import tw from "twin.macro";
@@ -23,7 +24,6 @@ const Text = styled.span`
 `;
 
 interface IMain {
-  handleClickForm?: () => void;
   handleClickVerify?: () => void;
 }
 interface IFormValues {
@@ -35,9 +35,15 @@ interface IFormValues {
   phone: string;
 }
 
-const Main: FC<IMain> = ({ handleClickForm, handleClickVerify }) => {
+const Main: FC<IMain> = ({ handleClickVerify }) => {
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
   const { setEmail } = useContext(EmailContext);
+
+  const { setTitle, setStateForm } = useContext(AuthContext);
+
+  useEffect(() => {
+    setTitle?.("Signup");
+  }, []);
 
   const handleShowPassword = () => {
     setIsShowPassword(!isShowPassword);
@@ -197,7 +203,7 @@ const Main: FC<IMain> = ({ handleClickForm, handleClickVerify }) => {
                 </Text>
                 <Button
                   type="button"
-                  onClick={() => handleClickForm && handleClickForm()}
+                  onClick={() => setStateForm?.("LOGIN")}
                   variant="outlined"
                 >
                   Alerady have an acctiont? Login
