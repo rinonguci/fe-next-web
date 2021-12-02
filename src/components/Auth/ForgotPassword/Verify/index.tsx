@@ -96,8 +96,8 @@ const Veriry: FC<ILogin> = ({ handleClickVerify }) => {
             <Form onSubmit={handleSubmit}>
               <Notify>
                 Enter the email address used for your Childrensalon account and
-                click 'Send'. We will then email you with a link that you can
-                click to create a new password.
+                click {"'Send'"}. We will then email you with a link that you
+                can click to create a new password.
               </Notify>
               <Input
                 name="code"

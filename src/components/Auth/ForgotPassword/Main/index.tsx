@@ -1,12 +1,9 @@
-import StorageToken from "@common/utils/storage";
 import { AuthContext } from "@components/Auth";
 import Button from "@designs/Button";
 import Input from "@designs/Input";
-import { useAppDispatch, useAppSelector } from "@hooks/redux";
-import { getCart, getUserSuccess, getWishlist } from "@redux/slices/user";
 import fetchAuth from "@services/auth";
 import { Formik } from "formik";
-import { FC, useContext, useEffect, useState } from "react";
+import { FC, useContext, useEffect } from "react";
 import { toast } from "react-toastify";
 import styled from "styled-components";
 import tw from "twin.macro";
@@ -85,8 +82,8 @@ const Main: FC<ILogin> = ({ handleClickVerify }) => {
             <Form onSubmit={handleSubmit}>
               <Notify>
                 Enter the email address used for your Childrensalon account and
-                click 'Send'. We will then email you with a link that you can
-                click to create a new password.
+                click {"'Send'"}. We will then email you with a link that you
+                can click to create a new password.
               </Notify>
               <Input
                 name="email"
