@@ -1,3 +1,4 @@
+import { ReactChild } from "react";
 import { createSlice } from "@reduxjs/toolkit";
 import {
   IBooleanPayload,

@@ -1,3 +1,5 @@
+import { ReactChild } from "react";
+
 export type IBooleanPayload = boolean;
 
 interface IBreadcrumbLink {

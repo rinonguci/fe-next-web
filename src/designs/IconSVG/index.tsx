@@ -1,5 +1,5 @@
 import Color from "color";
-import { FC } from "react";
+import { CSSProperties, FC } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 
@@ -18,11 +18,12 @@ interface IIconSVG {
   iconHref: string;
   color?: Color;
   className?: string;
+  style?: CSSProperties;
 }
 
-const IconSVG: FC<IIconSVG> = ({ iconHref, className }) => {
+const IconSVG: FC<IIconSVG> = ({ iconHref, className, style }) => {
   return (
-    <IconSVGContainer className={className}>
+    <IconSVGContainer style={style} className={className}>
       <use href={iconHref}></use>
     </IconSVGContainer>
   );

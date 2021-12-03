@@ -1,11 +1,4 @@
-import {
-  ReactChild,
-  RefObject,
-  useRef,
-  FocusEvent,
-  EventHandler,
-  ChangeEventHandler,
-} from "react";
+import { ReactChild, useRef } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 
@@ -41,6 +34,7 @@ interface IInput {
   touched?: boolean | undefined;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
+  disableMessage?: boolean;
 }
 
 const Input = ({
@@ -55,6 +49,7 @@ const Input = ({
   onBlur,
   errors,
   touched,
+  disableMessage = true,
 }: IInput) => {
   const ref = useRef<HTMLInputElement>(null);
   return (
@@ -74,7 +69,9 @@ const Input = ({
         />
         <InputLeft>{iconLeft}</InputLeft>
       </InputBox>
-      {<ErrorMessage>{errors && touched ? errors : ""}</ErrorMessage>}
+      {disableMessage && (
+        <ErrorMessage>{errors && touched ? errors : ""}</ErrorMessage>
+      )}
     </InputContainer>
   );
 };

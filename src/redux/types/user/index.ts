@@ -42,3 +42,20 @@ export interface ICart {
 }
 
 export type ICartList = Array<ICart>;
+
+export interface IBill {
+  amount: number;
+  createAt: Date;
+  items: Array<{
+    name: string;
+    price: number;
+    quantity: number;
+    sku: string;
+    total: number;
+    _id: string;
+  }>;
+  quantity: number;
+  _id: string;
+}
+
+export type IBillList = Array<IBill>;

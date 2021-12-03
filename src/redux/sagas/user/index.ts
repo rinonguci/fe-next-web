@@ -3,12 +3,19 @@ import {
   addBill,
   addCart,
   addWishlist,
+  getBill,
   getCart,
   getWishlist,
   updateCart,
 } from "@redux/slices/user";
 import { addWishlistSaga, getWishlistSaga } from "./wishlist";
-import { addBillSaga, addCartSaga, getCartSaga, updateCartSaga } from "./cart";
+import {
+  addBillSaga,
+  addCartSaga,
+  getBillSaga,
+  getCartSaga,
+  updateCartSaga,
+} from "./cart";
 
 export default function* userSaga() {
   yield all([
@@ -18,5 +25,6 @@ export default function* userSaga() {
     takeLatest(addCart.type, addCartSaga),
     takeLatest(updateCart.type, updateCartSaga),
     takeLatest(addBill.type, addBillSaga),
+    takeLatest(getBill.type, getBillSaga),
   ]);
 }

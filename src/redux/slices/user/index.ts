@@ -1,6 +1,7 @@
 import {
   IAddCartPayload,
   IAddWishlistPayload,
+  IBillList,
   ICartList,
   IUpdateCartPayload,
   IUser,
@@ -12,12 +13,14 @@ interface IUserSlice {
   user: IUser;
   wishlist: IWishlist;
   cart: ICartList;
+  bill: IBillList;
 }
 
 const initialState: IUserSlice = {
   user: {},
   wishlist: [],
   cart: [],
+  bill: [],
 };
 
 const userSlice = createSlice({
@@ -97,6 +100,10 @@ const userSlice = createSlice({
     addBillSuccess(state, action) {
       state.cart = [];
     },
+    getBill() {},
+    getBillSuccess(state, action) {
+      state.bill = action.payload;
+    },
   },
 });
 
@@ -115,6 +122,8 @@ export const {
   updateCartSuccess,
   addBill,
   addBillSuccess,
+  getBill,
+  getBillSuccess,
 } = userSlice.actions;
 
 const userReducers = userSlice.reducer;

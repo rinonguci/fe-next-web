@@ -1,4 +1,8 @@
 <symbols>
+	<svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" fill="#333" viewBox="0 0 931 1024" id="svgs-logout">
+		<path d="M465 324c-6 0-12-5-12-13V13c0-7 5-13 12-13s13 5 13 13v299c0 7-5 12-13 12z"></path>
+		<path d="M465 1024a465 465 0 0 1-203-883c6-3 14 0 17 5 2 6 0 14-6 17a440 440 0 1 0 390 2c-7-2-9-10-6-17 3-6 11-8 17-5a464 464 0 0 1-209 881z"></path>
+	</svg>
 	<symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" id="svgs-bin">
 		<path stroke="currentColor" stroke-width="40" fill-opacity="1" d="M219 1004l-65-703h710l-58 703H219z" id="svgs-bin_line"></path>
 		<path stroke="currentColor" stroke-width="40" fill-opacity="1" d="M143 143h738c14 0 26 12 26 27v109c0 14-12 26-26 26H143c-14 0-26-12-26-26V170c0-15 12-27 26-27z"></path>

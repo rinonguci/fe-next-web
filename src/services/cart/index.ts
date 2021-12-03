@@ -4,6 +4,7 @@ const url = {
   get: "cart",
   add: "cart/add-to-cart",
   bill: "bill",
+  getBill: "bill/my-bill",
 };
 
 const fetchCart = {
@@ -21,6 +22,10 @@ const fetchCart = {
   },
   async addBill(payload: any): Promise<any> {
     const response = await AxiosService.post(url.bill, payload);
+    return response;
+  },
+  async getBill(): Promise<any> {
+    const response = await AxiosService.get(url.getBill);
     return response;
   },
 };
