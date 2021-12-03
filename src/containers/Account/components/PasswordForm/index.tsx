@@ -4,8 +4,13 @@ import styled from "styled-components";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
-import Input from "@designs/Input";
+
 import Button from "@designs/Button";
+import Input from "./components/Input";
+import fetchAuth from "@services/auth";
+import StorageToken from "@common/utils/storage";
+import { getCart, getUserSuccess, getWishlist } from "@redux/slices/user";
+import { useAppDispatch } from "@hooks/redux";
 
 const PasswordFormContainer = styled.div`
   ${tw``}
@@ -14,19 +19,27 @@ const Form = styled.form`
   ${tw`grid gap-20`}
   grid-template-columns: 1fr 200px;
 `;
+const FormInput = styled.div`
+  ${tw`grid grid-cols-2 gap-4`}
+`;
+const PasswordCurrent = styled.div`
+  ${tw`col-span-2`}
+`;
 const FormControl = styled.div`
-  ${tw`flex-grow`}
+  ${tw`flex-grow pb-3`}
   align-self: self-end;
 `;
 
 interface IPasswordForm {}
 
-interface IFormValues extends IPasswordForm {
+interface IFormValues {
+  passwordCurrent: string;
   password: string;
-  confirmPassword: string;
+  passwordConfirm: string;
 }
 
 const PasswordForm: FC<IPasswordForm> = () => {
+  const dispatch = useAppDispatch();
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
 
   const handleShowPassword = () => {
@@ -36,26 +49,27 @@ const PasswordForm: FC<IPasswordForm> = () => {
   return (
     <Formik
       initialValues={{
+        passwordCurrent: "12345678",
         password: "12345678",
-        confirmPassword: "12345678s",
+        passwordConfirm: "12345678",
       }}
-      validationSchema={Yup.object().shape({
-        email: Yup.string()
-          .email("Must be a valid email")
-          .max(255)
-          .required("Please enter your email"),
-        password: Yup.string()
-          .min(6, "Password is more than 6 characters")
-          .max(30, "Username less than 20 characters")
-          .required("Please enter your password"),
-      })}
+      validationSchema={Yup.object().shape({})}
       onSubmit={async (payload: IFormValues) => {
         try {
-          // let result = await fetchAuth.login(payload);
-          // if (typeof result === "string") {
-          //   toast.error(result);
-          //   return;
-          // }
+          let result = await fetchAuth.changePassword(payload);
+
+          if (typeof result === "string") {
+            toast.error(result);
+            return;
+          }
+
+          StorageToken.setUser(result.token);
+
+          dispatch(getUserSuccess({ payload: result.data }));
+          dispatch(getWishlist());
+          dispatch(getCart());
+
+          toast.success("Change password success");
         } catch (error: any) {
           toast.error(error);
         }
@@ -74,24 +88,58 @@ const PasswordForm: FC<IPasswordForm> = () => {
         return (
           <PasswordFormContainer>
             <Form onSubmit={handleSubmit}>
-              <Input
-                disableMessage={false}
-                name="password"
-                title="Password"
-                type={isShowPassword ? "text" : "password"}
-                value={values.password}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                errors={errors.password}
-                touched={touched.password}
-                iconLeft={
-                  <i
-                    onClick={handleShowPassword}
-                    className="text-base ri-eye-line"
+              <FormInput>
+                <PasswordCurrent>
+                  <Input
+                    name="passwordCurrent"
+                    title="Current Password"
+                    type={isShowPassword ? "text" : "password"}
+                    value={values.passwordCurrent}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    errors={errors.passwordCurrent}
+                    touched={touched.passwordCurrent}
+                    iconLeft={
+                      <i
+                        onClick={handleShowPassword}
+                        className="text-base ri-eye-line"
+                      />
+                    }
                   />
-                }
-              />
-
+                </PasswordCurrent>
+                <Input
+                  name="password"
+                  title="New Password"
+                  type={isShowPassword ? "text" : "password"}
+                  value={values.password}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  errors={errors.password}
+                  touched={touched.password}
+                  iconLeft={
+                    <i
+                      onClick={handleShowPassword}
+                      className="text-base ri-eye-line"
+                    />
+                  }
+                />
+                <Input
+                  name="passwordConfirm"
+                  title="Confirm Password"
+                  type={isShowPassword ? "text" : "password"}
+                  value={values.passwordConfirm}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  errors={errors.passwordConfirm}
+                  touched={touched.passwordConfirm}
+                  iconLeft={
+                    <i
+                      onClick={handleShowPassword}
+                      className="text-base ri-eye-line"
+                    />
+                  }
+                />
+              </FormInput>
               <FormControl>
                 <Button type="submit" variant="container">
                   Change

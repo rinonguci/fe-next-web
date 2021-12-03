@@ -1,3 +1,4 @@
+import Link from "@designs/Link";
 import { IDropdown } from "@redux/types/ui";
 import { FC } from "react";
 import styled from "styled-components";
@@ -43,16 +44,18 @@ interface IItem {
 const Item: FC<IItem> = ({ data }) => {
   return (
     <ItemContainer>
-      <ItemBox>
-        <ImageBox>
-          <Image src={data?.imageCovers?.[0]} />
-        </ImageBox>
-        <ContentBox>
-          <Design>{data?.brand}</Design>
-          <Name>{data?.name}</Name>
-          <Price>${data?.price}</Price>
-        </ContentBox>
-      </ItemBox>
+      <Link href={`/product/${data.id}/${data.slug}`}>
+        <ItemBox>
+          <ImageBox>
+            <Image src={data?.imageCovers?.[0]} />
+          </ImageBox>
+          <ContentBox>
+            <Design>{data?.brand}</Design>
+            <Name>{data?.name}</Name>
+            <Price>${data?.price}</Price>
+          </ContentBox>
+        </ItemBox>
+      </Link>
     </ItemContainer>
   );
 };

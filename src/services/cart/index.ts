@@ -5,6 +5,7 @@ const url = {
   add: "cart/add-to-cart",
   bill: "bill",
   getBill: "bill/my-bill",
+  deleteBill: (id: string) => `cart/${id}`,
 };
 
 const fetchCart = {
@@ -26,6 +27,10 @@ const fetchCart = {
   },
   async getBill(): Promise<any> {
     const response = await AxiosService.get(url.getBill);
+    return response;
+  },
+  async deleteCart(payload: any): Promise<any> {
+    const response = await AxiosService.delete(url.deleteBill(payload.id));
     return response;
   },
 };

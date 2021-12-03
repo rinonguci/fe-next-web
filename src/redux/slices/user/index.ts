@@ -3,6 +3,7 @@ import {
   IAddWishlistPayload,
   IBillList,
   ICartList,
+  IDeleteCartPayload,
   IUpdateCartPayload,
   IUser,
   IWishlist,
@@ -49,52 +50,40 @@ const userSlice = createSlice({
 
     getCart() {},
     getCartSuccess(state, action) {
-      if (action.items.length < 0) {
+      let data = handleData(action);
+      if (!data) {
         return;
       }
-      const handleData = action.items.map((value: any) => ({
-        ...value.data,
-        _id: value.data.variants._id,
-        idProduct: value.data._id,
-        idVariant: value.data.variants.sizeId,
-        price: value.data.variants.price,
-        quantity: value.quantity,
-      }));
 
-      state.cart = handleData;
+      state.cart = data;
     },
     addCart(state, action: IAddCartPayload) {},
     addCartSuccess(state, action) {
-      if (action.items.length < 0) {
+      let data = handleData(action);
+      if (!data) {
         return;
       }
-      const handleData = action.items.map((value: any) => ({
-        ...value.data,
-        _id: value.data.variants._id,
-        idProduct: value.data._id,
-        idVariant: value.data.variants.sizeId,
-        price: value.data.variants.price,
-        quantity: value.quantity,
-      }));
 
-      state.cart = handleData;
+      state.cart = data;
     },
 
     updateCart(state, action: IUpdateCartPayload) {},
     updateCartSuccess(state, action) {
-      if (action.items.length < 0) {
+      let data = handleData(action);
+      if (!data) {
         return;
       }
-      const handleData = action.items.map((value: any) => ({
-        ...value.data,
-        _id: value.data.variants._id,
-        idProduct: value.data._id,
-        idVariant: value.data.variants.sizeId,
-        price: value.data.variants.price,
-        quantity: value.quantity,
-      }));
 
-      state.cart = handleData;
+      state.cart = data;
+    },
+    deleteCart(state, action: IDeleteCartPayload) {},
+    deleteCartSuccess(state, action) {
+      let data = handleData(action);
+      if (!data) {
+        return;
+      }
+
+      state.cart = data;
     },
     addBill(state, action: any) {},
     addBillSuccess(state, action) {
@@ -120,6 +109,8 @@ export const {
   getCartSuccess,
   updateCart,
   updateCartSuccess,
+  deleteCart,
+  deleteCartSuccess,
   addBill,
   addBillSuccess,
   getBill,
@@ -128,3 +119,20 @@ export const {
 
 const userReducers = userSlice.reducer;
 export default userReducers;
+
+const handleData = (action: any) => {
+  if (action.items.length < 0) {
+    return;
+  }
+  const handleData = action.items.map((value: any) => ({
+    ...value.data,
+    _id: value.data.variants._id,
+    id: value.data._id,
+    idProduct: value.data._id,
+    idVariant: value.data.variants.sizeId,
+    price: value.data.variants.price,
+    quantity: value.quantity,
+  }));
+
+  return handleData;
+};

@@ -26,10 +26,6 @@ const TableBill: FC<ITableBill> = () => {
     dispatch(getBill());
   }, []);
 
-  useEffect(() => {
-    console.log(bill);
-  }, [bill]);
-
   return (
     <TableBillContainer>
       <Title>My Order</Title>

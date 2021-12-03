@@ -3,6 +3,7 @@ import { call, put } from "redux-saga/effects";
 import {
   addBillSuccess,
   addCartSuccess,
+  deleteCartSuccess,
   getBillSuccess,
   getCartSuccess,
   updateCartSuccess,
@@ -47,6 +48,21 @@ export function* updateCartSaga(action: any) {
 
   toast.success(status);
   yield put(updateCartSuccess(data));
+}
+
+export function* deleteCartSaga(action: any) {
+  const { payload } = action;
+
+  const response: IDataResponse = yield call(fetchCart.deleteCart, payload);
+  const { data, status } = response;
+
+  if (!data) {
+    toast.error(response);
+    return;
+  }
+
+  toast.success(status);
+  yield put(deleteCartSuccess(data));
 }
 
 export function* addBillSaga(action: any) {

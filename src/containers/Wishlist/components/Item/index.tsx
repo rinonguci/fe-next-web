@@ -100,7 +100,6 @@ const Item: FC<IItem> = ({ data }) => {
               list={data.variants}
               setFuncSelect={setFuncSelect}
               setVariantId={setVariantId}
-              productId={data.id}
               title={null}
             />
           </InfoBox>

@@ -6,6 +6,7 @@ const url = {
   me: "user/me",
   verify: "user/verify",
   forgotPassword: "user/forgot-password",
+  changePassword: "user/update-password",
 };
 
 const fetchAuth = {
@@ -15,6 +16,10 @@ const fetchAuth = {
   },
   async login(payload: any) {
     const response = await AxiosService.post(url.login, payload);
+    return response;
+  },
+  async changePassword(payload: any) {
+    const response = await AxiosService.patch(url.changePassword, payload);
     return response;
   },
   async getMe() {

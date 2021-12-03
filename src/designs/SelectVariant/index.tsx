@@ -98,7 +98,6 @@ interface ISelectVariant {
   list: Array<IVariant>;
   title?: string | null;
 
-  productId?: string;
   setVariantId?: Dispatch<SetStateAction<string>>;
   setFuncSelect?: (func: () => void) => void;
 }
@@ -107,7 +106,6 @@ const SelectVariant: FC<ISelectVariant> = ({
   list,
   title = "Select Size",
   setVariantId,
-  productId,
   setFuncSelect,
 }) => {
   const ref = useRef<any>(null);

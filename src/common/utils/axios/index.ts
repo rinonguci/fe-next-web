@@ -82,6 +82,16 @@ class AxiosService {
       return error;
     }
   }
+
+  async delete(url: string, data?: IDataAxios): IResponseAxios {
+    try {
+      return await (
+        await this.#instance.delete(url, data)
+      ).data;
+    } catch (error) {
+      return error;
+    }
+  }
 }
 
 export default new AxiosService();

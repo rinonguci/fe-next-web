@@ -3,6 +3,7 @@ import {
   addBill,
   addCart,
   addWishlist,
+  deleteCart,
   getBill,
   getCart,
   getWishlist,
@@ -12,6 +13,7 @@ import { addWishlistSaga, getWishlistSaga } from "./wishlist";
 import {
   addBillSaga,
   addCartSaga,
+  deleteCartSaga,
   getBillSaga,
   getCartSaga,
   updateCartSaga,
@@ -23,6 +25,7 @@ export default function* userSaga() {
     takeLatest(addWishlist.type, addWishlistSaga),
     takeLatest(getCart.type, getCartSaga),
     takeLatest(addCart.type, addCartSaga),
+    takeLatest(deleteCart.type, deleteCartSaga),
     takeLatest(updateCart.type, updateCartSaga),
     takeLatest(addBill.type, addBillSaga),
     takeLatest(getBill.type, getBillSaga),

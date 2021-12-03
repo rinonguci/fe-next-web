@@ -5,6 +5,7 @@ import tw from "twin.macro";
 import Item from "./components/Item";
 import useHover from "@hooks/useHover";
 import { IDropdown } from "@redux/types/ui";
+import Link from "@designs/Link";
 
 const HoverDropdownContainer = styled.div`
   ${tw`absolute right-0`}
@@ -58,7 +59,9 @@ const HoverDropdown: FC<IHoverDropdown> = ({ title, data }) => {
           <Count>
             You have {data?.length || 0} items in your {title}
           </Count>
-          <ViewWishlist>View {title}</ViewWishlist>
+          <Link href={title === "Wishlist" ? "/wishlist" : "/checkout/cart"}>
+            <ViewWishlist>View {title}</ViewWishlist>
+          </Link>
         </ViewWishlistTop>
 
         <HoverDropdownMain>

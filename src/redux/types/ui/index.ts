@@ -27,4 +27,6 @@ export interface IDropdown extends Record<string, any> {
   brand?: string;
   name?: string;
   price?: string;
+  id?: string;
+  slug?: string;
 }

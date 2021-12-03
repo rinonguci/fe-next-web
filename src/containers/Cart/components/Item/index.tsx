@@ -1,9 +1,11 @@
 import Button from "@designs/Button";
 import IconSVG from "@designs/IconSVG";
 import SelectVariant from "@designs/SelectVariant";
-import { ICart } from "@redux/types/user";
-import { FC } from "react";
-import styled from "styled-components";
+import { useAppDispatch, useAppSelector } from "@hooks/redux";
+import { addWishlist, deleteCart } from "@redux/slices/user";
+import { ICart, IWish } from "@redux/types/user";
+import { FC, useCallback, useEffect, useState } from "react";
+import styled, { css } from "styled-components";
 import tw from "twin.macro";
 import Select from "../Select";
 
@@ -54,12 +56,69 @@ const ButtonWrraper = styled(Button)`
     color: white;
   }
 `;
+const HeartBox = styled.div<{ isCheck?: boolean }>`
+  ${({ isCheck = false }) =>
+    isCheck &&
+    css`
+      color: transparent !important;
+      use {
+        fill: #ff3f3f !important;
+      }
+    `}
+  &:hover {
+    color: transparent !important;
+    use {
+      fill: #ff8484;
+    }
+  }
+`;
 
 interface IItem {
   data: ICart;
 }
 
 const Item: FC<IItem> = ({ data }) => {
+  const dispatch = useAppDispatch();
+  const [isLike, setIsLike] = useState<boolean>(false);
+  const { wishlist } = useAppSelector((state) => state.userReducers);
+
+  useEffect(() => {
+    let checkIsLike = handleCheckIsLike(data?.idProduct!);
+    console.log(checkIsLike);
+
+    setIsLike(checkIsLike);
+  }, [wishlist]);
+
+  const handleAddWishlist = () => {
+    setIsLike(!isLike);
+
+    addWishlistApi();
+  };
+
+  const addWishlistApi = () => {
+    let payload = {
+      product: data.idProduct!,
+    };
+    dispatch(addWishlist(payload));
+  };
+
+  const handleDelete = () => {
+    callDeleteApi(data._id);
+  };
+
+  const callDeleteApi = (id: string) => {
+    dispatch(deleteCart({ id: id }));
+  };
+
+  const handleCheckIsLike = (id: string) => {
+    if (!(wishlist && wishlist.length > 0)) return false;
+
+    let index = wishlist.findIndex((value: IWish) => value._id === id);
+
+    if (index === -1) return false;
+    return true;
+  };
+
   return (
     <ItemContainer>
       <ItemBox>
@@ -78,16 +137,18 @@ const Item: FC<IItem> = ({ data }) => {
             <Select data={data} />
           </InfoBox>
           <ControlBox>
-            <ButtonWrraper variant="outlined">
+            <ButtonWrraper variant="outlined" onClick={() => handleDelete()}>
               <ButtonContent>
                 <IconSVG iconHref="/icon.svg#svgs-bin" />
                 <ButtonText>Remove</ButtonText>
               </ButtonContent>
             </ButtonWrraper>
             <ButtonWrraper variant="outlined" hoverColor="#00883d">
-              <ButtonContent>
-                <IconSVG iconHref="/icon.svg#svgs-wishlist" />
-                <ButtonText>Add Wishlist</ButtonText>
+              <ButtonContent onClick={handleAddWishlist}>
+                <HeartBox isCheck={isLike}>
+                  <IconSVG iconHref="/icon.svg#svgs-wishlist" />
+                </HeartBox>
+                <ButtonText>{isLike ? "Remove" : "Add"} Wishlist</ButtonText>
               </ButtonContent>
             </ButtonWrraper>
           </ControlBox>

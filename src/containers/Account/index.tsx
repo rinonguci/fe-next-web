@@ -22,7 +22,7 @@ const AccountBox = styled.div`
     position: absolute;
     background-color: #ebebeb;
     width: 100%;
-    height: 60%;
+    height: 50%;
     z-index: -1;
   }
 `;
@@ -82,6 +82,11 @@ const Account: FC<IAccount> = () => {
     }
   }, []);
 
+  const handleLogout = () => {
+    localStorage.clear();
+    router.reload();
+  };
+
   return (
     <Layout>
       <AccountContainer>
@@ -101,7 +106,7 @@ const Account: FC<IAccount> = () => {
                   <Name>{user.fname + " " + user.lname}</Name>
                   <Mail>{user.email}</Mail>
                 </Info>
-                <Logout>
+                <Logout onClick={() => handleLogout()}>
                   <IconSVG
                     style={{ height: "40px", width: "40px" }}
                     iconHref="/icon.svg#svgs-logout"
