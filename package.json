@@ -8,6 +8,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
     "@paypal/react-paypal-js": "^7.4.2",
     "@redux-ts-starter-kit/slice": "^3.0.7-alpha.0",
     "@reduxjs/toolkit": "^1.6.2",
