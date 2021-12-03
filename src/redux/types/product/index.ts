@@ -57,6 +57,10 @@ export interface IGetProductsByTypePayload {
   params?: string;
 }
 
+export interface ISearchProductPayload {
+  key: string;
+}
+
 export interface IGetProductDetailPayload {
   id: string;
 }

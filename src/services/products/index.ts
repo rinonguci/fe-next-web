@@ -3,6 +3,7 @@ import AxiosService from "@common/utils/axios";
 const url = {
   getProductByType: ({ params, id }: any) =>
     `categories/${id}/products/${params !== undefined ? "?" + params : ""}`,
+  searchProduct: ({ key }: any) => `products/search?key=${key}`,
   getAllProduct: () => `products`,
   getProductDetail: ({ id }: any) => `products/${id}`,
   getFacet: (payload: any) => `categories/${payload.id}/products/facets`,
@@ -20,6 +21,10 @@ const fetchProduct = {
   },
   async getProductDetail(payload: any) {
     const response = await AxiosService.get(url.getProductDetail(payload));
+    return response;
+  },
+  async searchProduct(payload: any) {
+    const response = await AxiosService.get(url.searchProduct(payload));
     return response;
   },
   async getFacts(payload: any) {

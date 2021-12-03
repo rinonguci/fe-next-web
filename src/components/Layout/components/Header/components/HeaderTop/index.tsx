@@ -60,9 +60,11 @@ const UserDropdownItem = styled.p`
   ${tw`text-sm line-height[1] hover:bg-gray-100 pl-8 pr-12 py-4`}
 `;
 
-interface IHeaderTop {}
+interface IHeaderTop {
+  handleClickSearch: any;
+}
 
-const HeaderTop: FC<IHeaderTop> = () => {
+const HeaderTop: FC<IHeaderTop> = ({ handleClickSearch }) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { user, wishlist, cart } = useAppSelector(
@@ -119,7 +121,12 @@ const HeaderTop: FC<IHeaderTop> = () => {
             />
           </HumburgerIcon>
 
-          <IconLeft href="/help" title="Search" icon="/icon.svg#svgs-search" />
+          <IconLeft
+            onClick={handleClickSearch}
+            href="/help"
+            title="Search"
+            icon="/icon.svg#svgs-search"
+          />
         </NavExtraLeft>
         <NavExtraRight>
           <WishlistIcon>

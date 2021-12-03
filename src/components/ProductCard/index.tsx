@@ -26,10 +26,18 @@ const ImageBox = styled.div`
 
 const Design = styled.div`
   ${tw`text-lg font-bold mt-2`}
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 `;
 
 const Name = styled.h3`
   ${tw`text-base`}
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 `;
 
 const Price = styled.span`

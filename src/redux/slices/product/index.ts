@@ -7,10 +7,12 @@ import {
   IGetProductsByTypePayload,
   IProductDetail,
   IProductsByType,
+  ISearchProductPayload,
 } from "@redux/types/product";
 
 interface IProductSlice {
   productsByType: IProductsByType;
+  searchProduct: IProductsByType;
   allProducts: IAllProducts;
   facets: IFacets;
   productDetail: IProductDetail;
@@ -18,6 +20,7 @@ interface IProductSlice {
 
 const initialState: IProductSlice = {
   productsByType: [],
+  searchProduct: [],
   allProducts: [],
   facets: [],
   productDetail: {},
@@ -30,6 +33,11 @@ const productSlice = createSlice({
     getProductsByType(state, action: { payload: IGetProductsByTypePayload }) {},
     getProductsByTypeSuccess(state, action) {
       state.productsByType = action.payload;
+    },
+
+    searchProduct(state, action: { payload: ISearchProductPayload }) {},
+    searchProductSuccess(state, action) {
+      state.searchProduct = action.payload;
     },
 
     getAllProducts: () => {},
@@ -55,6 +63,8 @@ const productSlice = createSlice({
 export const {
   getAllProducts,
   getAllProductsSuccess,
+  searchProduct,
+  searchProductSuccess,
   getFacets,
   getFacetsSuccess,
   getProductDetail,

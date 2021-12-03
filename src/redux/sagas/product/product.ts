@@ -3,6 +3,7 @@ import {
   getAllProductsSuccess,
   getProductDetailSuccess,
   getProductsByTypeSuccess,
+  searchProductSuccess,
 } from "@redux/slices/product";
 import fetchProduct from "@services/products";
 import { IDataResponse } from "@interfaces/common/IAxiosResponse";
@@ -45,4 +46,16 @@ export function* getProductDetailSaga(action: any) {
   const { data } = response;
 
   yield put(getProductDetailSuccess(data));
+}
+
+export function* searchProductSaga(action: any) {
+  const { payload } = action;
+  const response: IDataResponse = yield call(
+    fetchProduct.searchProduct,
+    payload
+  );
+
+  const { data } = response;
+
+  yield put(searchProductSuccess(data));
 }
