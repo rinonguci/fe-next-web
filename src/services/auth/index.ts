@@ -36,7 +36,7 @@ const fetchAuth = {
     return response;
   },
   async resetPassword(payload: any) {
-    const response = await AxiosService.post(url.forgotPassword, payload);
+    const response = await AxiosService.post(url.resetPassword, payload);
     return response;
   },
 };
