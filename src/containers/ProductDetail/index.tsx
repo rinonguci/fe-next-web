@@ -119,7 +119,6 @@ const ProductDetail: FC<IProductDetail> = () => {
       return;
     }
 
-    addWishlistApi();
     addCartApi();
   }
 
