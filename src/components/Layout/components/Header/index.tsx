@@ -29,15 +29,16 @@ const HeaderTopContainer = styled.div`
   ${tw`relative`};
 `;
 
-const NavContainer = styled.div`
-  ${tw`relative container mx-auto pt-12 pb-5`};
+const NavContainer = styled.div<{ isSearch: boolean }>`
+  ${tw`container mx-auto pt-12 pb-5`};
+  ${({ isSearch }) => (isSearch ? tw`relative` : "")}
 `;
 
 const SearchBox = styled.div`
-  ${tw`bg-white absolute w-full h-full top-[20%] z-[9999]`}
+  ${tw`bg-white absolute w-full h-full bottom-1 z-[9999] flex items-end`}
 `;
 const InputBox = styled.div`
-  ${tw`h-[40px] max-w-[600px] mx-auto sm:mx-10 pb-4 flex items-center border-b border-b-black-lv1`}
+  ${tw`h-[40px] max-w-[600px] w-full mx-auto sm:mx-10 pb-4 mb-4 flex items-center border-b border-b-black-lv1`}
 `;
 const Close = styled.div`
   ${tw`relative cursor-pointer`}
@@ -127,7 +128,7 @@ const Header: FC<IHeader> = () => {
           <HeaderTop handleClickSearch={handleClickSearch} />
         </HeaderTopContainer>
 
-        <NavContainer>
+        <NavContainer isSearch={isSearch}>
           {isSearch && (
             <SearchBox ref={ref}>
               <InputBox>

@@ -9,8 +9,8 @@ interface IBanner {}
 const Banner: FC<IBanner> = () => {
   return (
     <BannerContainer>
-      <div className="relative">
-        <picture className="cs-picture">
+      <div className="relative flex ">
+        <picture className="cs-picture mx-auto">
           <source
             media="(min-width: 1367px)"
             type="image/webp"
