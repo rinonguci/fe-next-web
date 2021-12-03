@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import styled from "styled-components";
 import tw from "twin.macro";
 import * as Yup from "yup";
+import { EmailContext } from "..";
 
 const LoginContainer = styled.div`
   ${tw``}
@@ -37,6 +38,7 @@ interface IFormValues {
 
 const Main: FC<ILogin> = ({ handleClickVerify }) => {
   const { setTitle, setStateForm } = useContext(AuthContext);
+  const { setEmail } = useContext(EmailContext);
   useEffect(() => {
     setTitle?.("Forgot Password");
   }, []);
@@ -61,6 +63,7 @@ const Main: FC<ILogin> = ({ handleClickVerify }) => {
             return;
           }
 
+          setEmail(payload.email);
           handleClickVerify?.();
         } catch (error: any) {
           toast.error(error);

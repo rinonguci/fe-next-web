@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import styled from "styled-components";
 import tw from "twin.macro";
 import * as Yup from "yup";
+import { EmailContext } from "..";
 
 const LoginContainer = styled.div`
   ${tw``}
@@ -37,7 +38,7 @@ interface ILogin {
 interface IFormValues {
   code: string;
   password: string;
-  confirmPassword: string;
+  passwordConfirm: string;
 }
 
 const Veriry: FC<ILogin> = ({ handleClickVerify }) => {
@@ -45,6 +46,7 @@ const Veriry: FC<ILogin> = ({ handleClickVerify }) => {
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
 
   const { setTitle, setStateForm } = useContext(AuthContext);
+  const { getEmail } = useContext(EmailContext);
   useEffect(() => {
     setTitle?.("Forgot Password");
   }, []);
@@ -58,17 +60,15 @@ const Veriry: FC<ILogin> = ({ handleClickVerify }) => {
       initialValues={{
         code: "",
         password: "12345678",
-        confirmPassword: "12345678",
+        passwordConfirm: "12345678",
       }}
-      validationSchema={Yup.object().shape({
-        email: Yup.string()
-          .email("Must be a valid email")
-          .max(255)
-          .required("Please enter your email"),
-      })}
+      validationSchema={Yup.object().shape({})}
       onSubmit={async (payload: IFormValues) => {
         try {
-          let result = await fetchAuth.login(payload);
+          let result = await fetchAuth.resetPassword({
+            ...payload,
+            email: getEmail(),
+          });
 
           if (typeof result === "string") {
             toast.error(result);
@@ -127,14 +127,14 @@ const Veriry: FC<ILogin> = ({ handleClickVerify }) => {
                 }
               />
               <Input
-                name="confirmPassword"
+                name="passwordConfirm"
                 title="Confirm Password"
                 type={isShowPassword ? "text" : "password"}
-                value={values.confirmPassword}
+                value={values.passwordConfirm}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                errors={errors.confirmPassword}
-                touched={touched.confirmPassword}
+                errors={errors.passwordConfirm}
+                touched={touched.passwordConfirm}
                 iconLeft={
                   <i
                     onClick={handleShowPassword}
