@@ -131,7 +131,7 @@ const SelectVariant: FC<ISelectVariant> = ({
   };
 
   const handleSelected = (value: IVariant) => {
-    setVariant(value);
+    setVariant?.(value);
     setVariantSelected(value);
     setVariantId?.(value._id!);
     setIsActive();
