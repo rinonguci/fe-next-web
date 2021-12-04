@@ -112,12 +112,7 @@ const Header: FC<IHeader> = () => {
     if (e.code === "Enter") {
       e.preventDefault();
 
-      router.push({
-        href: "search",
-        query: {
-          key: value,
-        },
-      });
+      router.push("/search?key=" + value);
     }
   };
 

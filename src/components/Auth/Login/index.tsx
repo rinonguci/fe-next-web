@@ -51,8 +51,8 @@ const Main: FC<ILogin> = () => {
   return (
     <Formik
       initialValues={{
-        email: "minhphatdev@gmail.com",
-        password: "12345678",
+        email: "",
+        password: "",
       }}
       validationSchema={Yup.object().shape({
         email: Yup.string()

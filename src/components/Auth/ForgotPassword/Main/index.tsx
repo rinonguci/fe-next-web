@@ -46,7 +46,7 @@ const Main: FC<ILogin> = ({ handleClickVerify }) => {
   return (
     <Formik
       initialValues={{
-        email: "minhphatdev@gmail.com",
+        email: "",
       }}
       validationSchema={Yup.object().shape({
         email: Yup.string()

@@ -52,12 +52,12 @@ const Main: FC<IMain> = ({ handleClickVerify }) => {
   return (
     <Formik
       initialValues={{
-        firstname: "Phát",
-        lastname: "Phạm",
-        email: "minhphatdev@gmail.com",
-        password: "12345678",
-        passwordConfirm: "12345678",
-        phone: "0943987432",
+        firstname: "",
+        lastname: "",
+        email: "",
+        password: "",
+        passwordConfirm: "",
+        phone: "",
       }}
       validationSchema={Yup.object().shape({
         firstname: Yup.string()

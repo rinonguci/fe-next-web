@@ -49,9 +49,9 @@ const PasswordForm: FC<IPasswordForm> = () => {
   return (
     <Formik
       initialValues={{
-        passwordCurrent: "12345678",
-        password: "12345678",
-        passwordConfirm: "12345678",
+        passwordCurrent: "",
+        password: "",
+        passwordConfirm: "",
       }}
       validationSchema={Yup.object().shape({})}
       onSubmit={async (payload: IFormValues) => {

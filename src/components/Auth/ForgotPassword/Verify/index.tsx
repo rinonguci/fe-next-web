@@ -59,8 +59,8 @@ const Veriry: FC<ILogin> = ({ handleClickVerify }) => {
     <Formik
       initialValues={{
         code: "",
-        password: "12345678",
-        passwordConfirm: "12345678",
+        password: "",
+        passwordConfirm: "",
       }}
       validationSchema={Yup.object().shape({})}
       onSubmit={async (payload: IFormValues) => {

@@ -31,19 +31,19 @@ const GAPCOMMON = 20;
 
 const Product: FC<IProduct> = () => {
   const dispatch = useAppDispatch();
-  const {
-    query: { key },
-  } = useRouter();
+  const { query } = useRouter();
   const [isActive, setActive] = useState<boolean>(false);
   const { searchProduct: data } = useAppSelector(
     (state) => state.productReducers
   );
 
+  let { key } = query;
+
   useEffect(() => {
     if (key) {
       handleData();
     }
-  }, [key]);
+  }, [key, query]);
 
   const handleData = () => {
     if (!key) return;
