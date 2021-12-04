@@ -100,6 +100,7 @@ interface ISelectVariant {
 
   setVariantId?: Dispatch<SetStateAction<string>>;
   setFuncSelect?: (func: () => void) => void;
+  setVariant?: any;
 }
 
 const SelectVariant: FC<ISelectVariant> = ({
@@ -107,6 +108,7 @@ const SelectVariant: FC<ISelectVariant> = ({
   title = "Select Size",
   setVariantId,
   setFuncSelect,
+  setVariant,
 }) => {
   const ref = useRef<any>(null);
   const [isActive, setIsActive] = useToggleAndCloseVer2(ref);
@@ -129,6 +131,7 @@ const SelectVariant: FC<ISelectVariant> = ({
   };
 
   const handleSelected = (value: IVariant) => {
+    setVariant(value);
     setVariantSelected(value);
     setVariantId?.(value._id!);
     setIsActive();

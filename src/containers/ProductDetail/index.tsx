@@ -4,6 +4,7 @@ import IconSVG from "@designs/IconSVG";
 import SelectVariant from "@designs/SelectVariant";
 import { useAppDispatch, useAppSelector } from "@hooks/redux";
 import { addCart, addWishlist } from "@redux/slices/user";
+import { IVariant } from "@redux/types/product";
 import { IWish } from "@redux/types/user";
 import { FC, useCallback, useEffect, useState } from "react";
 import styled, { css } from "styled-components";
@@ -93,6 +94,7 @@ const ProductDetail: FC<IProductDetail> = () => {
 
   const [isLike, setIsLike] = useState<boolean>();
   const [variantId, setVariantId] = useState<string>("");
+  const [variant, setVariant] = useState<IVariant>();
   const [funcSelect, setFuncSelect] = useState<() => void>();
 
   useEffect(() => {
@@ -154,10 +156,11 @@ const ProductDetail: FC<IProductDetail> = () => {
               <ProductInfoBox>
                 <Design>{productDetail?.brand}</Design>
                 <Name>{productDetail?.name}</Name>
-                <Price>${productDetail?.price}</Price>
+                <Price>${variant ? variant.price : productDetail?.price}</Price>
               </ProductInfoBox>
               <ProductPayBox>
                 <SelectVariant
+                  setVariant={setVariant}
                   setFuncSelect={setFuncSelect}
                   setVariantId={setVariantId}
                   list={productDetail?.variants!}
