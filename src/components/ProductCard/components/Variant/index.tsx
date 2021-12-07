@@ -48,7 +48,9 @@ const Variant: FC<IVariantProps> = ({ data, length }) => {
             data.map((value) => (
               <TR key={value[0].sizeId}>
                 {value.map((item) => (
-                  <TD oneItem={length === 1}>{item.size || "Default"}</TD>
+                  <TD key={item._id} oneItem={length === 1}>
+                    {item.size || "Default"}
+                  </TD>
                 ))}
               </TR>
             ))}
