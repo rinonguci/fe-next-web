@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import type { GetStaticProps, NextPage } from "next";
+import type { GetServerSideProps, GetStaticProps, NextPage } from "next";
 
 import MetaTitle from "@designs/MetaTitle";
 
@@ -25,8 +25,8 @@ const ProductPage: NextPage<IProductPage> = ({ name }) => {
 
 export default ProductPage;
 
-export const getStaticProps = wrapper.getServerSideProps(
-  (store) => async () => {
+export const getServerSideProps: GetServerSideProps =
+  wrapper.getServerSideProps((store) => async () => {
     const { dispatch, sagaTask } = store;
 
     dispatch(getCategories());
@@ -36,7 +36,5 @@ export const getStaticProps = wrapper.getServerSideProps(
 
     return {
       props: {},
-      revalidate: 60 * 60 * 24,
     };
-  }
-);
+  });

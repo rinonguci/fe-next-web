@@ -56,7 +56,7 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
         props: {
           name: slug[1],
         },
-        revalidate: 60 * 60 * 24,
+        revalidate: 10,
       };
     }
 );

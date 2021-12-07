@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import { Fragment } from "react";
 import { END } from "redux-saga";
 
@@ -18,8 +18,8 @@ const HomePage: NextPage = (props) => {
 
 export default HomePage;
 
-export const getStaticProps = wrapper.getServerSideProps(
-  (store) => async () => {
+export const getServerSideProps: GetServerSideProps =
+  wrapper.getServerSideProps((store) => async () => {
     const { dispatch, sagaTask } = store;
 
     dispatch(getCategories());
@@ -27,5 +27,4 @@ export const getStaticProps = wrapper.getServerSideProps(
     dispatch(END);
     await sagaTask.toPromise();
     return { props: {} };
-  }
-);
+  });

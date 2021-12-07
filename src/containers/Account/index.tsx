@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import tw from "twin.macro";
 import styled from "styled-components";
 import Layout from "@components/Layout";
@@ -8,8 +8,8 @@ import isNullObject from "@common/function/isNullObject";
 import IconSVG from "@designs/IconSVG";
 import PasswordForm from "./components/PasswordForm";
 
-import { Router } from "next/router";
-import { getBill } from "@redux/slices/user";
+import { Cropper } from "react-cropper";
+import "cropperjs/dist/cropper.css";
 import TableBill from "./components/TabelBill";
 
 const AccountContainer = styled.div`
@@ -30,7 +30,22 @@ const AccountMain = styled.div`
   ${tw`flex gap-12 p-20`}
 `;
 const ImageBox = styled.div`
-  ${tw`flex-shrink-0 h-[220px] w-[220px] rounded-full overflow-hidden border border-gray-600`}
+  ${tw`relative flex-shrink-0 h-[220px] w-[220px] rounded-full overflow-hidden border border-gray-600`}
+`;
+const InputLabel = styled.label`
+  ${tw`absolute text-white px-60 pb-10 pt-3 cursor-pointer`}
+  width: max-content;
+  background-color: #0000007a;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+`;
+const LabelText = styled.span`
+  ${tw`text-white text-sm font-semibold cursor-pointer`}
+`;
+
+const Input = styled.input`
+  ${tw``}
 `;
 const Image = styled.img`
   ${tw`block h-full w-full object-cover`}
@@ -75,6 +90,10 @@ interface IAccount {}
 const Account: FC<IAccount> = () => {
   const router = useRouter();
   const { user } = useAppSelector((state) => state.userReducers);
+  const [cropper, setCropper] = useState<Cropper>();
+  const [image, setImage] = useState(
+    "https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg"
+  );
 
   useEffect(() => {
     if (isNullObject(user)) {
@@ -85,6 +104,21 @@ const Account: FC<IAccount> = () => {
   const handleLogout = () => {
     localStorage.clear();
     router.reload();
+  };
+
+  const onChange = (e: any) => {
+    e.preventDefault();
+    let files;
+    if (e.dataTransfer) {
+      files = e.dataTransfer.files;
+    } else if (e.target) {
+      files = e.target.files;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImage(reader.result as any);
+    };
+    reader.readAsDataURL(files[0]);
   };
 
   return (
@@ -98,7 +132,32 @@ const Account: FC<IAccount> = () => {
           </Nav>
           <AccountMain>
             <ImageBox>
-              <Image src="https://cdn.childrensalon.com/media/customer/profile/e/7/e76964d65f9a636fb308e884ab70599fc61551c1.jpg" />
+              <InputLabel htmlFor="select" className="text-center">
+                <LabelText>Upload Image</LabelText>
+              </InputLabel>
+              <Input
+                id="select"
+                className="hidden"
+                type="file"
+                onChange={onChange}
+              />
+              {/* 
+              <Cropper
+                style={{ height: 500, width: "100%" }}
+                zoomTo={0.4}
+                initialAspectRatio={1}
+                src={image}
+                viewMode={1}
+                background={true}
+                responsive={true}
+                autoCropArea={1}
+                checkOrientation={false}
+                onInitialized={(instance) => {
+                  setCropper(instance);
+                }}
+                guides={true}
+              /> */}
+              <Image src={image} />
             </ImageBox>
             <AccountRight>
               <AccountContent>

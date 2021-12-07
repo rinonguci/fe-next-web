@@ -27,6 +27,7 @@
     "next-redux-wrapper": "^7.0.5",
     "node-sass": "^6.0.1",
     "react": "17.0.2",
+    "react-cropper": "^2.1.8",
     "react-dom": "^17.0.2",
     "react-inner-image-zoom": "^2.1.0",
     "react-lazy-load-image-component": "^1.5.1",
