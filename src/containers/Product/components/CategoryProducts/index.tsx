@@ -14,14 +14,7 @@ const CategoryProductList = styled.ul`
   ${tw`grid grid-cols-3 md:grid-cols-2 gap-y-8`}
 `;
 const CategoryProductItem = styled.li`
-  ${tw`text-center`}
-`;
-
-const NotFound = styled.div`
-  ${tw`text-center`}
-`;
-const NotFoundMessage = styled.h3`
-  ${tw`text-4xl`}
+  ${tw`text-center `}
 `;
 interface ICategoryProduct {
   products?: Array<IProduct>;

@@ -50,6 +50,7 @@ export interface IProduct {
   slug: string;
   discountPrice: number;
   price: number;
+  variants: IVariant[];
 }
 
 export interface IGetProductsByTypePayload {

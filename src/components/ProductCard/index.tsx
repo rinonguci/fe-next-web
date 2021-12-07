@@ -1,5 +1,5 @@
 import IconSVG from "@designs/IconSVG";
-import { FC, useEffect, useRef, useState } from "react";
+import { createRef, FC, useEffect, useRef, useState } from "react";
 import styled, { css } from "styled-components";
 import tw from "twin.macro";
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -7,17 +7,17 @@ import Skeleton from "react-loading-skeleton";
 import { useAppDispatch } from "@hooks/redux";
 import { addWishlist } from "@redux/slices/user";
 import Link from "@designs/Link";
-import { IProduct } from "@redux/types/product";
+import { IProduct, IVariant } from "@redux/types/product";
+import Variant from "./components/Variant";
+import handleChunkArray from "@common/function/handleChunkArray";
 
-const ProductCardContainer = styled.div`
+const ProductCardContainer = styled.div<{ isIndex: boolean }>`
   ${tw`flex flex-col gap-2 relative pt-10`}
-  &:hover {
-    filter: opacity(0.8);
-  }
+  ${({ isIndex }) => isIndex && tw`z-10`}
 `;
 
 const ImageBox = styled.div`
-  ${tw``}
+  ${tw`relative`}
 
   &  span {
     ${tw`w-full aspect-ratio[1/1]`}
@@ -61,6 +61,10 @@ const HeartBox = styled.div<{ isCheck?: boolean }>`
     }
   }
 `;
+const VariantBox = styled.div`
+  ${tw`absolute  z-[9999] pointer-events[none]`}
+  width: max-content;
+`;
 
 interface IProductCard {
   data: IProduct;
@@ -69,15 +73,92 @@ interface IProductCard {
 
 const ProductCard: FC<IProductCard> = ({ data, isCheck = false }) => {
   const dispatch = useAppDispatch();
+  const [sizeList, setSizeList] = useState<IVariant[][]>();
   const [check, setCheck] = useState<boolean>(false);
   const [isLike, setIsLike] = useState<boolean>();
 
+  const [isActive, setIsActive] = useState<boolean>(false);
+  const refImage = useRef<HTMLDivElement>(null);
+  const refVariant = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     setIsLike(isCheck);
+
+    handleSizeList();
+  }, []);
+
+  useEffect(() => {
+    if (refImage.current === null) {
+      return;
+    }
+
+    const handleHover = (ev: any) => {
+      var evTarget = ev.target;
+
+      var rect = evTarget?.getBoundingClientRect();
+      var x = ev.clientX - rect.left; //x position within the element.
+      var y = ev.clientY - rect.top; //y position within the element.
+
+      if (!refVariant.current) return;
+
+      if (ev.clientX + 142 > rect.right) {
+        refVariant.current.setAttribute(
+          "style",
+          `left: ${x - 5 - 142}px; top: ${y + 10}px`
+        );
+      } else {
+        refVariant.current.setAttribute(
+          "style",
+          `left: ${x + 10}px; top: ${y + 10}px`
+        );
+      }
+    };
+
+    refImage.current.addEventListener("mousemove", handleHover);
+
+    return () => {
+      if (refImage.current === null) {
+        return;
+      }
+
+      refImage.current.removeEventListener("mousemove", handleHover);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (refImage.current === null) {
+      return;
+    }
+
+    const isOpen = (ev: any) => {
+      setIsActive(true);
+    };
+
+    const isClose = (ev: any) => {
+      setIsActive(false);
+    };
+
+    refImage.current.addEventListener("mouseenter", isOpen);
+    refImage.current.addEventListener("mouseleave", isClose);
+
+    return () => {
+      if (refImage.current === null) {
+        return;
+      }
+
+      refImage.current.removeEventListener("mouseenter", isOpen);
+      refImage.current.removeEventListener("mouseleave", isClose);
+    };
   }, []);
 
   const handleLoadImage = () => {
     setCheck(true);
+  };
+
+  const handleSizeList = () => {
+    let chunkArray = handleChunkArray<IVariant>(data.variants, 2);
+
+    setSizeList(chunkArray);
   };
 
   const handleAddWishlist = () => {
@@ -94,9 +175,9 @@ const ProductCard: FC<IProductCard> = ({ data, isCheck = false }) => {
   };
 
   return (
-    <ProductCardContainer>
+    <ProductCardContainer isIndex={isActive}>
       <Link href={`/product/${data._id}/${data.slug}`}>
-        <ImageBox>
+        <ImageBox ref={refImage}>
           <LazyLoadImage
             afterLoad={handleLoadImage}
             src={data.imageCovers[0]}
@@ -105,6 +186,12 @@ const ProductCard: FC<IProductCard> = ({ data, isCheck = false }) => {
             delayTime={1000}
             placeholder={<Skeleton className="rounded" />}
           />
+
+          {isActive && (
+            <VariantBox ref={refVariant}>
+              <Variant length={data.variants.length} data={sizeList} />
+            </VariantBox>
+          )}
         </ImageBox>
 
         <Design>{check ? data.brand : <Skeleton />}</Design>
@@ -120,30 +207,3 @@ const ProductCard: FC<IProductCard> = ({ data, isCheck = false }) => {
 };
 
 export default ProductCard;
-
-/* <div >
-        <strong>Available Sizes</strong>
-        <table >
-          <tbody>
-            <tr>
-              <td>
-                <span>4 year</span>
-                <span>5 year</span>
-                <span>6 year</span>
-                <span>7 year</span>
-                <span>8 year</span>
-                <span>9 year</span>
-                <span>10 year</span>
-              </td>
-              <td>
-                <span>11 year</span>
-                <span>12 year</span>
-                <span>13 year</span>
-                <span>14 year</span>
-                <span>15 year</span>
-                <span>16 year</span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div> */

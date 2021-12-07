@@ -1,3 +1,4 @@
+import handleChunkArray from "@common/function/handleChunkArray";
 import Link from "@designs/Link";
 import { ICategory } from "@redux/types/common";
 import { FC, useEffect, useState } from "react";
@@ -137,26 +138,6 @@ const NavDetail: FC<INavDetail> = ({ data }) => {
       category1: category1,
       category2: category2,
     };
-  };
-
-  const handleChunkArray = (
-    inputArray: Array<any> | undefined,
-    perChunk: number
-  ) => {
-    var result =
-      inputArray &&
-      inputArray.reduce((resultArray, item, index) => {
-        const chunkIndex = Math.floor(index / perChunk);
-
-        if (!resultArray[chunkIndex]) {
-          resultArray[chunkIndex] = [];
-        }
-
-        resultArray[chunkIndex].push(item);
-
-        return resultArray;
-      }, []);
-    return result;
   };
 
   const handleColumn = (id: string) => {
