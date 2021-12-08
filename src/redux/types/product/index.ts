@@ -10,7 +10,7 @@ export interface IFacet {
 }
 
 export interface IVariant {
-  _id?: string;
+  id?: string;
   product?: string;
   price?: string;
   discountPrice?: number;
@@ -38,7 +38,7 @@ export interface IProductDetail {
 }
 
 export interface IProduct {
-  _id: string;
+  id: string;
   name: string;
   category: string;
   categoryName: string;

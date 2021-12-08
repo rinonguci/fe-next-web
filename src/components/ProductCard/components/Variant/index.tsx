@@ -37,18 +37,16 @@ interface IVariantProps {
 }
 
 const Variant: FC<IVariantProps> = ({ data, length }) => {
-  console.log(data);
-
   return (
     <VariantContainer>
       <Title>Available Sizes</Title>
       <Table>
         <TBody>
           {data &&
-            data.map((value) => (
-              <TR key={value[0].sizeId}>
+            data.map((value, index) => (
+              <TR key={index}>
                 {value.map((item) => (
-                  <TD key={item._id} oneItem={length === 1}>
+                  <TD key={item.id} oneItem={length === 1}>
                     {item.size || "Default"}
                   </TD>
                 ))}

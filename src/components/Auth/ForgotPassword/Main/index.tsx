@@ -93,6 +93,7 @@ const Main: FC<ILogin> = ({ handleClickVerify }) => {
                 title="Email address"
                 type="text"
                 value={values.email}
+                placeholder="elonmusk@summon.com"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 errors={errors.email}

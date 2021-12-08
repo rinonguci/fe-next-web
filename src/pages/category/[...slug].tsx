@@ -40,23 +40,24 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
-  (store) =>
-    async ({ params }) => {
-      const { dispatch, sagaTask } = store;
-      const { slug } = params as { slug: Array<string> };
+  (store) => async (context) => {
+    const { dispatch, sagaTask } = store;
+    const { params } = context;
+    const { slug } = params as { slug: Array<string> };
+    console.log(context);
 
-      await dispatch(getCategories());
-      await dispatch(getProductsByType({ id: slug[0] }));
-      await dispatch(getFacets({ id: slug[0] }));
+    await dispatch(getCategories());
+    await dispatch(getProductsByType({ id: slug[0] }));
+    await dispatch(getFacets({ id: slug[0] }));
 
-      dispatch(END);
-      await sagaTask.toPromise();
+    dispatch(END);
+    await sagaTask.toPromise();
 
-      return {
-        props: {
-          name: slug[1],
-        },
-        revalidate: 10,
-      };
-    }
+    return {
+      props: {
+        name: slug[1],
+      },
+      revalidate: 10,
+    };
+  }
 );

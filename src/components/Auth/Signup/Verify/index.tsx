@@ -83,7 +83,7 @@ const Verify: FC<IVerify> = ({ handleClickVerify }) => {
                 name="code"
                 title="Code"
                 type="text"
-                placeholder="Please enter your code"
+                placeholder="Please enter the code in your email"
                 value={values.code}
                 onChange={handleChange}
                 onBlur={handleBlur}

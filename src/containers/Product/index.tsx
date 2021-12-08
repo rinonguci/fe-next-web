@@ -4,7 +4,7 @@ import Breadcrumb from "@components/Breadcrumb";
 import { useAppDispatch, useAppSelector } from "@hooks/redux";
 import { getProductsByType } from "@redux/slices/product";
 import { useRouter } from "next/router";
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 import CategoryProduct from "./components/CategoryProducts";
@@ -56,7 +56,7 @@ const Product: FC<IProduct> = () => {
     query: { slug },
   } = useRouter();
   const router = useRouter();
-  const [query, setQuery] = useState<string>();
+  const [query, setQuery] = useState<string>("");
   const [isActive, setActive] = useState<boolean>(false);
 
   const { productsByType, facets } = useAppSelector(
@@ -74,7 +74,9 @@ const Product: FC<IProduct> = () => {
     if (!slug?.[0]) return;
 
     let payload: IGetProductsByTypePayload = { id: slug[0] };
+
     payload.params = query ? query : undefined;
+    console.log(query);
 
     dispatch(getProductsByType(payload));
   }, [query]);

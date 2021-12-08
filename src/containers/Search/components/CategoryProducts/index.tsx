@@ -48,11 +48,8 @@ const CategoryProduct: FC<ICategoryProduct> = ({ products, gapX }) => {
       <CategoryProductList className={`gap-x-${gapX}`}>
         {products &&
           products.map((value) => (
-            <CategoryProductItem key={value._id}>
-              <ProductCard
-                isCheck={handleCheckIsLike(value._id)}
-                data={value}
-              />
+            <CategoryProductItem key={value.id}>
+              <ProductCard isCheck={handleCheckIsLike(value.id)} data={value} />
             </CategoryProductItem>
           ))}
       </CategoryProductList>

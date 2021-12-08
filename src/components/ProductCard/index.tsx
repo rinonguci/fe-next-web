@@ -81,12 +81,15 @@ const ProductCard: FC<IProductCard> = ({ data, isCheck = false }) => {
   const refImage = useRef<HTMLDivElement>(null);
   const refVariant = useRef<HTMLDivElement>(null);
 
+  const [image, setImage] = useState<string>(data.imageCovers[0]);
+
   useEffect(() => {
     setIsLike(isCheck);
 
     handleSizeList();
   }, []);
 
+  //#region handle hover variant
   useEffect(() => {
     if (refImage.current === null) {
       return;
@@ -101,10 +104,10 @@ const ProductCard: FC<IProductCard> = ({ data, isCheck = false }) => {
 
       if (!refVariant.current) return;
 
-      if (ev.clientX + 142 > rect.right) {
+      if (ev.clientX + 160 > rect.right) {
         refVariant.current.setAttribute(
           "style",
-          `left: ${x - 5 - 142}px; top: ${y + 10}px`
+          `left: ${x - 20 - 142}px; top: ${y + 10}px`
         );
       } else {
         refVariant.current.setAttribute(
@@ -132,10 +135,12 @@ const ProductCard: FC<IProductCard> = ({ data, isCheck = false }) => {
 
     const isOpen = (ev: any) => {
       setIsActive(true);
+      setImage(data.imageCovers[1] ? data.imageCovers[1] : data.imageCovers[1]);
     };
 
     const isClose = (ev: any) => {
       setIsActive(false);
+      setImage(data.imageCovers[0]);
     };
 
     refImage.current.addEventListener("mouseenter", isOpen);
@@ -150,6 +155,11 @@ const ProductCard: FC<IProductCard> = ({ data, isCheck = false }) => {
       refImage.current.removeEventListener("mouseleave", isClose);
     };
   }, []);
+  //#endregion
+
+  //#region handle hover image
+
+  //#endregion
 
   const handleLoadImage = () => {
     setCheck(true);
@@ -169,18 +179,18 @@ const ProductCard: FC<IProductCard> = ({ data, isCheck = false }) => {
 
   const addWishlistApi = () => {
     let payload = {
-      product: data._id,
+      product: data.id,
     };
     dispatch(addWishlist(payload));
   };
 
   return (
     <ProductCardContainer isIndex={isActive}>
-      <Link href={`/product/${data._id}/${data.slug}`}>
+      <Link href={`/product/${data.id}/${data.slug}`}>
         <ImageBox ref={refImage}>
           <LazyLoadImage
             afterLoad={handleLoadImage}
-            src={data.imageCovers[0]}
+            src={image}
             alt={data.name}
             effect="opacity"
             delayTime={1000}
@@ -189,7 +199,7 @@ const ProductCard: FC<IProductCard> = ({ data, isCheck = false }) => {
 
           {isActive && (
             <VariantBox ref={refVariant}>
-              <Variant length={data.variants.length} data={sizeList} />
+              <Variant length={data?.variants?.length} data={sizeList} />
             </VariantBox>
           )}
         </ImageBox>

@@ -103,6 +103,7 @@ const Main: FC<ILogin> = () => {
                 title="Username"
                 type="text"
                 value={values.email}
+                placeholder="elonmusk@summon.com"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 errors={errors.email}
@@ -113,6 +114,7 @@ const Main: FC<ILogin> = () => {
                 title="Password"
                 type={isShowPassword ? "text" : "password"}
                 value={values.password}
+                placeholder="12345678"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 errors={errors.password}

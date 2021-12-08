@@ -104,6 +104,7 @@ const Main: FC<IMain> = ({ handleClickVerify }) => {
           return;
         }
 
+        toast.success(result?.message);
         setEmail(dataForm.email);
         handleClickVerify?.();
       }}
@@ -126,6 +127,7 @@ const Main: FC<IMain> = ({ handleClickVerify }) => {
                 title="First Name"
                 type="text"
                 value={values.firstname}
+                placeholder="Elon"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 errors={errors.firstname}
@@ -136,6 +138,7 @@ const Main: FC<IMain> = ({ handleClickVerify }) => {
                 title="Last Name"
                 type="text"
                 value={values.lastname}
+                placeholder="Musk"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 errors={errors.lastname}
@@ -146,6 +149,7 @@ const Main: FC<IMain> = ({ handleClickVerify }) => {
                 title="Email"
                 type="text"
                 value={values.email}
+                placeholder="elonmusk@summon.com"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 errors={errors.email}
@@ -156,6 +160,7 @@ const Main: FC<IMain> = ({ handleClickVerify }) => {
                 title="Password"
                 type={isShowPassword ? "text" : "password"}
                 value={values.password}
+                placeholder="12345678"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 errors={errors.password}
@@ -172,6 +177,7 @@ const Main: FC<IMain> = ({ handleClickVerify }) => {
                 title="Confirm Password"
                 type={isShowPassword ? "text" : "password"}
                 value={values.passwordConfirm}
+                placeholder="12345678"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 errors={errors.passwordConfirm}
@@ -188,6 +194,7 @@ const Main: FC<IMain> = ({ handleClickVerify }) => {
                 title="Phone"
                 type="text"
                 value={values.phone}
+                placeholder="0943987432"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 errors={errors.phone}

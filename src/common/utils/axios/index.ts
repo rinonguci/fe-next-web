@@ -14,14 +14,19 @@ export type Method =
   | "link"
   | "unlink";
 
-axios.defaults.baseURL = "https://shopme-three.vercel.app/api/v1/";
+// axios.defaults.baseURL = "https://shopme-three.vercel.app/api/v1/";
+axios.defaults.baseURL = "https://wwwshopme.herokuapp.com/api/v1/";
 
+axios.defaults.headers.post["Content-Type"] =
+  "application/x-www-form-urlencoded";
 class AxiosService {
   #instance: AxiosInstance;
   constructor() {
     const instance = axios.create({
       timeout: 20000,
       headers: {
+        // "Content-Type": "application/json
+        Accept: "application/json",
         "Content-Type": "application/json",
       },
     });

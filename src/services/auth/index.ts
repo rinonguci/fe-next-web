@@ -1,13 +1,13 @@
 import AxiosService from "@common/utils/axios";
 
 const url = {
-  signup: "user/signup",
-  login: "user/login",
-  me: "user/me",
-  verify: "user/verify",
-  forgotPassword: "user/forgot-password",
-  changePassword: "user/update-password",
-  resetPassword: "user/reset-password",
+  signup: "signup",
+  login: "login",
+  me: "me",
+  verify: "verify",
+  forgotPassword: "forgot-password",
+  changePassword: "update-password",
+  resetPassword: "reset-password",
 };
 
 const fetchAuth = {

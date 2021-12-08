@@ -122,7 +122,7 @@ const SelectVariant: FC<ISelectVariant> = ({
 
     if (variantList && variantList.length === 1) {
       setVariantSelected({ ...variantList, size: "Default" });
-      setVariantId?.(variantList[0]._id!);
+      setVariantId?.(variantList[0].id!);
     }
   }, []);
 
@@ -133,7 +133,7 @@ const SelectVariant: FC<ISelectVariant> = ({
   const handleSelected = (value: IVariant) => {
     setVariant?.(value);
     setVariantSelected(value);
-    setVariantId?.(value._id!);
+    setVariantId?.(value.id!);
     setIsActive();
   };
 
@@ -159,7 +159,7 @@ const SelectVariant: FC<ISelectVariant> = ({
                 variantList.map((value) => (
                   <SelectVariantItem
                     onClick={() => handleSelected(value)}
-                    key={value._id}
+                    key={value.id}
                     data-element="select-pay"
                   >
                     <ItemSize>{value.size}</ItemSize>
