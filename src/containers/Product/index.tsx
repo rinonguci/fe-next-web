@@ -56,7 +56,7 @@ const Product: FC<IProduct> = () => {
     query: { slug },
   } = useRouter();
   const router = useRouter();
-  const [query, setQuery] = useState<string>();
+  const [query, setQuery] = useState<string>("");
   const [isActive, setActive] = useState<boolean>(false);
 
   const { productsByType, facets } = useAppSelector(
