@@ -15,8 +15,8 @@ export type Method =
   | "unlink";
 
 // axios.defaults.baseURL = "https://shopme-three.vercel.app/api/v1/";
-// axios.defaults.baseURL = "https://wwwshopme.herokuapp.com/api/v1";
-axios.defaults.baseURL = "http://localhost:8080/ROOTk/api/v1";
+axios.defaults.baseURL = "https://wwwshopme.herokuapp.com/api/v1";
+// axios.defaults.baseURL = "http://localhost:8080/ROOTk/api/v1";
 
 class AxiosService {
   #instance: AxiosInstance;
