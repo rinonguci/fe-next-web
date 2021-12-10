@@ -13,7 +13,7 @@ const url = {
 
 const fetchProduct = {
   async getProductByType(payload: any) {
-    const response = await AxiosService.get(url.getProductByType(payload));
+    const response = await handleLoopToGetData(url.getProductByType(payload));
     return response;
   },
   async getAllProduct(payload: any) {
@@ -25,7 +25,7 @@ const fetchProduct = {
     return response;
   },
   async getProductDetail(payload: any) {
-    const response = await AxiosService.get(url.getProductDetail(payload));
+    const response = await handleLoopToGetData(url.getProductDetail(payload));
     return response;
   },
   async searchProduct(payload: any) {
@@ -33,7 +33,7 @@ const fetchProduct = {
     return response;
   },
   async getFacts(payload: any) {
-    const response = await AxiosService.get(url.getFacet(payload));
+    const response = await handleLoopToGetData(url.getFacet(payload));
     return response;
   },
   async getVariant(payload: any) {
@@ -43,3 +43,13 @@ const fetchProduct = {
 };
 
 export default fetchProduct;
+
+const handleLoopToGetData: any = async (url: string) => {
+  let response = await AxiosService.get(url);
+
+  if (response) {
+    return response;
+  }
+
+  return handleLoopToGetData(url);
+};
