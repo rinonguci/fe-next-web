@@ -9,6 +9,8 @@ import isNullObject from "@common/function/isNullObject";
 import { setOverflowMenu, setOverflowUser } from "@redux/slices/ui";
 import HoverDropdown from "./components/HoverDropdown";
 import { useRouter } from "next/router";
+import Link from "@designs/Link";
+import { logout } from "@redux/slices/user";
 
 const HeaderTopContainer = styled.div`
   ${tw`md:pt-8 pt-14 text-2xl`}
@@ -87,9 +89,10 @@ const HeaderTop: FC<IHeaderTop> = ({ handleClickSearch }) => {
     dispatch(setOverflowUser(!overflowUser));
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     localStorage.clear();
-    router.reload();
+    dispatch(logout());
+    router.push("/home");
   };
 
   return (
@@ -105,7 +108,9 @@ const HeaderTop: FC<IHeaderTop> = ({ handleClickSearch }) => {
             />
             {!isNullObject(user) && (
               <UserDropdown>
-                <UserDropdownItem>Account</UserDropdownItem>
+                <Link href="/account">
+                  <UserDropdownItem>Account</UserDropdownItem>
+                </Link>
                 <UserDropdownItem onClick={handleLogout}>
                   Logout
                 </UserDropdownItem>

@@ -25,7 +25,7 @@ const ProductDetailPage: NextPage = (props) => {
 export default ProductDetailPage;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { data } = await fetchProduct.getAllProduct({});
+  const data = await handleGetAllProduct();
   const paths = getPathProductAll(data);
 
   return {
@@ -51,3 +51,13 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
       };
     }
 );
+
+const handleGetAllProduct: any = async () => {
+  const response = await fetchProduct.getAllProduct({});
+
+  if (response?.data) {
+    return response.data;
+  }
+
+  return handleGetAllProduct();
+};

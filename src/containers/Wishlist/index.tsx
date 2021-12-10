@@ -39,7 +39,7 @@ const Wishlist: FC<IWishlist> = () => {
           <Title>Wishlist</Title>
           <WishlistMain>
             {wishlist.map((value) => (
-              <Item key={value._id} data={value} />
+              <Item key={value.id} data={value} />
             ))}
           </WishlistMain>
         </WishlistBox>

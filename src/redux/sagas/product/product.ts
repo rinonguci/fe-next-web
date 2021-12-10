@@ -2,6 +2,7 @@ import { call, put } from "redux-saga/effects";
 import {
   getAllProductsSuccess,
   getProductDetailSuccess,
+  getProductFeaturesSuccess,
   getProductsByTypeSuccess,
   searchProductSuccess,
 } from "@redux/slices/product";
@@ -17,23 +18,39 @@ export function* getProductsByTypeSaga(action: any) {
     fetchProduct.getProductByType,
     payload
   );
+
   yield put(setStatusLoading({ status: "end" }));
 
-  const { data } = response;
+  if (response && response?.data) {
+    const { data } = response;
 
-  yield put(getProductsByTypeSuccess(data));
+    yield put(getProductsByTypeSuccess(data));
+  }
 }
 
 export function* getAllProductsSaga(action: any) {
   const { payload } = action;
+  const response: IDataResponse = yield call(fetchProduct.getAllProduct, {});
+
+  if (response && response?.data) {
+    const { data } = response;
+
+    yield put(getAllProductsSuccess(data));
+  }
+}
+
+export function* getProductFeaturesSaga(action: any) {
+  const { payload } = action;
   const response: IDataResponse = yield call(
-    fetchProduct.getAllProduct,
-    payload
+    fetchProduct.getProductFeatures,
+    {}
   );
 
-  const { data } = response;
+  if (response && response?.data) {
+    const { data } = response;
 
-  yield put(getAllProductsSuccess(data));
+    yield put(getProductFeaturesSuccess(data));
+  }
 }
 
 export function* getProductDetailSaga(action: any) {
@@ -43,9 +60,11 @@ export function* getProductDetailSaga(action: any) {
     payload
   );
 
-  const { data } = response;
+  if (response && response?.data) {
+    const { data } = response;
 
-  yield put(getProductDetailSuccess(data));
+    yield put(getProductDetailSuccess(data));
+  }
 }
 
 export function* searchProductSaga(action: any) {

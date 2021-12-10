@@ -8,7 +8,9 @@ export function* getFacetsSaga(action: any) {
 
   const response: IDataResponse = yield call(fetchProduct.getFacts, payload);
 
-  const { data } = response;
+  if (response && response?.data) {
+    const { data } = response;
 
-  yield put(getFacetsSuccess(data));
+    yield put(getFacetsSuccess(data));
+  }
 }

@@ -35,7 +35,7 @@ const CategoryProduct: FC<ICategoryProduct> = ({ products, gapX }) => {
     (id: string) => {
       if (!(wishlist && wishlist.length > 0)) return;
 
-      let index = wishlist.findIndex((value: IWish) => value._id === id);
+      let index = wishlist.findIndex((value: IWish) => value.id === id);
 
       if (index === -1) return false;
       return true;

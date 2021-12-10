@@ -15,15 +15,14 @@ export type Method =
   | "unlink";
 
 // axios.defaults.baseURL = "https://shopme-three.vercel.app/api/v1/";
-axios.defaults.baseURL = "https://wwwshopme.herokuapp.com/api/v1/";
+// axios.defaults.baseURL = "https://wwwshopme.herokuapp.com/api/v1";
+axios.defaults.baseURL = "http://localhost:8080/ROOTk/api/v1";
 
-axios.defaults.headers.post["Content-Type"] =
-  "application/x-www-form-urlencoded";
 class AxiosService {
   #instance: AxiosInstance;
   constructor() {
     const instance = axios.create({
-      timeout: 20000,
+      timeout: 30000,
       headers: {
         // "Content-Type": "application/json
         Accept: "application/json",
@@ -72,6 +71,16 @@ class AxiosService {
     try {
       return await (
         await this.#instance.post(url, data)
+      ).data;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async put(url: string, data?: IDataAxios): IResponseAxios {
+    try {
+      return await (
+        await this.#instance.put(url, data)
       ).data;
     } catch (error) {
       return error;

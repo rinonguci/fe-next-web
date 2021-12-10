@@ -5,6 +5,7 @@ const url = {
     `categories/${id}/products/${params !== undefined ? "?" + params : ""}`,
   searchProduct: ({ key }: any) => `products/search?key=${key}`,
   getAllProduct: () => `products`,
+  getProductFeatures: () => `products/features`,
   getProductDetail: ({ id }: any) => `products/${id}`,
   getFacet: (payload: any) => `categories/${payload.id}/products/facets`,
   getVariant: (payload: any) => `products/${payload.id}/variations`,
@@ -17,6 +18,10 @@ const fetchProduct = {
   },
   async getAllProduct(payload: any) {
     const response = await AxiosService.get(url.getAllProduct());
+    return response;
+  },
+  async getProductFeatures(payload: any) {
+    const response = await AxiosService.get(url.getProductFeatures());
     return response;
   },
   async getProductDetail(payload: any) {

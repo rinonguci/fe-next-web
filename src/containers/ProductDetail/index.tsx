@@ -6,10 +6,11 @@ import { useAppDispatch, useAppSelector } from "@hooks/redux";
 import { addCart, addWishlist } from "@redux/slices/user";
 import { IVariant } from "@redux/types/product";
 import { IWish } from "@redux/types/user";
-import { FC, useCallback, useEffect, useState } from "react";
+import { FC, Fragment, useCallback, useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import tw from "twin.macro";
 import Image from "./components/Image";
+import RelateProducts from "./components/RelateProducts";
 
 const ProductDetailContainer = styled.div`
   ${tw`container lg:max-w-full mx-auto xl:px-4  mt-40 px-40`}
@@ -23,7 +24,7 @@ const ProductImageContainer = styled.div`
 `;
 
 const ProductInfoContainer = styled.div`
-  ${tw`col-span-2 px-20 py-20 xl:px-10 lg:px-20 sm:px-4 `}
+  ${tw`col-span-2 px-20 xl:px-10 lg:px-20 sm:px-4 `}
 `;
 
 const ProductInfoTopContainer = styled.div`
@@ -47,10 +48,6 @@ const ProductPayBox = styled.div`
   ${tw`grid gap-6`}
 `;
 
-const ProductInfoBottomContainer = styled.div`
-  ${tw``}
-`;
-
 const DeliveryLink = styled.span`
   ${tw`block text-sm underline text-black-lv3`}
 `;
@@ -63,9 +60,41 @@ const ButtonWishList = styled.button`
   ${tw`h-20 w-20 flex-shrink-0 flex justify-center items-center rounded border border-black`}
 `;
 
-const MoreProduct = styled.span`
-  ${tw`pb-1 border-b border-black cursor-pointer`}
-  max-width: max-content;
+const MoreProduct = styled.span<{ isActive: boolean }>`
+  ${tw`block relative font-semibold text-gray-600 pt-4 text-base border-t border-gray-300 cursor-pointer`}
+
+  ${({ isActive }) =>
+    !isActive &&
+    css`
+      &:before {
+        ${tw`bg-gray-400 absolute`}
+        content: "";
+        height: 16px;
+        width: 2px;
+        height: 50%;
+        right: 10px;
+        transform: translateY(50%);
+      }
+    `}
+  
+  &:after {
+    ${tw`bg-gray-400 absolute`}
+    content: "";
+    height: 16px;
+    width: 2px;
+    height: 50%;
+    right: 10px;
+    transform: translateY(50%) rotate(90deg);
+  }
+`;
+const Desc = styled.p`
+  ${tw``}
+`;
+const RelateProductsBox = styled.div`
+  ${tw`mt-32`}
+`;
+const Title = styled.p`
+  ${tw`text-2xl text-gray-600 font-bold mb-10`}
 `;
 
 const HeartBox = styled.div<{ isCheck?: boolean }>`
@@ -96,11 +125,13 @@ const ProductDetail: FC<IProductDetail> = () => {
   const [variantId, setVariantId] = useState<string>("");
   const [variant, setVariant] = useState<IVariant>();
   const [funcSelect, setFuncSelect] = useState<() => void>();
+  const [isDesp, setIsDesp] = useState<boolean>(false);
+  const [isDespLong, setIsDespLong] = useState<boolean>(false);
 
   useEffect(() => {
-    let checkIsLike = handleCheckIsLike(productDetail?._id!);
+    let checkIsLike = handleCheckIsLike(productDetail?.id!);
     setIsLike(checkIsLike);
-  }, []);
+  }, [productDetail]);
 
   const handleAddWishlist = () => {
     setIsLike(!isLike);
@@ -110,7 +141,7 @@ const ProductDetail: FC<IProductDetail> = () => {
 
   const addWishlistApi = () => {
     let payload = {
-      product: productDetail._id!,
+      product: productDetail.id!,
     };
     dispatch(addWishlist(payload));
   };
@@ -132,7 +163,7 @@ const ProductDetail: FC<IProductDetail> = () => {
     (id: string) => {
       if (!(wishlist && wishlist.length > 0)) return;
 
-      let index = wishlist.findIndex((value: IWish) => value._id === id);
+      let index = wishlist.findIndex((value: IWish) => value.id === id);
 
       if (index === -1) return false;
       return true;
@@ -177,12 +208,35 @@ const ProductDetail: FC<IProductDetail> = () => {
                     Add to cart
                   </Button>
                 </ProductPayControl>
-                <MoreProduct>More product infomation</MoreProduct>
+
+                <MoreProduct
+                  onClick={() => {
+                    setIsDesp(!isDesp);
+                  }}
+                  isActive={isDesp}
+                >
+                  Detail
+                </MoreProduct>
+                {isDesp && <Desc>{productDetail.shortDescription}</Desc>}
+
+                <MoreProduct
+                  onClick={() => {
+                    setIsDespLong(!isDespLong);
+                  }}
+                  isActive={isDespLong}
+                >
+                  Composition
+                </MoreProduct>
+
+                {isDespLong && <Desc>{productDetail.longDescription}</Desc>}
               </ProductPayBox>
             </ProductInfoTopContainer>
-            <ProductInfoBottomContainer></ProductInfoBottomContainer>
           </ProductInfoContainer>
         </ProductDetailBox>
+        <RelateProductsBox>
+          <Title>Related products</Title>
+          <RelateProducts data={productDetail.relateProducts} />
+        </RelateProductsBox>
       </ProductDetailContainer>
     </Layout>
   );

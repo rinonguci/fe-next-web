@@ -64,7 +64,7 @@ const Cart: FC<ICart> = () => {
           <CartList>
             {cart &&
               cart.map((value) => (
-                <CartItem key={value._id}>
+                <CartItem key={value.id}>
                   <Item data={value} />
                 </CartItem>
               ))}

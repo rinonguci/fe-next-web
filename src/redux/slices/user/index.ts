@@ -35,16 +35,12 @@ const userSlice = createSlice({
 
     getWishlist() {},
     getWishlistSuccess(state, action) {
-      const handleData = action.products.map(
-        (value: { product: any }) => value.product
-      );
+      const handleData = action.products.map((value: any) => value);
       state.wishlist = handleData;
     },
     addWishlist(state, action: IAddWishlistPayload) {},
     addWishlistSuccess(state, action) {
-      const handleData = action.products.map(
-        (value: { product: any }) => value.product
-      );
+      const handleData = action.products.map((value: any) => value);
       state.wishlist = handleData;
     },
 
@@ -93,6 +89,18 @@ const userSlice = createSlice({
     getBillSuccess(state, action) {
       state.bill = action.payload;
     },
+
+    uploadImage(state, action: { photo: string }) {},
+    uploadImageSuccess(state, action) {
+      state.user = { ...state.user, photo: action.payload };
+    },
+
+    logout(state, action) {
+      state.user = {};
+      state.cart = [];
+      state.bill = [];
+      state.wishlist = [];
+    },
   },
 });
 
@@ -115,6 +123,9 @@ export const {
   addBillSuccess,
   getBill,
   getBillSuccess,
+  uploadImage,
+  uploadImageSuccess,
+  logout,
 } = userSlice.actions;
 
 const userReducers = userSlice.reducer;
@@ -124,13 +135,13 @@ const handleData = (action: any) => {
   if (action.items.length < 0) {
     return;
   }
+
   const handleData = action.items.map((value: any) => ({
-    ...value.data,
-    _id: value.data.variants._id,
-    id: value.data._id,
-    idProduct: value.data._id,
-    idVariant: value.data.variants.sizeId,
-    price: value.data.variants.price,
+    ...value.product,
+    id: value.product.variants[0].id,
+    idProduct: value.product.id,
+    idVariant: value.product.variants[0].sizeId,
+    price: value.product.variants[0].price,
     quantity: value.quantity,
   }));
 

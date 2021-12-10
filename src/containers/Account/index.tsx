@@ -1,7 +1,7 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import tw from "twin.macro";
 import styled from "styled-components";
-import Layout from "@components/Layout";
+import Layout, { PopupContext } from "@components/Layout";
 import { useAppDispatch, useAppSelector } from "@hooks/redux";
 import { useRouter } from "next/router";
 import isNullObject from "@common/function/isNullObject";
@@ -11,6 +11,10 @@ import PasswordForm from "./components/PasswordForm";
 import { Cropper } from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import TableBill from "./components/TabelBill";
+import fetchAuth from "@services/auth";
+import { toast } from "react-toastify";
+import convertBase64 from "@common/helper/convertBase64";
+import { logout, uploadImage } from "@redux/slices/user";
 
 const AccountContainer = styled.div`
   ${tw`max-w-[1008px] mx-auto mt-20 `}
@@ -88,25 +92,30 @@ const TableBillContaier = styled.div`
 interface IAccount {}
 
 const Account: FC<IAccount> = () => {
+  const dispatch = useAppDispatch();
   const router = useRouter();
   const { user } = useAppSelector((state) => state.userReducers);
-  const [cropper, setCropper] = useState<Cropper>();
   const [image, setImage] = useState(
     "https://static2.yan.vn/YanNews/2167221/202102/facebook-cap-nhat-avatar-doi-voi-tai-khoan-khong-su-dung-anh-dai-dien-e4abd14d.jpg"
   );
 
+  if (isNullObject(user)) {
+    router.push("/");
+  }
+
   useEffect(() => {
-    if (isNullObject(user)) {
-      router.push("/");
+    if (user.photo) {
+      setImage(user.photo);
     }
-  }, []);
+  }, [user]);
 
   const handleLogout = () => {
     localStorage.clear();
-    router.reload();
+    dispatch(logout());
+    router.push("/home");
   };
 
-  const onChange = (e: any) => {
+  const onChange = async (e: any) => {
     e.preventDefault();
     let files;
     if (e.dataTransfer) {
@@ -118,7 +127,16 @@ const Account: FC<IAccount> = () => {
     reader.onload = () => {
       setImage(reader.result as any);
     };
+
+    let base64 = await convertBase64(files[0]);
+    handleChangeImageApi(base64);
+
     reader.readAsDataURL(files[0]);
+  };
+
+  const handleChangeImageApi = async (base64: any) => {
+    let payload = { photo: base64 };
+    dispatch(uploadImage(payload));
   };
 
   return (
@@ -141,22 +159,6 @@ const Account: FC<IAccount> = () => {
                 type="file"
                 onChange={onChange}
               />
-              {/* 
-              <Cropper
-                style={{ height: 500, width: "100%" }}
-                zoomTo={0.4}
-                initialAspectRatio={1}
-                src={image}
-                viewMode={1}
-                background={true}
-                responsive={true}
-                autoCropArea={1}
-                checkOrientation={false}
-                onInitialized={(instance) => {
-                  setCropper(instance);
-                }}
-                guides={true}
-              /> */}
               <Image src={image} />
             </ImageBox>
             <AccountRight>

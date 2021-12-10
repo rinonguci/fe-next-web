@@ -83,11 +83,14 @@ const Item: FC<IItem> = ({ data }) => {
   const { wishlist } = useAppSelector((state) => state.userReducers);
 
   useEffect(() => {
+    handleCheck();
+  }, [wishlist]);
+
+  const handleCheck = () => {
     let checkIsLike = handleCheckIsLike(data?.idProduct!);
-    console.log(checkIsLike);
 
     setIsLike(checkIsLike);
-  }, [wishlist]);
+  };
 
   const handleAddWishlist = () => {
     setIsLike(!isLike);
@@ -103,7 +106,7 @@ const Item: FC<IItem> = ({ data }) => {
   };
 
   const handleDelete = () => {
-    callDeleteApi(data._id);
+    callDeleteApi(data.id);
   };
 
   const callDeleteApi = (id: string) => {
@@ -113,7 +116,7 @@ const Item: FC<IItem> = ({ data }) => {
   const handleCheckIsLike = (id: string) => {
     if (!(wishlist && wishlist.length > 0)) return false;
 
-    let index = wishlist.findIndex((value: IWish) => value._id === id);
+    let index = wishlist.findIndex((value: IWish) => value.id === id);
 
     if (index === -1) return false;
     return true;

@@ -44,7 +44,11 @@ interface IItem {
 const Item: FC<IItem> = ({ data }) => {
   return (
     <ItemContainer>
-      <Link href={`/product/${data.id}/${data.slug}`}>
+      <Link
+        href={`/product/${data.idProduct ? data.idProduct : data.id}/${
+          data.slug
+        }`}
+      >
         <ItemBox>
           <ImageBox>
             <Image src={data?.imageCovers?.[0]} />

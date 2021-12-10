@@ -112,8 +112,13 @@ const SelectVariant: FC<ISelectVariant> = ({
 }) => {
   const ref = useRef<any>(null);
   const [isActive, setIsActive] = useToggleAndCloseVer2(ref);
-  const [variantList, setVariantList] = useState<IVariant[]>(list);
+  const [variantList, setVariantList] = useState<IVariant[]>();
   const [variantSelected, setVariantSelected] = useState<IVariant>();
+
+  useEffect(() => {
+    setVariantSelected(undefined);
+    setVariantList(list);
+  }, [list]);
 
   useEffect(() => {
     setFuncSelect?.(() => {
@@ -124,7 +129,18 @@ const SelectVariant: FC<ISelectVariant> = ({
       setVariantSelected({ ...variantList, size: "Default" });
       setVariantId?.(variantList[0].id!);
     }
-  }, []);
+  }, [list]);
+
+  useEffect(() => {
+    setFuncSelect?.(() => {
+      return handleClickSelect;
+    });
+
+    if (variantList && variantList.length === 1) {
+      setVariantSelected({ ...variantList, size: "Default" });
+      setVariantId?.(variantList[0].id!);
+    }
+  }, [list]);
 
   const handleClickSelect = () => {
     setIsActive();

@@ -8,7 +8,8 @@ import "slick-carousel/slick/slick-theme.css";
 import { useAppSelector, useAppDispatch } from "@hooks/redux";
 import { getProductFeatures } from "@redux/slices/product";
 import Item from "./components/Item";
-const HotProductContainer = styled.div`
+import { IProduct } from "@redux/types/product";
+const RelateProductsContainer = styled.div`
   ${tw`mx-auto`}
   width: calc(100% - 80px);
 `;
@@ -33,30 +34,11 @@ const NextArrow = styled.div`
   right: -20px;
 `;
 
-interface IHotProduct {}
+interface IRelateProducts {
+  data?: IProduct[];
+}
 
-const SamplePrevArrow = (props: any) => {
-  const { onClick } = props;
-  return <PrevArrow onClick={onClick} />;
-};
-
-const SampleNextArrow = (props: any) => {
-  const { onClick } = props;
-  return <NextArrow onClick={onClick} />;
-};
-
-const HotProduct: FC<IHotProduct> = () => {
-  const dispatch = useAppDispatch();
-  const { productFeatures } = useAppSelector((state) => state.productReducers);
-
-  useEffect(() => {
-    handleGetProductFeatureApi();
-  }, []);
-
-  const handleGetProductFeatureApi = () => {
-    dispatch(getProductFeatures());
-  };
-
+const RelateProducts: FC<IRelateProducts> = ({ data }) => {
   let settings = {
     dots: true,
     infinite: false,
@@ -103,20 +85,30 @@ const HotProduct: FC<IHotProduct> = () => {
   };
 
   return (
-    <HotProductContainer>
+    <RelateProductsContainer>
       {/* <ul className="slider-list grid sm:grid-cols-1 lg:grid-cols-2 grid-cols-5 gap-20 lg:px-20 px-20"> */}
       <Slider {...settings}>
-        {productFeatures?.map((value) => (
+        {data?.map((value) => (
           <Item data={value} key={value.id} />
         ))}
-        {productFeatures?.length === 0 &&
+        {data?.length === 0 &&
           arraySkeleton.split("").map((value) => <Item key={value} />)}
       </Slider>
       {/* </ul> */}
-    </HotProductContainer>
+    </RelateProductsContainer>
   );
 };
 
-export default HotProduct;
+export default RelateProducts;
 
 const arraySkeleton = "12345";
+
+const SamplePrevArrow = (props: any) => {
+  const { onClick } = props;
+  return <PrevArrow onClick={onClick} />;
+};
+
+const SampleNextArrow = (props: any) => {
+  const { onClick } = props;
+  return <NextArrow onClick={onClick} />;
+};

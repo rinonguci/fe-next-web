@@ -16,6 +16,7 @@ interface IProductSlice {
   allProducts: IAllProducts;
   facets: IFacets;
   productDetail: IProductDetail;
+  productFeatures: IAllProducts;
 }
 
 const initialState: IProductSlice = {
@@ -24,6 +25,7 @@ const initialState: IProductSlice = {
   allProducts: [],
   facets: [],
   productDetail: {},
+  productFeatures: [],
 };
 
 const productSlice = createSlice({
@@ -45,6 +47,11 @@ const productSlice = createSlice({
       state.allProducts = action.payload;
     },
 
+    getProductFeatures: () => {},
+    getProductFeaturesSuccess: (state, action) => {
+      state.productFeatures = action.payload;
+    },
+
     getProductDetail: (
       state,
       action: { payload: IGetProductDetailPayload }
@@ -63,6 +70,8 @@ const productSlice = createSlice({
 export const {
   getAllProducts,
   getAllProductsSuccess,
+  getProductFeatures,
+  getProductFeaturesSuccess,
   searchProduct,
   searchProductSuccess,
   getFacets,

@@ -52,7 +52,7 @@ const Paypal: FC<IPaypal> = ({ price, data }) => {
     let resultData = data.map((value) => ({
       name: value.name,
       quantity: value.quantity + "",
-      sku: value.variants._id,
+      sku: value.variants.id,
       unit_amount: {
         currency_code: "USD",
         value: value.price + "",
@@ -111,8 +111,6 @@ const Paypal: FC<IPaypal> = ({ price, data }) => {
       console.log(err);
     },
     onShippingChange(data, actions) {
-      console.log(data);
-
       setDataPaypal(data);
 
       return actions.resolve();

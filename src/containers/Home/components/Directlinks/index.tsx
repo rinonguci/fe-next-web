@@ -152,7 +152,7 @@ const Directlinks: FC<IDirectlinks> = () => {
                   "
             />
           </picture>
-          <h2 className="text-center mt-4 font-medium text-xl">SHOP SHOES</h2>
+          <h2 className="text-center mt-4 font-medium text-xl">DESIGN</h2>
         </CardBox>
       </Link>
     </DirectlinksContainer>

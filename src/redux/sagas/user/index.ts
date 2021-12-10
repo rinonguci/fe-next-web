@@ -8,6 +8,7 @@ import {
   getCart,
   getWishlist,
   updateCart,
+  uploadImage,
 } from "@redux/slices/user";
 import { addWishlistSaga, getWishlistSaga } from "./wishlist";
 import {
@@ -18,6 +19,7 @@ import {
   getCartSaga,
   updateCartSaga,
 } from "./cart";
+import { uploadImageSaga } from "./user";
 
 export default function* userSaga() {
   yield all([
@@ -29,5 +31,6 @@ export default function* userSaga() {
     takeLatest(updateCart.type, updateCartSaga),
     takeLatest(addBill.type, addBillSaga),
     takeLatest(getBill.type, getBillSaga),
+    takeLatest(uploadImage.type, uploadImageSaga),
   ]);
 }

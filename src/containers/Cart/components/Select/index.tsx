@@ -56,7 +56,7 @@ const Select: FC<ISelect> = ({ data }) => {
 
   const handleUpdateApi = (value: number) => {
     dispatch(
-      updateCart({ productVariation: data.variants._id!, quantity: value })
+      updateCart({ productVariation: data.variants.id!, quantity: value })
     );
   };
 

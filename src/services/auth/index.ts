@@ -6,8 +6,9 @@ const url = {
   me: "me",
   verify: "verify",
   forgotPassword: "forgot-password",
-  changePassword: "update-password",
+  changePassword: "user/update-password",
   resetPassword: "reset-password",
+  uploadImage: "user/me",
 };
 
 const fetchAuth = {
@@ -20,7 +21,7 @@ const fetchAuth = {
     return response;
   },
   async changePassword(payload: any) {
-    const response = await AxiosService.patch(url.changePassword, payload);
+    const response = await AxiosService.put(url.changePassword, payload);
     return response;
   },
   async getMe() {
@@ -36,7 +37,11 @@ const fetchAuth = {
     return response;
   },
   async resetPassword(payload: any) {
-    const response = await AxiosService.patch(url.resetPassword, payload);
+    const response = await AxiosService.put(url.resetPassword, payload);
+    return response;
+  },
+  async uploadImage(payload: any) {
+    const response = await AxiosService.put(url.uploadImage, payload);
     return response;
   },
 };

@@ -40,8 +40,12 @@ const Main: FC<ILogin> = ({ handleClickVerify }) => {
   const { setTitle, setStateForm } = useContext(AuthContext);
   const { setEmail } = useContext(EmailContext);
   useEffect(() => {
-    setTitle?.("Forgot Password");
+    handleSetTitle("Forgot Password");
   }, []);
+
+  const handleSetTitle = (text: string) => {
+    setTitle?.(text);
+  };
 
   return (
     <Formik

@@ -49,7 +49,7 @@ const Image: FC<IImage> = ({ images, imageCover, name = "" }) => {
     }));
     setSelected(imagesNew[0]);
     setArrImages(imagesNew);
-  }, []);
+  }, [images, imageCover]);
 
   const handeleSelect = (value: {
     id: number;

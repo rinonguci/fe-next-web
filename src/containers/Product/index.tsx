@@ -76,7 +76,6 @@ const Product: FC<IProduct> = () => {
     let payload: IGetProductsByTypePayload = { id: slug[0] };
 
     payload.params = query ? query : undefined;
-    console.log(query);
 
     dispatch(getProductsByType(payload));
   }, [query]);

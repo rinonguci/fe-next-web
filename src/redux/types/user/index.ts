@@ -6,10 +6,10 @@ export interface IUser {
   fname?: string;
   lname?: string;
   phoneNumber?: string;
+  photo?: string;
 }
 
 export interface IWish {
-  _id?: string;
   name?: string;
   category?: string;
   categoryName?: string;
@@ -32,7 +32,7 @@ export type IUpdateCartPayload = { quantity: number; productVariation: string };
 export type IDeleteCartPayload = { id: string };
 
 export interface ICart {
-  _id: string;
+  id: string;
   idProduct: string;
   price: number;
   quantity: number;

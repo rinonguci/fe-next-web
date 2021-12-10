@@ -6,7 +6,7 @@ import styled, { css } from "styled-components";
 import tw from "twin.macro";
 
 const LoadingContainer = styled.div`
-  ${tw`absolute h-[4px] w-full top-0 left-0 right-0 z-[100] overflow-hidden`}
+  ${tw`fixed h-[4px] w-full top-0 left-0 right-0 z-[100] overflow-hidden`}
 `;
 
 const Load = styled.div<{ status?: IStatusLoading; time?: number }>`

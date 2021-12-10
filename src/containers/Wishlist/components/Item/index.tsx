@@ -2,6 +2,7 @@ import Button from "@designs/Button";
 import SelectVariant from "@designs/SelectVariant";
 import { useAppDispatch } from "@hooks/redux";
 import { addCart, addWishlist } from "@redux/slices/user";
+import { IVariant } from "@redux/types/product";
 import { IWish } from "@redux/types/user";
 import fetchProduct from "@services/products";
 import { FC, useEffect, useState } from "react";
@@ -58,11 +59,11 @@ interface IItem {
 
 const Item: FC<IItem> = ({ data }) => {
   const dispatch = useAppDispatch();
-  const [variantId, setVariantId] = useState<string>("");
+  const [variant, setVariant] = useState<IVariant>();
   const [funcSelect, setFuncSelect] = useState<() => void>();
 
   function handleAddCart(): void {
-    if (!variantId) {
+    if (!variant?.id) {
       funcSelect?.();
       return;
     }
@@ -72,9 +73,9 @@ const Item: FC<IItem> = ({ data }) => {
   }
 
   const addWishlistApi = () => {
-    if (data._id) {
+    if (data.id) {
       let payload = {
-        product: data._id,
+        product: data.id,
       };
 
       dispatch(addWishlist(payload));
@@ -82,7 +83,7 @@ const Item: FC<IItem> = ({ data }) => {
   };
 
   const addCartApi = () => {
-    dispatch(addCart({ productVariation: variantId, quantity: 1 }));
+    dispatch(addCart({ productVariation: variant?.id!, quantity: 1 }));
   };
 
   return (
@@ -95,11 +96,11 @@ const Item: FC<IItem> = ({ data }) => {
           <InfoBox>
             <Design>{data?.brand}</Design>
             <Name>{data?.name}</Name>
-            <Price>${data.price}</Price>
+            <Price>${variant?.price ? variant.price : data?.price}</Price>
             <SelectVariant
               list={data.variants}
               setFuncSelect={setFuncSelect}
-              setVariantId={setVariantId}
+              setVariant={setVariant}
               title={null}
             />
           </InfoBox>
