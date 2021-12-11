@@ -1,8 +1,10 @@
 import isNullObject from "@common/function/isNullObject";
 import Layout from "@components/Layout";
 import Paypal from "@components/PaypalButton";
+import Button from "@designs/Button";
 import { useAppSelector } from "@hooks/redux";
-import { FC, useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { FC, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 import Item from "./components/Item";
@@ -24,7 +26,10 @@ const CartControl = styled.div`
   ${tw``}
 `;
 const Title = styled.h3`
-  ${tw`text-3xl font-bold mb-10`}
+  ${tw`text-5xl font-bold line-height[1] mb-4`}
+`;
+const Message = styled.p`
+  ${tw`text-base font-semibold mb-8`}
 `;
 const Subtotal = styled.div`
   ${tw`mt-4 flex justify-between text-lg font-medium`}
@@ -43,9 +48,24 @@ interface ICart {}
 const Cart: FC<ICart> = () => {
   const { cart } = useAppSelector((state) => state.userReducers);
   const [total, setTotal] = useState<number>(0);
+  const ref = useRef<boolean>(false);
+  const { user } = useAppSelector((state) => state.userReducers);
+  const router = useRouter();
+
+  if (isNullObject(user)) {
+    router.push("/");
+  }
 
   useEffect(() => {
     handleTotalPrice();
+  }, [cart]);
+
+  useEffect(() => {
+    if (!ref.current) {
+      ref.current = true;
+      return;
+    }
+    location.reload();
   }, [cart]);
 
   const handleTotalPrice = () => {
@@ -60,14 +80,21 @@ const Cart: FC<ICart> = () => {
     <Layout>
       <CartContainer>
         <Title>Shopping Bag</Title>
+        {cart.length === 0 && (
+          <>
+            <Message>You have no items in your shopping bag.</Message>
+            <Button style={{ width: "200px" }} variant="container">
+              Go Shopping
+            </Button>
+          </>
+        )}
         <CartBox>
           <CartList>
-            {cart &&
-              cart.map((value) => (
-                <CartItem key={value.id}>
-                  <Item data={value} />
-                </CartItem>
-              ))}
+            {cart?.map((value) => (
+              <CartItem key={value.id}>
+                <Item data={value} />
+              </CartItem>
+            ))}
           </CartList>
           {!isNullObject(cart) && (
             <CartControl>

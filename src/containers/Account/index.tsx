@@ -20,21 +20,21 @@ const AccountContainer = styled.div`
   ${tw`max-w-[1008px] mx-auto mt-20 `}
 `;
 const AccountBox = styled.div`
-  ${tw`relative border border-gray-400 `}
+  ${tw`relative border border-gray-400`}
   &:before {
+    ${tw`h-[50%] lg:h-[30%]`}
     content: "";
     position: absolute;
     background-color: #ebebeb;
     width: 100%;
-    height: 50%;
     z-index: -1;
   }
 `;
 const AccountMain = styled.div`
-  ${tw`flex gap-12 p-20`}
+  ${tw`flex gap-12 p-20 lg:block`}
 `;
 const ImageBox = styled.div`
-  ${tw`relative flex-shrink-0 h-[220px] w-[220px] rounded-full overflow-hidden border border-gray-600`}
+  ${tw`relative lg:mx-auto flex-shrink-0 h-[220px] w-[220px] rounded-full overflow-hidden border border-gray-600`}
 `;
 const InputLabel = styled.label`
   ${tw`absolute text-white px-60 pb-10 pt-3 cursor-pointer`}
@@ -80,7 +80,7 @@ const NavItem = styled.li`
   background-color: #ebebeb;
 `;
 const AccountRight = styled.div`
-  ${tw`w-full`}
+  ${tw`w-full lg:mt-16`}
 `;
 const PasswordFormBox = styled.div`
   ${tw`mt-32`}

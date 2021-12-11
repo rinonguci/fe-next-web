@@ -1,9 +1,10 @@
 import { AuthContext } from "@components/Auth";
 import Button from "@designs/Button";
+import IconLoading from "@designs/IconLoading";
 import Input from "@designs/Input";
 import fetchAuth from "@services/auth";
 import { Formik } from "formik";
-import { FC, useContext, useEffect } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import styled from "styled-components";
 import tw from "twin.macro";
@@ -39,6 +40,7 @@ interface IFormValues {
 const Main: FC<ILogin> = ({ handleClickVerify }) => {
   const { setTitle, setStateForm } = useContext(AuthContext);
   const { setEmail } = useContext(EmailContext);
+  const [loading, setLoading] = useState<boolean>(false);
   useEffect(() => {
     handleSetTitle("Forgot Password");
   }, []);
@@ -59,19 +61,17 @@ const Main: FC<ILogin> = ({ handleClickVerify }) => {
           .required("Please enter your email"),
       })}
       onSubmit={async (payload: IFormValues) => {
-        try {
-          let result = await fetchAuth.forgotPassword(payload);
+        setLoading(true);
+        let result = await fetchAuth.forgotPassword(payload);
 
-          if (typeof result === "string") {
-            toast.error(result);
-            return;
-          }
-
-          setEmail(payload.email);
-          handleClickVerify?.();
-        } catch (error: any) {
-          toast.error(error);
+        if (typeof result === "string") {
+          setLoading(false);
+          toast.error(result);
+          return;
         }
+        toast.success(result?.message);
+        setEmail(payload.email);
+        handleClickVerify?.();
       }}
     >
       {(props) => {
@@ -105,7 +105,7 @@ const Main: FC<ILogin> = ({ handleClickVerify }) => {
               />
               <FormControl>
                 <Button type="submit" variant="container">
-                  Send
+                  {loading ? <IconLoading /> : "Send"}
                 </Button>
                 <Button
                   type="button"

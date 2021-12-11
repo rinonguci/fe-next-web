@@ -1,5 +1,6 @@
 import { AuthContext } from "@components/Auth";
 import Button from "@designs/Button";
+import IconLoading from "@designs/IconLoading";
 import Input from "@designs/Input";
 import fetchAuth from "@services/auth";
 import { Formik } from "formik";
@@ -19,6 +20,9 @@ const Form = styled.form`
 const FormControl = styled.div`
   ${tw`grid gap-4 mt-4`}
 `;
+const Notify = styled.p`
+  ${tw`text-center font-semibold`}
+`;
 const Text = styled.span`
   ${tw`text-center`}
 `;
@@ -32,7 +36,7 @@ interface IFormValues {
 
 const Verify: FC<IVerify> = ({ handleClickVerify }) => {
   const { getEmail } = useContext(EmailContext);
-
+  const [loading, setLoading] = useState<boolean>(false);
   const { setTitle, setStateForm } = useContext(AuthContext);
 
   useEffect(() => {
@@ -50,6 +54,7 @@ const Verify: FC<IVerify> = ({ handleClickVerify }) => {
           .required("Please enter your code"),
       })}
       onSubmit={async (dataForm: IFormValues) => {
+        setLoading(true);
         let payload = {
           verifyCode: dataForm.code,
           email: getEmail(),
@@ -58,6 +63,7 @@ const Verify: FC<IVerify> = ({ handleClickVerify }) => {
         let result = await fetchAuth.verify(payload);
 
         if (typeof result === "string") {
+          setLoading(false);
           toast.error(result);
           return;
         }
@@ -79,6 +85,10 @@ const Verify: FC<IVerify> = ({ handleClickVerify }) => {
         return (
           <LoginContainer>
             <Form onSubmit={handleSubmit}>
+              <Notify>
+                The verification code has been sent to your email. If you don't
+                see it, please check your spam folder
+              </Notify>
               <Input
                 name="code"
                 title="Code"
@@ -92,7 +102,7 @@ const Verify: FC<IVerify> = ({ handleClickVerify }) => {
               />
               <FormControl>
                 <Button type="submit" variant="container">
-                  Confirm
+                  {loading ? <IconLoading /> : "Confirm"}
                 </Button>
 
                 <Button

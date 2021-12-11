@@ -1,5 +1,8 @@
+import isNullObject from "@common/function/isNullObject";
 import Layout from "@components/Layout";
+import Button from "@designs/Button";
 import { useAppSelector } from "@hooks/redux";
+import { useRouter } from "next/router";
 import { FC } from "react";
 import styled, { css } from "styled-components";
 import tw from "twin.macro";
@@ -24,19 +27,37 @@ const WishlistMain = styled.div`
 `;
 
 const Title = styled.h3`
-  ${tw`text-4xl font-bold text-center mb-6`}
+  ${tw`text-5xl font-bold line-height[1] mb-2`}
+`;
+const Message = styled.p`
+  ${tw`text-base font-semibold mb-8`}
 `;
 
 interface IWishlist {}
 
 const Wishlist: FC<IWishlist> = () => {
   const { wishlist } = useAppSelector((state) => state.userReducers);
+  const { user } = useAppSelector((state) => state.userReducers);
+  const router = useRouter();
+
+  if (isNullObject(user)) {
+    router.push("/");
+  }
 
   return (
     <Layout>
       <WishlistContainer>
         <WishlistBox>
           <Title>Wishlist</Title>
+          {wishlist.length === 0 && (
+            <>
+              <Message>You have no items in your wishlist.</Message>
+              <Button style={{ width: "200px" }} variant="container">
+                Go Shopping
+              </Button>
+            </>
+          )}
+
           <WishlistMain>
             {wishlist.map((value) => (
               <Item key={value.id} data={value} />

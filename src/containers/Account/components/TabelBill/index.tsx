@@ -28,10 +28,14 @@ const TableBill: FC<ITableBill> = () => {
 
   return (
     <TableBillContainer>
-      <Title>My Order</Title>
-      <TableContainer>
-        <Table data={bill} />
-      </TableContainer>
+      {bill.length > 0 && (
+        <>
+          <Title>My Order</Title>
+          <TableContainer>
+            <Table data={bill} />
+          </TableContainer>
+        </>
+      )}
     </TableBillContainer>
   );
 };

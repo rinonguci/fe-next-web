@@ -140,7 +140,7 @@ const handleData = (action: any) => {
     ...value.product,
     id: value.product.variants[0].id,
     idProduct: value.product.id,
-    idVariant: value.product.variants[0].sizeId,
+    idVariant: value.product.variants[0].id,
     price: value.product.variants[0].price,
     quantity: value.quantity,
   }));

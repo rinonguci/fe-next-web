@@ -37,10 +37,19 @@ interface IButton {
 }
 
 const Button: FC<IButton> = (props) => {
-  const { className, children, variant, type, disabled, onClick, hoverColor } =
-    props;
+  const {
+    className,
+    style,
+    children,
+    variant,
+    type,
+    disabled,
+    onClick,
+    hoverColor,
+  } = props;
   return (
     <ButtonContainer
+      style={style}
       hoverColor={hoverColor}
       className={className}
       disabled={disabled}

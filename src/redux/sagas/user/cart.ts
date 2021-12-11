@@ -72,7 +72,7 @@ export function* addBillSaga(action: any) {
 
   const { data, status } = response;
 
-  if (status !== "Success") {
+  if (status !== "success") {
     toast.error(response);
     return;
   }

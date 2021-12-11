@@ -1,5 +1,6 @@
 import { AuthContext } from "@components/Auth";
 import Button from "@designs/Button";
+import IconLoading from "@designs/IconLoading";
 import Input from "@designs/Input";
 import fetchAuth from "@services/auth";
 import { Formik } from "formik";
@@ -38,6 +39,7 @@ interface IFormValues {
 const Main: FC<IMain> = ({ handleClickVerify }) => {
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
   const { setEmail } = useContext(EmailContext);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const { setTitle, setStateForm } = useContext(AuthContext);
 
@@ -88,6 +90,7 @@ const Main: FC<IMain> = ({ handleClickVerify }) => {
           .required("Please enter your phone"),
       })}
       onSubmit={async (dataForm: IFormValues) => {
+        setLoading(true);
         let payload = {
           email: dataForm.email,
           fname: dataForm.firstname,
@@ -100,6 +103,7 @@ const Main: FC<IMain> = ({ handleClickVerify }) => {
         let result = await fetchAuth.signup(payload);
 
         if (typeof result === "string") {
+          setLoading(false);
           toast.error(result);
           return;
         }
@@ -201,8 +205,8 @@ const Main: FC<IMain> = ({ handleClickVerify }) => {
                 touched={touched.phone}
               />
               <FormControl>
-                <Button type="submit" variant="container">
-                  Create account
+                <Button disabled={loading} type="submit" variant="container">
+                  {loading ? <IconLoading /> : "Create account"}
                 </Button>
                 <Text>
                   By creating an account you agree to our <b>Terms</b> &{" "}

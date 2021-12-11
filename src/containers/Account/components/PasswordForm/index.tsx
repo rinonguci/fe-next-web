@@ -16,8 +16,7 @@ const PasswordFormContainer = styled.div`
   ${tw``}
 `;
 const Form = styled.form`
-  ${tw`grid gap-20`}
-  grid-template-columns: 1fr 200px;
+  ${tw`grid gap-20 grid-cols-[1fr 200px] lg:grid-cols-1`}
 `;
 const FormInput = styled.div`
   ${tw`grid grid-cols-2 gap-4`}
@@ -95,6 +94,7 @@ const PasswordForm: FC<IPasswordForm> = () => {
                     title="Current Password"
                     type={isShowPassword ? "text" : "password"}
                     value={values.passwordCurrent}
+                    placeholder="Current password"
                     onChange={handleChange}
                     onBlur={handleBlur}
                     errors={errors.passwordCurrent}
@@ -112,6 +112,7 @@ const PasswordForm: FC<IPasswordForm> = () => {
                   title="New Password"
                   type={isShowPassword ? "text" : "password"}
                   value={values.password}
+                  placeholder="New password"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   errors={errors.password}
@@ -128,6 +129,7 @@ const PasswordForm: FC<IPasswordForm> = () => {
                   title="Confirm Password"
                   type={isShowPassword ? "text" : "password"}
                   value={values.passwordConfirm}
+                  placeholder="Cornfirm password"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   errors={errors.passwordConfirm}

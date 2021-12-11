@@ -34,6 +34,7 @@ export type IDeleteCartPayload = { id: string };
 export interface ICart {
   id: string;
   idProduct: string;
+  idVariant: string;
   price: number;
   quantity: number;
   name: string;

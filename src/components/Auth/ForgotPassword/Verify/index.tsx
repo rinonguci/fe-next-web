@@ -1,6 +1,7 @@
 import StorageToken from "@common/utils/storage";
 import { AuthContext } from "@components/Auth";
 import Button from "@designs/Button";
+import IconLoading from "@designs/IconLoading";
 import Input from "@designs/Input";
 import { useAppDispatch, useAppSelector } from "@hooks/redux";
 import { getCart, getUserSuccess, getWishlist } from "@redux/slices/user";
@@ -36,14 +37,14 @@ interface ILogin {
   handleClickVerify: () => void;
 }
 interface IFormValues {
-  code: string;
+  resetCode: string;
   password: string;
   passwordConfirm: string;
 }
 
 const Veriry: FC<ILogin> = ({ handleClickVerify }) => {
-  const dispatch = useAppDispatch();
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const { setTitle, setStateForm } = useContext(AuthContext);
   const { getEmail } = useContext(EmailContext);
@@ -58,27 +59,26 @@ const Veriry: FC<ILogin> = ({ handleClickVerify }) => {
   return (
     <Formik
       initialValues={{
-        code: "",
+        resetCode: "",
         password: "",
         passwordConfirm: "",
       }}
       validationSchema={Yup.object().shape({})}
       onSubmit={async (payload: IFormValues) => {
-        try {
-          let result = await fetchAuth.resetPassword({
-            ...payload,
-            email: getEmail(),
-          });
+        setLoading(true);
+        let result = await fetchAuth.resetPassword({
+          ...payload,
+          email: getEmail(),
+        });
 
-          if (typeof result === "string") {
-            toast.error(result);
-            return;
-          }
-
-          setStateForm?.("LOGIN");
-        } catch (error: any) {
-          toast.error(error);
+        if (typeof result === "string") {
+          setLoading(false);
+          toast.error(result);
+          return;
         }
+
+        toast.success("Success");
+        setStateForm?.("LOGIN");
       }}
     >
       {(props) => {
@@ -95,26 +95,26 @@ const Veriry: FC<ILogin> = ({ handleClickVerify }) => {
           <LoginContainer>
             <Form onSubmit={handleSubmit}>
               <Notify>
-                Enter the email address used for your Childrensalon account and
-                click {"'Send'"}. We will then email you with a link that you
-                can click to create a new password.
+                The verification code has been sent to your email. If you don't
+                see it, please check your spam folder
               </Notify>
               <Input
-                name="code"
+                name="resetCode"
                 title="Code"
                 type="text"
                 placeholder="Please enter the code in your email"
-                value={values.code}
+                value={values.resetCode}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                errors={errors.code}
-                touched={touched.code}
+                errors={errors.resetCode}
+                touched={touched.resetCode}
               />
               <Input
                 name="password"
                 title="Password"
                 type={isShowPassword ? "text" : "password"}
                 value={values.password}
+                placeholder="New password"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 errors={errors.password}
@@ -128,9 +128,10 @@ const Veriry: FC<ILogin> = ({ handleClickVerify }) => {
               />
               <Input
                 name="passwordConfirm"
-                title="Confirm Password"
+                title="Confirm password"
                 type={isShowPassword ? "text" : "password"}
                 value={values.passwordConfirm}
+                placeholder="Confirm password"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 errors={errors.passwordConfirm}
@@ -144,7 +145,7 @@ const Veriry: FC<ILogin> = ({ handleClickVerify }) => {
               />
               <FormControl>
                 <Button type="submit" variant="container">
-                  Confirm
+                  {loading ? <IconLoading /> : "Confirm"}
                 </Button>
                 <Button
                   type="button"

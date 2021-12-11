@@ -5,13 +5,15 @@ import Slider from "react-slick";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useAppSelector, useAppDispatch } from "@hooks/redux";
-import { getProductFeatures } from "@redux/slices/product";
 import Item from "./components/Item";
 import { IProduct } from "@redux/types/product";
 const RelateProductsContainer = styled.div`
   ${tw`mx-auto`}
   width: calc(100% - 80px);
+
+  & .slick-track {
+    margin: 0;
+  }
 `;
 
 const PrevArrow = styled.div`
@@ -47,7 +49,7 @@ const RelateProducts: FC<IRelateProducts> = ({ data }) => {
     slidesToShow: 5,
     slidesToScroll: 5,
     initialSlide: 0,
-    centerPadding: "300px",
+
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
     responsive: [

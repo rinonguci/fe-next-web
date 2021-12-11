@@ -1,6 +1,7 @@
 import StorageToken from "@common/utils/storage";
 import Button from "@designs/Button";
 import Input from "@designs/Input";
+import Loading from "@designs/IconLoading";
 import { useAppDispatch, useAppSelector } from "@hooks/redux";
 import { getCart, getUserSuccess, getWishlist } from "@redux/slices/user";
 import fetchAuth from "@services/auth";
@@ -11,6 +12,7 @@ import styled from "styled-components";
 import tw from "twin.macro";
 import * as Yup from "yup";
 import { AuthContext } from "..";
+import IconLoading from "@designs/IconLoading";
 
 const LoginContainer = styled.div`
   ${tw``}
@@ -37,6 +39,7 @@ interface IFormValues extends ILogin {
 const Main: FC<ILogin> = () => {
   const dispatch = useAppDispatch();
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const { setTitle, setStateForm, handleCloseForm } = useContext(AuthContext);
 
@@ -60,29 +63,27 @@ const Main: FC<ILogin> = () => {
           .max(255)
           .required("Please enter your email"),
         password: Yup.string()
-          .min(6, "Password is more than 6 characters")
+          .min(8, "Password is more than 8 characters")
           .max(30, "Username less than 20 characters")
           .required("Please enter your password"),
       })}
       onSubmit={async (payload: IFormValues) => {
-        try {
-          let result = await fetchAuth.login(payload);
+        setLoading(true);
+        let result = await fetchAuth.login(payload);
 
-          if (typeof result === "string") {
-            toast.error(result);
-            return;
-          }
-
-          StorageToken.setUser(result.token);
-
-          dispatch(getUserSuccess({ payload: result.data }));
-          dispatch(getWishlist());
-          dispatch(getCart());
-
-          handleCloseForm?.();
-        } catch (error: any) {
-          toast.error(error);
+        if (typeof result === "string") {
+          toast.error(result);
+          setLoading(false);
+          return;
         }
+
+        StorageToken.setUser(result.token);
+
+        dispatch(getUserSuccess({ payload: result.data }));
+        dispatch(getWishlist());
+        dispatch(getCart());
+
+        handleCloseForm?.();
       }}
     >
       {(props) => {
@@ -132,8 +133,8 @@ const Main: FC<ILogin> = () => {
                 </ForgotText>
               </ForgotPassword>
               <FormControl>
-                <Button type="submit" variant="container">
-                  Sign in
+                <Button disabled={loading} type="submit" variant="container">
+                  {loading ? <IconLoading /> : "Sign in"}
                 </Button>
                 <Button
                   type="button"

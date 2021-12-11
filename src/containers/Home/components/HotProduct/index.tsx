@@ -8,6 +8,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { useAppSelector, useAppDispatch } from "@hooks/redux";
 import { getProductFeatures } from "@redux/slices/product";
 import Item from "./components/Item";
+import IconSVG from "@designs/IconSVG";
 const HotProductContainer = styled.div`
   ${tw`mx-auto`}
   width: calc(100% - 80px);
@@ -104,7 +105,16 @@ const HotProduct: FC<IHotProduct> = () => {
 
   return (
     <HotProductContainer>
-      {/* <ul className="slider-list grid sm:grid-cols-1 lg:grid-cols-2 grid-cols-5 gap-20 lg:px-20 px-20"> */}
+      <div className="mb-10">
+        <IconSVG
+          style={{ width: "220px", height: "50px", color: "#008132" }}
+          className="mx-auto"
+          iconHref="/icon.svg#svgs-sticker--stars"
+        />
+      </div>
+      <h2 className="text-center lp-title text-3xl font-bold mb-16">
+        Product Featured
+      </h2>
       <Slider {...settings}>
         {productFeatures?.map((value) => (
           <Item data={value} key={value.id} />
@@ -112,7 +122,6 @@ const HotProduct: FC<IHotProduct> = () => {
         {productFeatures?.length === 0 &&
           arraySkeleton.split("").map((value) => <Item key={value} />)}
       </Slider>
-      {/* </ul> */}
     </HotProductContainer>
   );
 };
