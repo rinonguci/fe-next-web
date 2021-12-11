@@ -2,7 +2,7 @@ import Filter from "@components/Filter";
 import Layout from "@components/Layout";
 import Breadcrumb from "@components/Breadcrumb";
 import { useAppDispatch, useAppSelector } from "@hooks/redux";
-import { getProductsByType } from "@redux/slices/product";
+import { getFacets, getProductsByType } from "@redux/slices/product";
 import { useRouter } from "next/router";
 import { FC, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
@@ -73,12 +73,23 @@ const Product: FC<IProduct> = () => {
   useEffect(() => {
     if (!slug?.[0]) return;
 
+    dispatch(getFacets({ id: slug[0] }));
+    dispatch(getProductsByType({ id: slug[0] }));
+  }, []);
+
+  useEffect(() => {
+    handleGetProductApi();
+  }, [query]);
+
+  const handleGetProductApi = () => {
+    if (!slug?.[0]) return;
+
     let payload: IGetProductsByTypePayload = { id: slug[0] };
 
     payload.params = query ? query : undefined;
 
     dispatch(getProductsByType(payload));
-  }, [query]);
+  };
 
   const handleActive = () => {
     setActive(!isActive);

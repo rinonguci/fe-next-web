@@ -46,8 +46,8 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
     const { slug } = params as { slug: Array<string> };
 
     await dispatch(getCategories());
-    await dispatch(getProductsByType({ id: slug[0] }));
-    await dispatch(getFacets({ id: slug[0] }));
+    // await dispatch(getProductsByType({ id: slug[0] }));
+    // await dispatch(getFacets({ id: slug[0] }));
 
     dispatch(END);
     await sagaTask.toPromise();

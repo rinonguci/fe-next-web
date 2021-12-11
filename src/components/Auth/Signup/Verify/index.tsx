@@ -86,8 +86,8 @@ const Verify: FC<IVerify> = ({ handleClickVerify }) => {
           <LoginContainer>
             <Form onSubmit={handleSubmit}>
               <Notify>
-                The verification code has been sent to your email. If you don't
-                see it, please check your spam folder
+                {`The verification code has been sent to your email. If you don\'t
+                see it, please check your spam folder`}
               </Notify>
               <Input
                 name="code"
