@@ -76,6 +76,9 @@ const Product: FC<IProduct> = () => {
 
   useEffect(() => {
     handleGetProductApi();
+
+    if (!slug?.[0]) return;
+    dispatch(getFacets({ id: slug[0] }));
   }, [location.pathname]);
 
   const handleGetProductApi = () => {
@@ -86,7 +89,6 @@ const Product: FC<IProduct> = () => {
     payload.params = query ? query : undefined;
 
     dispatch(getProductsByType(payload));
-    dispatch(getFacets(payload));
   };
 
   const handleActive = () => {
