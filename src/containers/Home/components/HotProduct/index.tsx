@@ -9,6 +9,7 @@ import { useAppSelector, useAppDispatch } from "@hooks/redux";
 import { getProductFeatures } from "@redux/slices/product";
 import Item from "./components/Item";
 import IconSVG from "@designs/IconSVG";
+import Link from "@designs/Link";
 const HotProductContainer = styled.div`
   ${tw`mx-auto`}
   width: calc(100% - 80px);
@@ -117,7 +118,9 @@ const HotProduct: FC<IHotProduct> = () => {
       </h2>
       <Slider {...settings}>
         {productFeatures?.map((value) => (
-          <Item data={value} key={value.id} />
+          <Link key={value.id} href={`/product/${value.id}/${value.slug}`}>
+            <Item data={value} />
+          </Link>
         ))}
         {productFeatures?.length === 0 &&
           arraySkeleton.split("").map((value) => <Item key={value} />)}

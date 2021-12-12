@@ -2,6 +2,7 @@ import isNullObject from "@common/function/isNullObject";
 import Layout from "@components/Layout";
 import Paypal from "@components/PaypalButton";
 import Button from "@designs/Button";
+import Link from "@designs/Link";
 import { useAppSelector } from "@hooks/redux";
 import { useRouter } from "next/router";
 import { FC, useEffect, useRef, useState } from "react";
@@ -83,9 +84,11 @@ const Cart: FC<ICart> = () => {
         {cart.length === 0 && (
           <>
             <Message>You have no items in your shopping bag.</Message>
-            <Button style={{ width: "200px" }} variant="container">
-              Go Shopping
-            </Button>
+            <Link href="/">
+              <Button style={{ width: "200px" }} variant="container">
+                Go Shopping
+              </Button>
+            </Link>
           </>
         )}
         <CartBox>

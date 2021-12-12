@@ -18,7 +18,6 @@ const fetchCart = {
     return response;
   },
   async updateQuantity(payload: any): Promise<any> {
-    debugger;
     const response = await AxiosService.put(url.get, payload);
     return response;
   },

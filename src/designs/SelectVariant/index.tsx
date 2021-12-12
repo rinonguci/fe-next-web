@@ -129,18 +129,7 @@ const SelectVariant: FC<ISelectVariant> = ({
       setVariantSelected({ ...variantList, size: "Default" });
       setVariantId?.(variantList[0].id!);
     }
-  }, [list]);
-
-  useEffect(() => {
-    setFuncSelect?.(() => {
-      return handleClickSelect;
-    });
-
-    if (variantList && variantList.length === 1) {
-      setVariantSelected({ ...variantList, size: "Default" });
-      setVariantId?.(variantList[0].id!);
-    }
-  }, [list]);
+  }, [variantList]);
 
   const handleClickSelect = () => {
     setIsActive();

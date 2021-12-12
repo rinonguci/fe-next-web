@@ -1,6 +1,7 @@
 import isNullObject from "@common/function/isNullObject";
 import Layout from "@components/Layout";
 import Button from "@designs/Button";
+import Link from "@designs/Link";
 import { useAppSelector } from "@hooks/redux";
 import { useRouter } from "next/router";
 import { FC } from "react";
@@ -52,9 +53,11 @@ const Wishlist: FC<IWishlist> = () => {
           {wishlist.length === 0 && (
             <>
               <Message>You have no items in your wishlist.</Message>
-              <Button style={{ width: "200px" }} variant="container">
-                Go Shopping
-              </Button>
+              <Link href="/">
+                <Button style={{ width: "200px" }} variant="container">
+                  Go Shopping
+                </Button>
+              </Link>
             </>
           )}
 

@@ -38,8 +38,8 @@ const ToolbarContainer = styled.div`
 const NotFound = styled.div`
   ${tw`text-center mt-20`}
 `;
-const NotFoundMessage = styled.h3`
-  ${tw`text-4xl`}
+const NotFoundMessage = styled.p`
+  ${tw`text-4xl font-semibold text-center mt-20`}
 `;
 
 const ProductMobileContainer = styled.div`
@@ -72,17 +72,21 @@ const Product: FC<IProduct> = () => {
 
   useEffect(() => {
     handleGetProductApi();
-  }, [router.asPath]);
+  }, [query]);
 
   useEffect(() => {
     handleGetProductApi();
-  }, [query]);
+  }, [location.pathname]);
 
   const handleGetProductApi = () => {
     if (!slug?.[0]) return;
 
-    dispatch(getFacets({ id: slug[0] }));
-    dispatch(getProductsByType({ id: slug[0] }));
+    let payload: IGetProductsByTypePayload = { id: slug[0] };
+
+    payload.params = query ? query : undefined;
+
+    dispatch(getProductsByType(payload));
+    dispatch(getFacets(payload));
   };
 
   const handleActive = () => {
@@ -91,36 +95,43 @@ const Product: FC<IProduct> = () => {
 
   return (
     <Layout>
-      <ProductMobileContainer>
-        <Breadcrumb />
-        <ToolbarMobile
-          isActive={isActive}
-          onClick={handleActive}
-          facets={facets}
-        />
-      </ProductMobileContainer>
-
-      <ProductContainer isActive={isActive}>
-        <ProductMain>
-          <ToolbarContainer>
-            <Toolbar
-              count={productsByType ? productsByType?.length : 0}
-              gap={GAPCOMMON}
+      {productsByType.length === 0 && (
+        <NotFoundMessage>This page has no products.</NotFoundMessage>
+      )}
+      {productsByType.length !== 0 && (
+        <>
+          <ProductMobileContainer>
+            <Breadcrumb />
+            <ToolbarMobile
+              isActive={isActive}
+              onClick={handleActive}
+              facets={facets}
             />
-          </ToolbarContainer>
-          <FilterContainer>
-            <FilterBox>
-              {facets &&
-                facets.map((value: IFacet) => (
-                  <Filter key={value.name} data={value} />
-                ))}
-            </FilterBox>
-          </FilterContainer>
-          <CategoryProductContainer>
-            <CategoryProduct gapX={GAPCOMMON} products={productsByType} />
-          </CategoryProductContainer>
-        </ProductMain>
-      </ProductContainer>
+          </ProductMobileContainer>
+
+          <ProductContainer isActive={isActive}>
+            <ProductMain>
+              <ToolbarContainer>
+                <Toolbar
+                  count={productsByType ? productsByType?.length : 0}
+                  gap={GAPCOMMON}
+                />
+              </ToolbarContainer>
+              <FilterContainer>
+                <FilterBox>
+                  {facets &&
+                    facets.map((value: IFacet) => (
+                      <Filter key={value.name} data={value} />
+                    ))}
+                </FilterBox>
+              </FilterContainer>
+              <CategoryProductContainer>
+                <CategoryProduct gapX={GAPCOMMON} products={productsByType} />
+              </CategoryProductContainer>
+            </ProductMain>
+          </ProductContainer>
+        </>
+      )}
     </Layout>
   );
 };

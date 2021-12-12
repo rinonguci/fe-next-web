@@ -1,5 +1,10 @@
 import { Fragment } from "react";
-import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import type {
+  GetServerSideProps,
+  GetStaticPaths,
+  GetStaticProps,
+  NextPage,
+} from "next";
 import { END } from "redux-saga";
 
 import Product from "@containers/Product";
@@ -46,8 +51,6 @@ export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
     const { slug } = params as { slug: Array<string> };
 
     await dispatch(getCategories());
-    // await dispatch(getProductsByType({ id: slug[0] }));
-    // await dispatch(getFacets({ id: slug[0] }));
 
     dispatch(END);
     await sagaTask.toPromise();
