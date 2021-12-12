@@ -14,8 +14,8 @@ export type Method =
   | "link"
   | "unlink";
 
-axios.defaults.baseURL =
-  "http://summonapi-env-1.eba-ifipdfqg.ap-southeast-1.elasticbeanstalk.com/api/v1/";
+axios.defaults.baseURL = "https://proxysummon.vercel.app/";
+// axios.defaults.baseURL = "http://localhost:3000";
 
 class AxiosService {
   #instance: AxiosInstance;
@@ -58,8 +58,13 @@ class AxiosService {
 
   async get(url: string, params?: IDataAxios): IResponseAxios {
     try {
-      return await (
-        await this.#instance.get(url, { params })
+      return await // await this.#instance.get(url, { params })
+      (
+        await this.#instance.post("/", {
+          url: url,
+          method: "get",
+          data: params,
+        })
       ).data;
     } catch (error) {
       return error;
@@ -69,7 +74,11 @@ class AxiosService {
   async post(url: string, data?: IDataAxios): IResponseAxios {
     try {
       return await (
-        await this.#instance.post(url, data)
+        await this.#instance.post("/", {
+          url: url,
+          method: "post",
+          data: data,
+        })
       ).data;
     } catch (error) {
       return error;
@@ -79,7 +88,11 @@ class AxiosService {
   async put(url: string, data?: IDataAxios): IResponseAxios {
     try {
       return await (
-        await this.#instance.put(url, data)
+        await this.#instance.post("/", {
+          url: url,
+          method: "put",
+          data: data,
+        })
       ).data;
     } catch (error) {
       return error;
@@ -89,7 +102,11 @@ class AxiosService {
   async patch(url: string, data?: IDataAxios): IResponseAxios {
     try {
       return await (
-        await this.#instance.patch(url, data)
+        await this.#instance.post("/", {
+          url: url,
+          method: "patch",
+          data: data,
+        })
       ).data;
     } catch (error) {
       return error;
@@ -99,7 +116,11 @@ class AxiosService {
   async delete(url: string, data?: IDataAxios): IResponseAxios {
     try {
       return await (
-        await this.#instance.delete(url, data)
+        await this.#instance.post("/", {
+          url: url,
+          method: "delete",
+          data: data,
+        })
       ).data;
     } catch (error) {
       return error;
