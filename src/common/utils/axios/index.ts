@@ -15,7 +15,7 @@ export type Method =
   | "unlink";
 
 axios.defaults.baseURL =
-  "http://summonapi-env.eba-gp3k32fe.ap-southeast-1.elasticbeanstalk.com/api/v1/";
+  "http://summonapi-env-1.eba-ifipdfqg.ap-southeast-1.elasticbeanstalk.com/api/v1/";
 
 class AxiosService {
   #instance: AxiosInstance;

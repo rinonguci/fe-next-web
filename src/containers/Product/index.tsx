@@ -71,11 +71,8 @@ const Product: FC<IProduct> = () => {
   }, [router.asPath]);
 
   useEffect(() => {
-    if (!slug?.[0]) return;
-
-    dispatch(getFacets({ id: slug[0] }));
-    dispatch(getProductsByType({ id: slug[0] }));
-  }, []);
+    handleGetProductApi();
+  }, [router.asPath]);
 
   useEffect(() => {
     handleGetProductApi();
@@ -84,11 +81,8 @@ const Product: FC<IProduct> = () => {
   const handleGetProductApi = () => {
     if (!slug?.[0]) return;
 
-    let payload: IGetProductsByTypePayload = { id: slug[0] };
-
-    payload.params = query ? query : undefined;
-
-    dispatch(getProductsByType(payload));
+    dispatch(getFacets({ id: slug[0] }));
+    dispatch(getProductsByType({ id: slug[0] }));
   };
 
   const handleActive = () => {
