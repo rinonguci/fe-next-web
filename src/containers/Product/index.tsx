@@ -95,6 +95,8 @@ const Product: FC<IProduct> = () => {
     setActive(!isActive);
   };
 
+  console.log(facets);
+
   return (
     <Layout>
       {productsByType.length === 0 && (

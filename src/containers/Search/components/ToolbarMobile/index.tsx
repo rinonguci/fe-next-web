@@ -60,13 +60,6 @@ interface IToolbarMobile {
 const ToolbarMobile: FC<IToolbarMobile> = ({ isActive, facets, onClick }) => {
   const { width } = useWindowSize();
 
-  const FilterWrraper = memo(
-    function FilterMemo(value: any) {
-      return <Filter data={value} />;
-    },
-    () => false
-  );
-
   return (
     <Fragment>
       {width && width < 767 && (
@@ -87,7 +80,7 @@ const ToolbarMobile: FC<IToolbarMobile> = ({ isActive, facets, onClick }) => {
               <FilterBox>
                 {facets &&
                   facets.map((value: IFacet) => (
-                    <FilterWrraper key={value.name} data={value} />
+                    <Filter key={value.name} data={value} />
                   ))}
               </FilterBox>
             </FilterContainer>

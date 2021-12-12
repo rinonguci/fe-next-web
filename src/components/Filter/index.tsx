@@ -145,7 +145,7 @@ const Filter: FC<IFilter> = ({ data }) => {
         gridColumn={listCloumn2.includes(data.name) ? 2 : 1}
         isActive={isActive}
       >
-        {data.values.map((value) => (
+        {data?.values?.map((value) => (
           <FilterItem key={value.id}>
             <Check
               nameFilter={data.name?.split(" ")?.join("")}

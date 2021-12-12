@@ -13,7 +13,7 @@ const ToolbarMobileBox = styled.div`
 `;
 
 const ItemContainer = styled.div<{ isActive: boolean }>`
-  ${tw`grid grid-cols-2  bg-white`}
+  ${tw`grid  bg-white`}
   transition: transform 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
 `;
 
@@ -23,7 +23,7 @@ const ItemContainerBottom = styled.div<{ isActive: boolean }>`
 `;
 
 const ItemBox = styled.div`
-  ${tw`text-lg font-medium text-center border border-black-lv3 first:border-r-0 first:rounded-tl first:rounded-bl last:rounded-br last:rounded-tr py-6`}
+  ${tw`text-lg font-medium text-center border border-black-lv3 py-6`}
 `;
 const ItemText = styled.span`
   ${tw`text-black-lv2`}
@@ -60,13 +60,6 @@ interface IToolbarMobile {
 const ToolbarMobile: FC<IToolbarMobile> = ({ isActive, facets, onClick }) => {
   const { width } = useWindowSize();
 
-  const FilterWrraper = memo(
-    function FilterMemo(value: any) {
-      return <Filter data={value} />;
-    },
-    () => false
-  );
-
   return (
     <Fragment>
       {width && width < 767 && (
@@ -77,17 +70,17 @@ const ToolbarMobile: FC<IToolbarMobile> = ({ isActive, facets, onClick }) => {
                 <ItemText>Filter</ItemText>
                 <ItemIcon />
               </ItemBox>
-              <ItemBox onClick={onClick}>
+              {/* <ItemBox onClick={onClick}>
                 <ItemText>Price low - hight</ItemText>
                 <ItemIcon />
-              </ItemBox>
+              </ItemBox> */}
             </ItemContainer>
 
             <FilterContainer isActive={isActive}>
               <FilterBox>
                 {facets &&
                   facets.map((value: IFacet) => (
-                    <FilterWrraper key={value.name} data={value} />
+                    <Filter key={value.name} data={value} />
                   ))}
               </FilterBox>
             </FilterContainer>
