@@ -1,4 +1,4 @@
-import { FC, Fragment } from "react";
+import { CSSProperties, FC, Fragment } from "react";
 import { keyframes } from "styled-components";
 import tw from "twin.macro";
 import styled from "styled-components";
@@ -24,22 +24,33 @@ const rotate = keyframes`
   }
 `;
 
-const LoadingRotate = styled.div`
-  ${tw`absolute rounded-full border-[4px] border-transparent border-t-green-400 h-10 w-10 z-10`}
+const LoadingRotate = styled.div<{ border: number; widtH: number }>`
+  ${tw`absolute rounded-full border-transparent border-t-green-400 z-10`}
   animation: ${rotate} 2s linear infinite;
+  border: ${({ border }) => border + "px"} solid transparent;
+  border-top: ${({ border }) => border + "px"} solid #47c562;
+  width: ${({ widtH }) => widtH + "px"};
+  aspect-ratio: 1 / 1;
 `;
-const LoadingBox = styled.div`
-  ${tw`rounded-full border-[4px] border-gray-100  h-10 w-10 z-10`}
+const LoadingBox = styled.div<{ border: number; widtH: number }>`
+  ${tw`rounded-full z-10`}
+  border: ${({ border }) => border + "px"} solid #dfdfdf;
+  width: ${({ widtH }) => widtH + "px"};
+  aspect-ratio: 1 / 1;
 `;
 
-interface IIconLoading {}
+interface IIconLoading {
+  border?: number;
+  widtH?: number;
+  style?: CSSProperties;
+}
 
-const IconLoading: FC<IIconLoading> = () => {
+const IconLoading: FC<IIconLoading> = ({ border = 4, widtH = 26, style }) => {
   return (
     <IconLoadingContainer>
-      <IconLoadingBox>
-        <LoadingRotate></LoadingRotate>
-        <LoadingBox></LoadingBox>
+      <IconLoadingBox style={style}>
+        <LoadingRotate widtH={widtH} border={border}></LoadingRotate>
+        <LoadingBox widtH={widtH} border={border}></LoadingBox>
       </IconLoadingBox>
     </IconLoadingContainer>
   );

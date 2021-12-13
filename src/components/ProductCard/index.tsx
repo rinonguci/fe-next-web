@@ -4,12 +4,13 @@ import styled, { css } from "styled-components";
 import tw from "twin.macro";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import Skeleton from "react-loading-skeleton";
-import { useAppDispatch } from "@hooks/redux";
+import { useAppDispatch, useAppSelector } from "@hooks/redux";
 import { addWishlist } from "@redux/slices/user";
 import Link from "@designs/Link";
 import { IProduct, IVariant } from "@redux/types/product";
 import Variant from "./components/Variant";
 import handleChunkArray from "@common/function/handleChunkArray";
+import isNullObject from "@common/function/isNullObject";
 
 const ProductCardContainer = styled.div<{ isIndex: boolean }>`
   ${tw`flex flex-col gap-2 relative pt-10`}
@@ -73,6 +74,7 @@ interface IProductCard {
 
 const ProductCard: FC<IProductCard> = ({ data, isCheck = false }) => {
   const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state) => state.userReducers);
   const [sizeList, setSizeList] = useState<IVariant[][]>();
   const [check, setCheck] = useState<boolean>(false);
   const [isLike, setIsLike] = useState<boolean>();
@@ -172,7 +174,9 @@ const ProductCard: FC<IProductCard> = ({ data, isCheck = false }) => {
   };
 
   const handleAddWishlist = () => {
-    setIsLike(!isLike);
+    if (!isNullObject(user)) {
+      setIsLike(!isLike);
+    }
 
     addWishlistApi();
   };

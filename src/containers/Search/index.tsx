@@ -1,4 +1,5 @@
 import Layout from "@components/Layout";
+import IconLoading from "@designs/IconLoading";
 
 import { useAppDispatch, useAppSelector } from "@hooks/redux";
 import { searchProduct } from "@redux/slices/product";
@@ -24,6 +25,10 @@ const CategoryProductContainer = styled.div`
 const Title = styled.div`
   ${tw`text-center text-5xl mb-14`}
 `;
+const LoadingBox = styled.div`
+  ${tw``}
+  height: calc(100vh - 145.5px);
+`;
 
 interface IProduct {}
 
@@ -33,9 +38,9 @@ const Product: FC<IProduct> = () => {
   const dispatch = useAppDispatch();
   const { query } = useRouter();
   const [isActive, setActive] = useState<boolean>(false);
-  const { searchProduct: data } = useAppSelector(
-    (state) => state.productReducers
-  );
+  const {
+    searchProduct: { data, loading },
+  } = useAppSelector((state) => state.productReducers);
 
   let { key } = query;
 
@@ -64,14 +69,20 @@ const Product: FC<IProduct> = () => {
 
   return (
     <Layout>
-      <ProductContainer isActive={isActive}>
-        <Title>Search results found for "{key}"</Title>
-        <ProductMain>
-          <CategoryProductContainer>
-            <CategoryProduct gapX={GAPCOMMON} products={data} />
-          </CategoryProductContainer>
-        </ProductMain>
-      </ProductContainer>
+      {!loading ? (
+        <LoadingBox>
+          <IconLoading style={{ top: "40%" }} widtH={50} border={6} />
+        </LoadingBox>
+      ) : (
+        <ProductContainer isActive={isActive}>
+          <Title>Search results found for "{key}"</Title>
+          <ProductMain>
+            <CategoryProductContainer>
+              <CategoryProduct gapX={GAPCOMMON} products={data} />
+            </CategoryProductContainer>
+          </ProductMain>
+        </ProductContainer>
+      )}
     </Layout>
   );
 };

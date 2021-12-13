@@ -1,3 +1,4 @@
+import isNullObject from "@common/function/isNullObject";
 import Button from "@designs/Button";
 import IconSVG from "@designs/IconSVG";
 import SelectVariant from "@designs/SelectVariant";
@@ -81,6 +82,7 @@ const Item: FC<IItem> = ({ data }) => {
   const dispatch = useAppDispatch();
   const [isLike, setIsLike] = useState<boolean>(false);
   const { wishlist } = useAppSelector((state) => state.userReducers);
+  const { user } = useAppSelector((state) => state.userReducers);
 
   useEffect(() => {
     handleCheck();
@@ -93,7 +95,9 @@ const Item: FC<IItem> = ({ data }) => {
   };
 
   const handleAddWishlist = () => {
-    setIsLike(!isLike);
+    if (!isNullObject(user)) {
+      setIsLike(!isLike);
+    }
 
     addWishlistApi();
   };

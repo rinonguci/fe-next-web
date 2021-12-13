@@ -1,6 +1,9 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 
-export type IProductsByType = Array<IProduct>;
+export type IProductsByType = {
+  loading: boolean;
+  data: Array<IProduct>;
+};
 export type IAllProducts = Array<IProduct>;
 export type IFacets = Array<IFacet>;
 

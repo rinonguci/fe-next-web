@@ -11,6 +11,7 @@ import CategoryProduct from "./components/CategoryProducts";
 import Toolbar from "./components/Toolbar";
 import ToolbarMobile from "./components/ToolbarMobile";
 import { IFacet, IGetProductsByTypePayload } from "@redux/types/product";
+import IconLoading from "@designs/IconLoading";
 
 const ProductContainer = styled.div<{ isActive: boolean }>`
   ${tw`container lg:max-w-full mx-auto xl:px-4 lg:mt-10 px-20 `}
@@ -45,7 +46,10 @@ const NotFoundMessage = styled.p`
 const ProductMobileContainer = styled.div`
   ${tw`container lg:max-w-full mx-auto xl:px-4 px-20 `}
 `;
-
+const LoadingBox = styled.div`
+  ${tw``}
+  height: calc(100vh - 145.5px);
+`;
 interface IProduct {}
 
 const GAPCOMMON = 20;
@@ -59,9 +63,10 @@ const Product: FC<IProduct> = () => {
   const [query, setQuery] = useState<string>("");
   const [isActive, setActive] = useState<boolean>(false);
 
-  const { productsByType, facets } = useAppSelector(
-    (state) => state.productReducers
-  );
+  const {
+    productsByType: { loading, data },
+    facets,
+  } = useAppSelector((state) => state.productReducers);
 
   useEffect(() => {
     let url = new URL(location.origin + router.asPath);
@@ -95,45 +100,48 @@ const Product: FC<IProduct> = () => {
     setActive(!isActive);
   };
 
-  console.log(facets);
-
   return (
     <Layout>
-      {productsByType.length === 0 && (
-        <NotFoundMessage>This page has no products.</NotFoundMessage>
-      )}
-      {productsByType.length !== 0 && (
+      {!loading ? (
+        <LoadingBox>
+          <IconLoading style={{ top: "40%" }} widtH={50} border={6} />
+        </LoadingBox>
+      ) : (
         <>
-          <ProductMobileContainer>
-            <Breadcrumb />
-            <ToolbarMobile
-              isActive={isActive}
-              onClick={handleActive}
-              facets={facets}
-            />
-          </ProductMobileContainer>
-
-          <ProductContainer isActive={isActive}>
-            <ProductMain>
-              <ToolbarContainer>
-                <Toolbar
-                  count={productsByType ? productsByType?.length : 0}
-                  gap={GAPCOMMON}
+          {data.length === 0 && (
+            <NotFoundMessage>This page has no products.</NotFoundMessage>
+          )}
+          {data.length !== 0 && (
+            <>
+              <ProductMobileContainer>
+                <Breadcrumb />
+                <ToolbarMobile
+                  isActive={isActive}
+                  onClick={handleActive}
+                  facets={facets}
                 />
-              </ToolbarContainer>
-              <FilterContainer>
-                <FilterBox>
-                  {facets &&
-                    facets.map((value: IFacet) => (
-                      <Filter key={value.name} data={value} />
-                    ))}
-                </FilterBox>
-              </FilterContainer>
-              <CategoryProductContainer>
-                <CategoryProduct gapX={GAPCOMMON} products={productsByType} />
-              </CategoryProductContainer>
-            </ProductMain>
-          </ProductContainer>
+              </ProductMobileContainer>
+
+              <ProductContainer isActive={isActive}>
+                <ProductMain>
+                  <ToolbarContainer>
+                    <Toolbar count={data ? data?.length : 0} gap={GAPCOMMON} />
+                  </ToolbarContainer>
+                  <FilterContainer>
+                    <FilterBox>
+                      {facets &&
+                        facets.map((value: IFacet) => (
+                          <Filter key={value.name} data={value} />
+                        ))}
+                    </FilterBox>
+                  </FilterContainer>
+                  <CategoryProductContainer>
+                    <CategoryProduct gapX={GAPCOMMON} products={data} />
+                  </CategoryProductContainer>
+                </ProductMain>
+              </ProductContainer>
+            </>
+          )}
         </>
       )}
     </Layout>

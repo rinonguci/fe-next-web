@@ -11,6 +11,7 @@ import styled, { css } from "styled-components";
 import tw from "twin.macro";
 import Image from "./components/Image";
 import RelateProducts from "./components/RelateProducts";
+import isNullObject from "@common/function/isNullObject";
 
 const ProductDetailContainer = styled.div`
   ${tw`container lg:max-w-full mx-auto xl:px-4  mt-40 px-40`}
@@ -120,6 +121,7 @@ const ProductDetail: FC<IProductDetail> = () => {
   const dispatch = useAppDispatch();
   const { productDetail } = useAppSelector((state) => state.productReducers);
   const { wishlist } = useAppSelector((state) => state.userReducers);
+  const { user } = useAppSelector((state) => state.userReducers);
 
   const [isLike, setIsLike] = useState<boolean>();
   const [variantId, setVariantId] = useState<string>("");
@@ -134,7 +136,9 @@ const ProductDetail: FC<IProductDetail> = () => {
   }, [productDetail]);
 
   const handleAddWishlist = () => {
-    setIsLike(!isLike);
+    if (!isNullObject(user)) {
+      setIsLike(!isLike);
+    }
 
     addWishlistApi();
   };

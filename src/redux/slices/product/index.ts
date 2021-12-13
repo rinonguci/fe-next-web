@@ -20,8 +20,14 @@ interface IProductSlice {
 }
 
 const initialState: IProductSlice = {
-  productsByType: [],
-  searchProduct: [],
+  productsByType: {
+    loading: false,
+    data: [],
+  },
+  searchProduct: {
+    loading: false,
+    data: [],
+  },
   allProducts: [],
   facets: [],
   productDetail: {},
@@ -32,14 +38,18 @@ const productSlice = createSlice({
   name: "products",
   initialState,
   reducers: {
-    getProductsByType(state, action: { payload: IGetProductsByTypePayload }) {},
+    getProductsByType(state, action: { payload: IGetProductsByTypePayload }) {
+      state.productsByType = { ...state.productsByType, loading: false };
+    },
     getProductsByTypeSuccess(state, action) {
-      state.productsByType = action.payload;
+      state.productsByType = { data: action.payload, loading: true };
     },
 
-    searchProduct(state, action: { payload: ISearchProductPayload }) {},
+    searchProduct(state, action: { payload: ISearchProductPayload }) {
+      state.searchProduct = { ...state.searchProduct, loading: false };
+    },
     searchProductSuccess(state, action) {
-      state.searchProduct = action.payload;
+      state.searchProduct = { data: action.payload, loading: true };
     },
 
     getAllProducts: () => {},
